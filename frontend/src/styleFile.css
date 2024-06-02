@@ -1,0 +1,35 @@
+.msgSpan {
+    background-color: aliceblue;
+   
+}
+
+.message {
+    white-space: nowrap;
+}
+
+.bannedWords {
+    white-space: nowrap;
+    color: red;
+    font-weight: bold;
+}
+
+.msgTotal {
+    padding: 4px;
+    border: 2px solid black;
+    position: absolute;
+    top:8px;
+    left: 185px;
+}
+
+.msgIcon {
+    position: absolute;
+    left:150px;
+}
+
+.addBtn {
+    border-radius: 5%;
+
+    position: absolute;
+    top:22px;
+    left:350px;
+}
