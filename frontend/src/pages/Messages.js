@@ -65,8 +65,6 @@ const Messages = (props)=>{
     return(
 
         <div>
-             
-           <p>res:{props.delBtnDisable}</p>
             <div className="msg">
                 {/*map metodilla käytään listan alkiot läpi* message on toistomuuttuja samalla
                 lailla kuin esim i for loopissa*/}

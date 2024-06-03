@@ -31,6 +31,16 @@ app.get("/messages",(req,res)=>{
 
     })
 })
+
+app.get("/search/:id",(req,res)=>{
+    const q = "SELECT * FROM messages WHERE id = ?"
+    const val = [req.params.id]
+    
+    db.query(q,[val],(err,data)=>{
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
 //post metodi, eli tiedon lisäys
 app.post("/messages",(req,res)=>{
     const q = "INSERT INTO messages (`msgtxt`,`txtposttime`,`likes`,`unlike`) VALUES (?)"
@@ -47,6 +57,8 @@ app.post("/messages",(req,res)=>{
 
     })
 })
+
+
 app.put("/like/:id",(req,res)=>{
     //kasvatetaan likes sarakkeen arvoa aina yhdellä / per painikkeen klikkaus
     const q = "UPDATE messages SET `likes`= likes +1 WHERE id= ? "
