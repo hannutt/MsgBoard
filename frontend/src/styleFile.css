@@ -1,10 +1,15 @@
-.msgSpan {
-    background-color: aliceblue;
-   
+/*näytetään postaukset rinnakkain, välissä tyhjää*/
+.msg {
+    
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    
 }
-
 .message {
     white-space: nowrap;
+    background-color: aliceblue;
+    
 }
 
 .bannedWords {
