@@ -8,6 +8,7 @@ import Search from './pages/Search';
 function App() {
   return (
     <div className="App">
+      
       <h2 className='title'>Message Board</h2>
      
       {/*routerin käyttö eli linkitys toisille sivuille*/}

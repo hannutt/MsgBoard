@@ -4,9 +4,11 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    padding: 0;
-    
-    
+    padding: 0;   
+}
+
+.App {
+    background-color:#b8bccc;
 }
 .message {
     /*3 elementtiä per rivi*/
@@ -15,6 +17,19 @@
     white-space: nowrap;
     background-color: aliceblue;
     
+}
+/* messge divin p-tageissa olevan tekstin taustaväri muuttuu, kun hiiri on tekstin päällä*/
+.message > p:hover {
+    background-color: yellow;
+
+}
+
+.messageNoHover {
+    /*3 elementtiä per rivi*/
+    flex: 0 0 33.3333%;
+    outline: 1px solid;
+    white-space: nowrap;
+    background-color: aliceblue;
 }
 
 .bannedWords {
@@ -36,10 +51,44 @@
     left:150px;
 }
 
+.srcBtn {
+    position: absolute;
+    top:19px;
+    left:440px;
+    background-color: #34ebd5;
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+    
+
+
 .addBtn {
-    border-radius: 5%;
 
     position: absolute;
-    top:22px;
+    top:17px;
     left:350px;
+    background-color: #34ebd5;
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.loginDiv {
+    margin: auto;
+    width: 50%;
 }

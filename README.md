@@ -18,7 +18,7 @@ Each saved post has likes and dislikes columns in the database, which can be add
 the program searches for the id value of the corresponding post with the function parameter and updates the correct post based on it.
 
 Login & CRUD features
-Before you can use crud functions, you need to login. Username and password are stored in the sql database used by the program. If the login is successful, the program uses the react-router-navigate method to move the user to the home page
+Before you can use crud functions, you need to login. Username and password are stored in the sql database used by the program. If the login is successful, the program uses the react-router-navigate method to move the user to the home page.
 
 CSS
-With the help of the CSS-flex feature, 3 messages are always displayed in one line. After three messages, a new line starts for other messages.
+With the help of the CSS-flex feature, 3 messages are always displayed in one line. After three messages, a new line starts for other messages. The CSS hover selector is used with paragraph tags to change the background color. If the user does not like the hover effect, it can be turned off by clicking the checkbox. Then the state variable changes to a different div class that doesn't have a hover selector

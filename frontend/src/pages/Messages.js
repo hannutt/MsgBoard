@@ -11,7 +11,7 @@ const Messages = (props)=>{
     
     //tähän statemuuttuja listaan talletetaan kannasta haettu data
     const [messages,setMessages]=useState([])
-    const [isLogged,setLogged] = useState(false)
+    const [hoverOff,setHoverOff] = useState('message')
     
     
     useEffect(()=>{
@@ -65,11 +65,15 @@ const Messages = (props)=>{
     return(
 
         <div>
+            <label htmlFor="hoverOff">Set css hover off</label>
+             <input id="hoverOff" type="checkbox" onChange={()=>setHoverOff("messageNoHover")}></input>
             <div className="msg">
+               
                 {/*map metodilla käytään listan alkiot läpi* message on toistomuuttuja samalla
                 lailla kuin esim i for loopissa*/}
                 {messages.map(message=>(
-                    <div className="message" key={message.id}>
+                    //divin classnamea voidaan muuttaa state-muuttujan avulla.
+                    <div className={hoverOff} key={message.id}>
                     {/*ikoneita pystyy käyttämään silmukassa*/}
                     
                     <img src={msgIcon} alt="icon"></img>
@@ -104,7 +108,10 @@ const Messages = (props)=>{
             </div>
             <button className="addBtn">
                 {/*linkitys add endpointtiin buttonissa*/}
-                <Link to="/Add">Add new post</Link>
+                <Link to="/Add">New</Link>
+            </button>
+            <button className="srcBtn">
+                <Link to="/Search">Search</Link>
             </button>
         </div>
     )

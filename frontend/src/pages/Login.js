@@ -28,6 +28,7 @@ const Login = ()=>{
     return(
         
         <div className="loginDiv">
+            <h2>Login Page</h2>
             
             {/*onchange eli kun syötekentän sisältö muuttuu, sisältö talletetaan state muuttujaan (e.target.value
             )*/}
@@ -39,6 +40,7 @@ const Login = ()=>{
             <br></br>
             <button>Login</button>
             </form>
+            <button>Create account</button>
         </div>
     )
 }
