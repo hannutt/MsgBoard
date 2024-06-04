@@ -1,5 +1,5 @@
 
-Project keywords: Axios, React, Node.js, MySQL, CSS, HTML
+Project keywords: Axios, React-Frontend, Node.js-Backend, MySQL, CSS, HTML
 
 A React application with a Node.js backend and a MySQL database. The main purpose of this app is to emulate message board and discussion forums. This is the first version, so the features are limited for now.
 
@@ -19,3 +19,6 @@ the program searches for the id value of the corresponding post with the functio
 
 Login & CRUD features
 Before you can use crud functions, you need to login. Username and password are stored in the sql database used by the program. If the login is successful, the program uses the react-router-navigate method to move the user to the home page
+
+CSS
+With the help of the CSS-flex feature, 3 messages are always displayed in one line. After three messages, a new line starts for other messages.
