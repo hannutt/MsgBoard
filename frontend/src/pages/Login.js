@@ -13,6 +13,7 @@ const Login = ()=>{
     const handleSubmit = (event) => {
         
         event.preventDefault();
+        //käyttäjätunnus ja salasana on tallennettu statemuuttujiin username&psw
         axios.post("http://localhost:8800/login/",{userName,psw})
         .then (res=>{
             //jos backendin lähettämä vastaus on login ok, siirrytään navigaten avulla etusivulle.

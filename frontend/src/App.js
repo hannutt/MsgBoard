@@ -12,12 +12,13 @@ function App() {
      
       {/*routerin käyttö eli linkitys toisille sivuille*/}
       <BrowserRouter>
-      {/*komponenttien täytyy olla browserrouterin alla, että navigate toimii*/}
-      <Login/>
+      {/*komponenttien täytyy olla browserrouterin alla, että navigate toimii
+      Login komponentti oli aiemmin tässä, jolloin se näkyi myös add ja search näkymissä*/}
+      
       <Routes>
         {/*reititys endpointin mukaan, jos etusivu eli pelkkä localhost:3000
         näytetään messages komponentti jo localhost/add niin näytetään add komponentti*/}
-        
+        <Route path='/' element={<Login/>}/>
         <Route path='/messages' element={<Messages/>}/>
         <Route path="/Add" element={<Add/>}/>
         <Route path="/search" element={<Search/>}/>

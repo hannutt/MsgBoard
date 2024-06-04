@@ -32,8 +32,22 @@ app.get("/messages",(req,res)=>{
     })
 })
 
-app.get("/search/:id",(req,res)=>{
+app.get("/searchByDate/:date",(req,res)=>{
+    const q = "SELECT * FROM messages WHERE txtposttime = ?"
+    //re.params.id lukee endpointin parametrina olevan arvon. parametrin täytyy olla saman
+    //niminen get.kutsussa ja reg.params.date
+    const val = [req.params.date]
+    
+    db.query(q,[val],(err,data)=>{
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.get("/searchById/:id",(req,res)=>{
     const q = "SELECT * FROM messages WHERE id = ?"
+    //re.params.id lukee endpointin parametrina olevan arvon. parametrin täytyy olla saman
+    //niminen get.kutsussa ja reg.params.date
     const val = [req.params.id]
     
     db.query(q,[val],(err,data)=>{
