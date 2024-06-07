@@ -96,3 +96,8 @@
 .matchCheck {
     color: green;
 }
+
+.searchView {
+    background-color: aliceblue;
+    border: 2px solid;
+}

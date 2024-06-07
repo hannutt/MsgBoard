@@ -32,6 +32,18 @@ app.get("/messages",(req,res)=>{
     })
 })
 
+app.get("/searchByKeyword/:key",(req,res)=>{
+    const q = "SELECT * FROM messages WHERE msgtxt LIKE = ?"
+    //re.params.id lukee endpointin parametrina olevan arvon. parametrin täytyy olla saman
+    //niminen get.kutsussa ja reg.params.date
+    const val = [req.params.key]
+    
+    db.query(q,[val],(err,data)=>{
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
+
 app.get("/searchByDate/:date",(req,res)=>{
     const q = "SELECT * FROM messages WHERE txtposttime = ?"
     //re.params.id lukee endpointin parametrina olevan arvon. parametrin täytyy olla saman
@@ -119,6 +131,8 @@ app.post("/login",(req,res)=>{
 
     db.query(q,[req.body.userName,req.body.psw],(err,data)=>{
         if(err) return res.json("login failed")
+            //jos datan pituus on suurempi kuin 0 merkkiä eli käytännössä jos syötetyt arvot
+        //löytyvät
         if (data.length>0) {
             return res.json("login ok")
         }

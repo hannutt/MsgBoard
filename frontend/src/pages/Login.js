@@ -2,7 +2,7 @@ import axios from "axios";
 import {React,useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Messages from "./Messages";
-
+import PrivateRoutes from "./PrivateRoutes";
 
 const Login = ()=>{
    
@@ -10,6 +10,7 @@ const Login = ()=>{
     const [userName,setUserName]=useState('')
     const [psw,setPsw]=useState('')
     const [delBtnDisable,setDelBtnDisable]=useState(true)
+    const [isAuth,setIsAuth]=useState(false)
     const handleSubmit = (event) => {
         
         event.preventDefault();
@@ -17,8 +18,14 @@ const Login = ()=>{
         axios.post("http://localhost:8800/login/",{userName,psw})
         .then (res=>{
             //jos backendin lähettämä vastaus on login ok, siirrytään navigaten avulla etusivulle.
-            if (res.data==="login ok") { 
+            if (res.data==="login ok") {
+                //talletetaan true arvo localstorageen. arvoa käyttää PriveateRoutes komponentti, jonka
+                //token arvo on oletusarvoisesti false, eli routeja/sivuja ei pääse käyttämään ellei
+                //arvo ole true.
+                localStorage.setItem("auth",true) 
                 navigate("/messages")
+                
+                
             
             }
         })
@@ -28,6 +35,7 @@ const Login = ()=>{
     return(
         
         <div className="loginDiv">
+            
             <h2>Login Page</h2>
             
             {/*onchange eli kun syötekentän sisältö muuttuu, sisältö talletetaan state muuttujaan (e.target.value

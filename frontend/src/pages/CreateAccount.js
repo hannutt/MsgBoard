@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import checked from "../icons/checked.png";
 const CreateAccount = ()=>{
     const [username,setusername]=useState('')
     const [password,setPassword]=useState('')
     const [verifyPassword,setVerifyPassword]=useState('')
     const [email,setEmail]=useState('')
-    const [match,setMatch]=useState('')
+    const [match,setMatch]=useState()
     const [btnDisable,setBtnDisable]=useState(true)
     //reali-aikainen tarkastus, onko password ja verifypassword samat
     useEffect(()=>{
         if (password===verifyPassword && password.length>0 && username.length>0 && email.length>0 )
             {
-                setMatch("password OK")
+                //stateen voi asettaa myös kuvatiedoston
+                setMatch(checked)
                 setBtnDisable(false)
                 
             }
@@ -40,7 +42,7 @@ const CreateAccount = ()=>{
             <br></br>
             <button disabled={btnDisable}>Register</button>
             </form>
-            <p className="matchCheck">{match}</p>
+            <p className="matchCheck"><img src={match} alt="success-icon"></img></p>
         </div>
     )
 }

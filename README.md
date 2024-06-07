@@ -5,6 +5,12 @@ A React application with a Node.js backend and a MySQL database. The main purpos
 
 Features at this moment:
 
+PROTECTED ROUTES
+
+The routes are secured with the React router V6. On the login page, the authentication token is stored in LocalStorage if the username and password are correct.then the private routes component uses the localstorage get item method to get a "true" value that authenticates access to other pages.
+
+The default value of the private route component is "False", which prevents access to routes without a successful login.
+
 SWEARWORD FILTER
 
 when you write messages, the program checks your sentences for swear words. if yes, the program will tell you about the use of prohibited words and you must remove them if you want to save your message in the database. This feature is made with a JavaScript list. the user's input is compared to a list of common English swear words.
@@ -12,7 +18,8 @@ when you write messages, the program checks your sentences for swear words. if y
 SQL SEARCHES
 
 you can search the database using the html interface. for now, the search works with the ID number and the date the message was sent. You can choose which option you want to use by clicking on the html checkbox.
-more search options are under development. The search component is a so-called unmanaged component, so I use the useRef method to get the user input
+more search options are under development. The search component is a so-called unmanaged component, so I use the useRef method to get the user input.
+The search result view is editable, you can hide unnecessary information using check boxes. By clicking on them, the state variable changes the hidden value of the html elements between true/false
 
 LIKE / UNLIKE THE POST
 
@@ -25,7 +32,7 @@ Before you can use crud functions, you need to login. Username and password are 
 
 CREATE ACCOUNT
 
-If you don't have a username and password, you can create them. On the account creation page, the password is asked twice as in the real-life examples and stored in state variables. then the useEffect Hook checks if the passwords match. if the passwords are the same, the user will see a notification and the values ​​will be saved in the database. The Register button is disabled by default, but will be enabled if the password matches and the input fields are filled.
+If you don't have a username and password, you can create them. On the account creation page, the password is asked twice as in the real-life examples and stored in state variables. then the useEffect Hook checks if the passwords match. if the passwords are the same, the user will see a notification and the values ​​will be saved in the database. The Register button is disabled by default, but will be enabled if the password matches and The input fields are filled. The program also displays a green success icon if the requirements are met. The icon is stored in a state variable and displayed in the img element
 
 CSS
 
