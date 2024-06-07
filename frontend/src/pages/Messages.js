@@ -12,6 +12,7 @@ const Messages = (props)=>{
     //tähän statemuuttuja listaan talletetaan kannasta haettu data
     const [messages,setMessages]=useState([])
     const [hoverOff,setHoverOff] = useState('message')
+     const [isChecked, setIsChecked] = useState(false)
     
     
     useEffect(()=>{
@@ -61,7 +62,9 @@ const Messages = (props)=>{
             console.log(err)
 
         }
+    
     }
+    
     return(
 
         <div>

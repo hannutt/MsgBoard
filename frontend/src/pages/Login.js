@@ -1,6 +1,6 @@
 import axios from "axios";
 import {React,useState} from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Messages from "./Messages";
 
 
@@ -36,11 +36,11 @@ const Login = ()=>{
             
             <input type="text" name="user" placeholder="username" onChange={e=>setUserName(e.target.value)}></input>
             <input type="password" name="psw" placeholder="password" onChange={e=>setPsw(e.target.value)}></input>
-            {console.log(userName)}
             <br></br>
             <button>Login</button>
             </form>
-            <button>Create account</button>
+            <button>
+                <Link to="/create">Create account</Link></button>
         </div>
     )
 }

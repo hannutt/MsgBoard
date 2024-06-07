@@ -4,6 +4,7 @@ import Add from "./pages/Add";
 import "./styleFile.css";
 import Login from "./pages/Login";
 import Search from './pages/Search';
+import CreateAccount from './pages/CreateAccount'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path='/messages' element={<Messages/>}/>
         <Route path="/Add" element={<Add/>}/>
         <Route path="/search" element={<Search/>}/>
+        <Route path="/create" element={<CreateAccount/>}/>
       </Routes>
       </BrowserRouter>
       

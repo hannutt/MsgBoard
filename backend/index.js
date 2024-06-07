@@ -72,6 +72,17 @@ app.post("/messages",(req,res)=>{
     })
 })
 
+app.post("/register",(req,res)=>{
+    const q = "INSERT INTO login (`username`,`psw`,`email`) VALUES (?)"
+    const values = [req.body.username,req.body.password,req.body.email]
+    db.query(q,[values],(err,data)=>{
+        if(err) return res.json(err)
+            //tämä palauttaa querylla haetun datan kannasta
+            return res.json(data)
+
+    })
+})
+
 
 app.put("/like/:id",(req,res)=>{
     //kasvatetaan likes sarakkeen arvoa aina yhdellä / per painikkeen klikkaus
