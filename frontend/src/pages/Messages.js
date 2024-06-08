@@ -7,15 +7,29 @@ import binIcon from "../icons/bin.png";
 import addIcon from "../icons/plus.png";
 import { Link } from "react-router-dom";
 import unlikeIcon from "../icons/unlike.png"
-
+import Logout from "../pages/LogOut";
 
 const Messages = (props)=>{
     
     //tähän statemuuttuja listaan talletetaan kannasta haettu data
     const [messages,setMessages]=useState([])
     const [hoverOff,setHoverOff] = useState('message')
-     const [isChecked, setIsChecked] = useState(false)
+    const [lbltext,setLblText] = useState('Disable hover effect')
+    const [hoverStatus,setHoverStatus]=useState(true)
     
+    const changeHoverStatus=()=>{
+    
+        console.log(hoverStatus)
+
+        if (hoverStatus) {
+            setHoverOff("messageNoHover")
+            setLblText("Enable hover effect")
+        }
+        else{
+            setHoverOff("message")
+            setLblText("Disable hover effect")
+        }
+    }
     
     useEffect(()=>{
         const fetchAllData = async ()=>{
@@ -70,8 +84,9 @@ const Messages = (props)=>{
     return(
 
         <div>
-            <label htmlFor="hoverOff">Set css hover off</label>
-             <input id="hoverOff" type="checkbox" onChange={()=>setHoverOff("messageNoHover")}></input>
+            <Logout/>
+            <label htmlFor="hoverOff">{lbltext}</label>
+             <input id="hoverOff" type="checkbox" onClick={changeHoverStatus} onChange={()=>setHoverStatus(!hoverStatus)}></input>
             <div className="msg">
                
                 {/*map metodilla käytään listan alkiot läpi* message on toistomuuttuja samalla
@@ -111,13 +126,18 @@ const Messages = (props)=>{
                 jokaisen viestin yhteydessä erikseen*/}
                 <p className="msgTotal">Total messages: {messages.length}</p>
             </div>
-            <button className="addBtn">
+            <div className="addBtn">
+            {/*BS5 buttonin väriä voi vaihtaa mm. stylen avulla*/}
+            <button class="btn btn-secondary" style={{backgroundColor:"white"}}>
                 {/*linkitys add endpointtiin buttonissa*/}
                 <Link to="/Add">New</Link>
             </button>
-            <button className="srcBtn">
+            </div>
+            <div className="srcBtn">
+            <button class="btn btn-secondary" style={{backgroundColor:"white"}}>
                 <Link to="/Search">Search</Link>
             </button>
+            </div>
         </div>
     )
 

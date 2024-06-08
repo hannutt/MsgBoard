@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import Logout from "../pages/LogOut";
 const Add = ()=>{
     //päivämääräolio asetetaan value komennolla automaattisesti
     //input kenttään. readOnly eli ajankohtaa ei pysty muokkaamaan input kentässä.
@@ -59,8 +60,9 @@ const Add = ()=>{
     } else {
         console.log(message)
         return (
-    
+            
             <div className="addForm">
+                <Logout/>
                 <p>Banned words, do not use, the program will check your message automatically</p>
                 {/*banned listan läpikäynti ja sanojen tulostus html-elementtiin*/}
                 {banned.map(item=>(

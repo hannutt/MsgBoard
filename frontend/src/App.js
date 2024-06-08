@@ -1,4 +1,4 @@
-import {BrowserRouter,Routes,Route} from 'react-router-dom';
+import {BrowserRouter,Routes,Route,useNavigate} from 'react-router-dom';
 import Messages from "./pages/Messages";
 import Add from "./pages/Add";
 import "./styleFile.css";
@@ -8,10 +8,15 @@ import CreateAccount from './pages/CreateAccount'
 import PrivateRoutes from './pages/PrivateRoutes';
 
 function App() {
+ 
+
+  
   return (
     <div className="App">
       
+      
       <h2 className='title'>Message Board</h2>
+      
      
       {/*routerin käyttö eli linkitys toisille sivuille*/}
       <BrowserRouter>
@@ -27,8 +32,10 @@ function App() {
           <Route path='/messages' element={<Messages/>}/>
           <Route path="/Add" element={<Add/>}/>
           <Route path="/search" element={<Search/>}/>
-          <Route path="/create" element={<CreateAccount/>}/>
+          
           </Route>
+          {/*nämä ei ole suojattuja routeja, eli niihin pääsee kirjautumatta*/}
+          <Route path="/create" element={<CreateAccount/>}/>
           <Route path='/' element={<Login/>}/>
       </Routes>
       </BrowserRouter>

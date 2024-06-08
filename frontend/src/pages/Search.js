@@ -1,5 +1,6 @@
 import { useRef, useState } from "react"
 import axios from "axios"
+import Logout from "../pages/LogOut";
 
 const Search = () => {
     const [results,setResults]=useState([])
@@ -41,6 +42,7 @@ const Search = () => {
     }
     return(
         <div>
+            <Logout/>
             <label htmlForfor="bydate">Search by date</label>
             {/*()=> onclickissä estää too many re-renders virheen*/}
             <input id="bydate" type="checkbox" onClick={()=>setByDate(!ByDate)}></input>
@@ -48,6 +50,7 @@ const Search = () => {
             <label htmlForfor="byid">Search by id</label>
             {/*()=> onclickissä estää too many re-renders virheen*/}
             <input id="byid" type="checkbox" onClick={()=>setById(!Byid)}></input>
+            <br></br>
             <label htmlForfor="byKeyword">Search by Keyword</label>
             {/*()=> onclickissä estää too many re-renders virheen*/}
             <input id="byKeyword" type="checkbox" onClick={()=>setByKeyword(!Bykeyword)}></input>

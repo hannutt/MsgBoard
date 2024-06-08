@@ -44,11 +44,14 @@ const Login = ()=>{
             
             <input type="text" name="user" placeholder="username" onChange={e=>setUserName(e.target.value)}></input>
             <input type="password" name="psw" placeholder="password" onChange={e=>setPsw(e.target.value)}></input>
-            <br></br>
-            <button>Login</button>
+            <br></br><br></br>
+            <div className="loginBtnDiv">
+            <button class="btn btn-primary">Login</button>
+            </div>
             </form>
-            <button>
-                <Link to="/create">Create account</Link></button>
+            <br></br>
+            <button class="btn btn-info">
+                <Link to="/create" className="createLink">Create account</Link></button>
         </div>
     )
 }

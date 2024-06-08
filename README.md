@@ -1,5 +1,5 @@
 
-Project keywords: Axios, React-Frontend, Node.js-Backend, MySQL, CSS, HTML
+Project keywords: Axios, React-Frontend, Node.js-Backend, MySQL, CSS, HTML, Bootstrap
 
 A React application with a Node.js backend and a MySQL database. The main purpose of this app is to emulate message board and discussion forums. This is the first version, so the features are limited for now.
 
@@ -30,6 +30,10 @@ Login & CRUD features
 
 Before you can use crud functions, you need to login. Username and password are stored in the sql database used by the program. If the login is successful, the program uses the react-router-navigate method to move the user to the home page.
 
+LOG OUT
+
+the logout feature uses the localstorage.clear() method to remove the token from local storage and navigates the user back to the login pages using the React useNavigation hook.
+
 CREATE ACCOUNT
 
 If you don't have a username and password, you can create them. On the account creation page, the password is asked twice as in the real-life examples and stored in state variables. then the useEffect Hook checks if the passwords match. if the passwords are the same, the user will see a notification and the values ​​will be saved in the database. The Register button is disabled by default, but will be enabled if the password matches and The input fields are filled. The program also displays a green success icon if the requirements are met. The icon is stored in a state variable and displayed in the img element
@@ -37,3 +41,5 @@ If you don't have a username and password, you can create them. On the account c
 CSS
 
 With the help of the CSS-flex feature, 3 messages are always displayed in one line. After three messages, a new line starts for other messages. The CSS hover selector is used with paragraph tags to change the background color. If the user does not like the hover effect, it can be turned off by clicking the checkbox. Then the state variable changes to a different div class that doesn't have a hover selector.
+
+The login page has CSS animations. When the login pages load, the background of the login button changes from blue to yellow and back to blue. This is done with CSS animation and keyframe properties
