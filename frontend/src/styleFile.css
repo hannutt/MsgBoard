@@ -106,5 +106,10 @@
   @keyframes loginBtnAnimate {
     from {background-color:blue;}
     to {background-color: red;}
-  }
+}
+
+.count {
+    position: fixed;
+    left:200px;
+}
 

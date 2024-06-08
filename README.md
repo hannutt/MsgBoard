@@ -28,7 +28,10 @@ the program searches for the id value of the corresponding post with the functio
 
 Login & CRUD features
 
-Before you can use crud functions, you need to login. Username and password are stored in the sql database used by the program. If the login is successful, the program uses the react-router-navigate method to move the user to the home page.
+Before you can use crud functions, you need to login. Username and password are stored in the sql database used by the program. If the login is successful, the program uses the react-router-navigate method to move the user to the home page. Input fields on the login page detects whether CapsLock is on and displays a notification. Detection feature is done using the onKeyUp property and the KeyboardEvent.getModifierState() method.
+
+Notice the update method: each message can be updated by clicking the update icon. when the user clicks the icon, the browser goes to, for example, this address http://localhost:3000/update/4, where the number is, is the message ID. The program uses the useParam hook to get the ID of the post.
+Then the useEffect hook executes an function that contains an Axios get call with the ID that came from the browser parameters and stored by useParam.
 
 LOG OUT
 
@@ -43,3 +46,9 @@ CSS
 With the help of the CSS-flex feature, 3 messages are always displayed in one line. After three messages, a new line starts for other messages. The CSS hover selector is used with paragraph tags to change the background color. If the user does not like the hover effect, it can be turned off by clicking the checkbox. Then the state variable changes to a different div class that doesn't have a hover selector.
 
 The login page has CSS animations. When the login pages load, the background of the login button changes from blue to yellow and back to blue. This is done with CSS animation and keyframe properties
+
+Bootstrap 5
+
+The application's html buttons are made with Bootstrap 5 button components. The Message component also has a Bootstrap 5 drop-down menu where you can find links to new post page and search page.
+
+

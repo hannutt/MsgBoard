@@ -16,15 +16,21 @@ const Add = ()=>{
     })
     const [redirectTime,setredirectTime]=useState(3000)
     const [disabledSt,setDisabled]=useState(false)
+    const [countChars,setCountChars]=useState(0)
     const navigate = useNavigate()
    
     const backToFrontpage = () =>{
         navigate("/")
     }
+
+   
      //kun syötekentissä tapahtuu muutos e.target.name eli input kentän nimi ja input kenttää
     //syötetty teksti yhdistetään eli message kentän arvo ja teksti jne.
     const handleChange = (e)=>{
         setMessage((prev)=>({...prev,[e.target.name]:e.target.value}))
+        //lasketaan syötekentään syötettyjen merkkien määrä
+        setCountChars(e.target.value.length)
+        console.log(countChars)
     }
     const handleClick = async e =>{
         //estetään default toiminnallisuus eli tässä tapauksessa painikkeen klikkaaminen päivittäisi sivun.
@@ -71,11 +77,14 @@ const Add = ()=>{
                 ))}
                 
                 <h3>Send a new message</h3>
-              
+                <p className="count">{countChars}</p>
                 <input type="text" placeholder="Your message" id="msg" name="message" onChange={handleChange}></input>
+                <br></br><br></br>
                 <input type="text" readOnly value={date} name="postDate" onChange={handleChange}></input>
-                <button onClick={handleClick} >Save</button><br></br>
-                <button onClick={backToFrontpage}>Back to frontpage</button>
+                <br></br>
+                <button class="btn btn-secondary" onClick={handleClick} >Save</button><br></br>
+                <br></br>
+                <button class="btn btn-secondary" onClick={backToFrontpage}>Back to frontpage</button>
             </div>
         )
 

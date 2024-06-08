@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Search from './pages/Search';
 import CreateAccount from './pages/CreateAccount'
 import PrivateRoutes from './pages/PrivateRoutes';
+import Update from './pages/Update';
 
 function App() {
  
@@ -32,6 +33,7 @@ function App() {
           <Route path='/messages' element={<Messages/>}/>
           <Route path="/Add" element={<Add/>}/>
           <Route path="/search" element={<Search/>}/>
+          <Route path="/update/:id" element={<Update/>}/>
           
           </Route>
           {/*nämä ei ole suojattuja routeja, eli niihin pääsee kirjautumatta*/}

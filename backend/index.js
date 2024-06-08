@@ -67,6 +67,19 @@ app.get("/searchById/:id",(req,res)=>{
         return res.json(data)
     })
 })
+
+app.get("/dataToUpdate/:id",(req,res)=>{
+    const q = "SELECT * FROM messages WHERE id = ?"
+    //re.params.id lukee endpointin parametrina olevan arvon. parametrin täytyy olla saman
+    //niminen get.kutsussa ja reg.params.date
+    const val = [req.params.id]
+    
+    db.query(q,[val],(err,data)=>{
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+
+})
 //post metodi, eli tiedon lisäys
 app.post("/messages",(req,res)=>{
     const q = "INSERT INTO messages (`msgtxt`,`txtposttime`,`likes`,`unlike`) VALUES (?)"
@@ -154,6 +167,8 @@ app.delete("/messages/:id",(req,res)=>{
     })
 
 })
+
+
 app.listen(8800,()=>{
     console.log("connection ok!")
 })
