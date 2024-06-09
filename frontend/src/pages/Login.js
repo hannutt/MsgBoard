@@ -1,7 +1,8 @@
 import axios from "axios";
 import {React,useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import eye from "../icons/eye.png"
+import hide from "../icons/hide.png";
 import Messages from "./Messages";
 import PrivateRoutes from "./PrivateRoutes";
 
@@ -11,7 +12,8 @@ const Login = ()=>{
     const [userName,setUserName]=useState('')
     const [psw,setPsw]=useState('')
     const [caps,setCaps]=useState('')
-
+    const [eyeIcon,setEyeicon]=useState(eye)
+  
     const handleSubmit = (event) => {
         
         event.preventDefault();
@@ -44,6 +46,24 @@ const Login = ()=>{
             setCaps("")
         }
     }
+    var clicks = 0;
+    const showPsw=()=>{
+        clicks+=1
+         var input = document.querySelector("#psw")
+        if (clicks %1===0)
+            {
+                input.type="text"
+                //state-muuttujan ikonin vaihto hide/eye
+                setEyeicon(hide)               
+            }
+        if (clicks %2===0)
+            {
+                input.type="password"
+                setEyeicon(eye)
+            }
+       
+        
+    }
     return(
         
         <div className="loginDiv">
@@ -55,13 +75,15 @@ const Login = ()=>{
             <form onSubmit={handleSubmit}>
             <p>{caps}</p>
             <input type="text" name="user" placeholder="username" onChange={e=>setUserName(e.target.value)}onKeyUp={(e)=>handleKeyPress(e)}></input>
-            <input type="password" name="psw" placeholder="password" onChange={e=>setPsw(e.target.value)} onKeyUp={(e)=>handleKeyPress(e)}></input>
+            <input type="password" id="psw" name="psw" placeholder="password" onChange={e=>setPsw(e.target.value)} onKeyUp={(e)=>handleKeyPress(e)}></input>
             <br></br><br></br>
             <div className="loginBtnDiv">
             <button class="btn btn-primary">Login</button>
+            
             </div>
             </form>
             <br></br>
+            <button className="showBtn" onClick={showPsw}><img src={eyeIcon} alt="eye/hide"></img></button>
             <button class="btn btn-info">
                 <Link to="/create" className="createLink">Create account</Link></button>
         </div>

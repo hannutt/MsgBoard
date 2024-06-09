@@ -17,8 +17,10 @@ when you write messages, the program checks your sentences for swear words. if y
 
 SQL SEARCHES
 
-you can search the database using the html interface. for now, the search works with the ID number and the date the message was sent. You can choose which option you want to use by clicking on the html checkbox.
-more search options are under development. The search component is a so-called unmanaged component, so I use the useRef method to get the user input.
+You can search the database using the html interface. search options: Search by ID number, Search by message sending date and SQL %Like% query where you can search with your own keyword.
+You can select the option to use by clicking on the html checkbox. The check boxes are below the drop-down menu.
+
+The search component is the so-called unmanaged component so I use the useRef method to get the user input.
 The search result view is editable, you can hide unnecessary information using check boxes. By clicking on them, the state variable changes the hidden value of the html elements between true/false
 
 LIKE / UNLIKE THE POST
@@ -39,7 +41,7 @@ the logout feature uses the localstorage.clear() method to remove the token from
 
 CREATE ACCOUNT
 
-If you don't have a username and password, you can create them. On the account creation page, the password is asked twice as in the real-life examples and stored in state variables. then the useEffect Hook checks if the passwords match. if the passwords are the same, the user will see a notification and the values ​​will be saved in the database. The Register button is disabled by default, but will be enabled if the password matches and The input fields are filled. The program also displays a green success icon if the requirements are met. The icon is stored in a state variable and displayed in the img element
+If you don't have a username and password, you can create them. On the account creation page, the password is asked twice as in the real-life examples and stored in state variables. then the useEffect Hook checks if the passwords match. if the passwords are the same, the user will see a notification and the values ​​will be saved in the database. The Register button is disabled by default, but will be enabled if the password matches and The input fields are filled. The program also displays a green success icon if the requirements are met. The icon is stored in a state variable and displayed in the img element.
 
 CSS
 
@@ -49,6 +51,10 @@ The login page has CSS animations. When the login pages load, the background of 
 
 Bootstrap 5
 
-The application's html buttons are made with Bootstrap 5 button components. The Message component also has a Bootstrap 5 drop-down menu where you can find links to new post page and search page.
+The application's html buttons are made with Bootstrap 5 button components. The Message and Search components also has a Bootstrap 5 drop-down menu where you can find links to new post page and search page.
+
+ICONS
+
+The program uses some icons, mainly in buttons. Icons are downloaded from www.flaticons.com. All are 16 pixels in size.
 
 

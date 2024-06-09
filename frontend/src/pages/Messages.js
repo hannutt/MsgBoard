@@ -90,7 +90,7 @@ const Messages = (props) => {
 
         <div>
             <Logout />
-           <DropMenu/>
+            <DropMenu />
             <label htmlFor="hoverOff">{lbltext}</label>
             <input id="hoverOff" type="checkbox" onClick={changeHoverStatus} onChange={() => setHoverStatus(!hoverStatus)}></input>
             <div className="msg">
@@ -109,23 +109,24 @@ const Messages = (props) => {
                         <p>Likes: {message.likes}</p>
                         <p>Unlikes: {message.unlike}</p>
 
-
-                        {/*lähetetään postauksen id numero handleDelete fuktiolle*/}
-                        <button disabled={props.delBtnDisable} onClick={() => handleDelete(message.id)}>
-                            <img src={binIcon} alt="remove icon"></img>
-                        </button>
-                        <button onClick={() => handleLike(message.id)}>
-                            {/*png kuvan sisällytys button elementtiin.*/}
-                            <img src={likeIcon} alt="like icon"></img>
-                        </button>
-                        <button className="delbtn" onClick={() => handleUnLike(message.id)}>
-                            <img src={unlikeIcon}></img>
-                        </button>
-                        <button className="updateBtn">
-                            {/*huomaa ikonia käyttäessä, että img tagin täytyy olla link tagin
+                        <div className="crudBtns">
+                            {/*lähetetään postauksen id numero handleDelete fuktiolle*/}
+                            <button disabled={props.delBtnDisable} onClick={() => handleDelete(message.id)}>
+                                <img src={binIcon} alt="remove icon"></img>
+                            </button>
+                            <button onClick={() => handleLike(message.id)}>
+                                {/*png kuvan sisällytys button elementtiin.*/}
+                                <img src={likeIcon} alt="like icon"></img>
+                            </button>
+                            <button className="delbtn" onClick={() => handleUnLike(message.id)}>
+                                <img src={unlikeIcon}></img>
+                            </button>
+                            <button className="updateBtn">
+                                {/*huomaa ikonia käyttäessä, että img tagin täytyy olla link tagin
                             sisällä, että linkitys toimii klikattaessa*/}
-                            <Link to={`/update/${message.id}`}><img src={updateIcon}></img></Link>
-                        </button>
+                                <Link to={`/update/${message.id}`}><img src={updateIcon}></img></Link>
+                            </button>
+                        </div>
 
                     </div>
 
@@ -137,9 +138,9 @@ const Messages = (props) => {
                 jokaisen viestin yhteydessä erikseen*/}
                 <p className="msgTotal">Total messages: {messages.length}</p>
             </div>
-            
-            
-         
+
+
+
         </div>
     )
 

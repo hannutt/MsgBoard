@@ -1,7 +1,7 @@
 import { useRef, useState } from "react"
 import axios from "axios"
 import Logout from "../pages/LogOut";
-
+import SrcDrop from "./SearchDropDown";
 const Search = () => {
     const [results,setResults]=useState([])
     const [ByDate,setByDate]=useState(false)
@@ -43,19 +43,11 @@ const Search = () => {
     return(
         <div>
             <Logout/>
-            <label htmlForfor="bydate">Search by date</label>
-            {/*()=> onclickissä estää too many re-renders virheen*/}
-            <input id="bydate" type="checkbox" onClick={()=>setByDate(!ByDate)}></input>
-            <br></br>
-            <label htmlForfor="byid">Search by id</label>
-            {/*()=> onclickissä estää too many re-renders virheen*/}
-            <input id="byid" type="checkbox" onClick={()=>setById(!Byid)}></input>
-            <br></br>
-            <label htmlForfor="byKeyword">Search by Keyword</label>
-            {/*()=> onclickissä estää too many re-renders virheen*/}
-            <input id="byKeyword" type="checkbox" onClick={()=>setByKeyword(!Bykeyword)}></input>
+            {/*state-muuttujien lähetys srcDrop komponentille */}
+            <SrcDrop Byid={Byid} setById={setById} ByDate={ByDate} setByDate={setByDate} ByKeyword={Bykeyword} setByKeyword={setByKeyword}/>
+         
             <form onSubmit={handleSearch}>
-            <input type="text" ref={keywordRef}/>
+            <input type="text" ref={keywordRef} placeholder="Id, date or keyword"/>
             <button type="submit">Search</button>
             </form>
             <label hidden={CBhide} htmlFor="hideId">Hide id</label>

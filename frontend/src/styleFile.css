@@ -51,23 +51,7 @@
     left:150px;
 }
 
-.srcBtn {
-    position: fixed;
-    top:19px;
-    left:550px;
-    border-radius: 25px;
-    
-}
-    
 
-
-.addBtn {
-
-    position: fixed;
-    top:19px;
-    left:410px;
-    border-radius: 25px;
-}
 
 .loginDiv {
     margin: auto;
@@ -112,4 +96,15 @@
     position: fixed;
     left:200px;
 }
+/*kun display=flex niin gap buttoneiden välissä toimii*/
+.crudBtns {
+    display: flex;
+    background-image:url("./icons/crudBtnBg.jpg") ;
+    gap: 10px;
+}
 
+.showBtn {
+    position: fixed;
+    top:101px;
+    right: 602px;
+}
