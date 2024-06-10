@@ -2,6 +2,7 @@ import { useRef, useState } from "react"
 import axios from "axios"
 import Logout from "../pages/LogOut";
 import SrcDrop from "./SearchDropDown";
+
 const Search = () => {
     const [results,setResults]=useState([])
     const [ByDate,setByDate]=useState(false)
@@ -9,12 +10,14 @@ const Search = () => {
     const [hideId,setHideId]=useState(false)
     const [CBhide,setCBhide] = useState(true)
     const [Bykeyword,setByKeyword]=useState(false)
+  
     //userefin avulla saadaan haku toimimaan käyttäjän antamalla syötteellä.
     //kontroillamaton komponentti
     const keywordRef = useRef()
     const handleSearch = async (event) => {
         if (ByDate)
             {
+                
                 event.preventDefault();
                 const res = await axios.get("http://localhost:8800/searchByDate/"+keywordRef.current.value)
                 setResults(res.data)
@@ -25,6 +28,7 @@ const Search = () => {
         else if (Byid) {
             //funktion täytyy olla asynkroonien ja axios kutsun await, että haku toimii
             event.preventDefault();
+           
             const res = await axios.get("http://localhost:8800/searchById/"+keywordRef.current.value)
             console.log(res)
             setResults(res.data)
@@ -32,6 +36,7 @@ const Search = () => {
         }
         else if (Bykeyword) {
             event.preventDefault();
+           
             const res = await axios.get("http://localhost:8800/searchByKeyWord/"+keywordRef.current.value)
             console.log(res)
             setResults(res.data)
@@ -59,6 +64,9 @@ const Search = () => {
                 <p>Message post date: {result.txtposttime}</p>
                 </div>
             ))}
+         
+            {/*ehdollinen renderöinti jos results muuttujassa on enemmän kuin 0 merkkiä
+             results.length>0 &&<Translate/>*/}
             
         </div>
     )

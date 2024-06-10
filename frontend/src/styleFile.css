@@ -1,3 +1,4 @@
+
 /*näytetään postaukset rinnakkain, välissä tyhjää*/
 .msg {
     
@@ -10,12 +11,13 @@
 .App {
     background-image: url("./icons/BgPic.jpg");
 }
+
 .message {
     /*3 elementtiä per rivi*/
     flex: 0 0 33.3333%;
     outline: 1px solid;
     white-space: nowrap;
-    background-color: aliceblue;
+    background-image: url("./icons/BgPic.jpg");
     
 }
 /* messge divin p-tageissa olevan tekstin taustaväri muuttuu, kun hiiri on tekstin päällä*/
@@ -29,7 +31,7 @@
     flex: 0 0 33.3333%;
     outline: 1px solid;
     white-space: nowrap;
-    background-color: aliceblue;
+    background-image: url("./icons/BgPic.jpg");
 }
 
 .bannedWords {
@@ -53,9 +55,15 @@
 
 
 
+
 .loginDiv {
+    text-align: center;
     margin: auto;
-    width: 50%;
+    width: 45%;
+    /*syötekenttien ja painikkeiden taustakuva ns taustakuva taustakuvassa
+    background-image:url("./icons/crudBtnBg.jpg");*/
+    background-color: #748f8c;
+    border-radius: 15px;
 }
 
 .matchCheck {
@@ -78,8 +86,14 @@
     color: white;
     
 }
-/*css animointi divin väri muuttuu punaisesta keltaiseen*/
+/*responsiivivuus määritys loginbtndiville*/
+@media(max-width:490px) {
 .loginBtnDiv {
+    
+
+    position: fixed;
+    top: 98px;
+    right: 375px;
     width: 75px;
 
     background-color: blue;
@@ -91,6 +105,8 @@
     from {background-color:blue;}
     to {background-color: red;}
 }
+}
+
 
 .count {
     position: fixed;
@@ -99,12 +115,15 @@
 /*kun display=flex niin gap buttoneiden välissä toimii*/
 .crudBtns {
     display: flex;
-    background-image:url("./icons/crudBtnBg.jpg") ;
+    /*
+    background-image:url("./icons/crudBtnBg.jpg") ;*/
     gap: 10px;
 }
+
 
 .showBtn {
     position: fixed;
     top:101px;
-    right: 602px;
+    right: 452px;
 }
+

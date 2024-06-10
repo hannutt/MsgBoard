@@ -65,7 +65,7 @@ const Login = ()=>{
         
     }
     return(
-        
+      
         <div className="loginDiv">
             
             <h2>Login Page</h2>
@@ -79,14 +79,18 @@ const Login = ()=>{
             <br></br><br></br>
             <div className="loginBtnDiv">
             <button class="btn btn-primary">Login</button>
+            <button className="showBtn" onClick={showPsw}><img src={eyeIcon} alt="eye/hide"></img></button>
             
             </div>
             </form>
             <br></br>
-            <button className="showBtn" onClick={showPsw}><img src={eyeIcon} alt="eye/hide"></img></button>
+          
+            <div className="createBtn">
             <button class="btn btn-info">
                 <Link to="/create" className="createLink">Create account</Link></button>
+                </div>
         </div>
+        
     )
 }
 

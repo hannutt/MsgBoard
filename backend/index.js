@@ -32,10 +32,11 @@ app.get("/messages",(req,res)=>{
     })
 })
 
+//sql like query
 app.get("/searchByKeyword/:key",(req,res)=>{
     const q = "SELECT * FROM messages WHERE msgtxt LIKE ?"
     //re.params.id lukee endpointin parametrina olevan arvon. parametrin täytyy olla saman
-    //niminen get.kutsussa ja reg.params.date
+    //niminen get.kutsussa ja val taulukossa (req.params.key)
     const val = [`%` +req.params.key+ `%`]
     
     db.query(q,[val],(err,data)=>{
@@ -125,9 +126,10 @@ app.put("/like/:id",(req,res)=>{
 
 app.put("/update/:id",(req,res)=>{
     const updateid=req.params.id
+    console.log(updateid)
     const q = "UPDATE messages SET `msgtxt` = ?, `txtposttime` = ? WHERE id=?"
-    const values=[req.body.newText,req.body.newPostDate] 
-    db.query(q,[values,updateid],(err,data)=>{
+    const values=[req.body.message,req.body.postDate] 
+    db.query(q,[...values,updateid],(err,data)=>{
         //jos virhe on true palautetaan error viesti.
         if(err) return res.json(err)
            //tämä palauttaa querylla haetun datan kannasta
