@@ -6,6 +6,7 @@ import hide from "../icons/hide.png";
 import Messages from "./Messages";
 import PrivateRoutes from "./PrivateRoutes";
 
+
 const Login = ()=>{
    
     const navigate = useNavigate()
@@ -13,7 +14,9 @@ const Login = ()=>{
     const [psw,setPsw]=useState('')
     const [caps,setCaps]=useState('')
     const [eyeIcon,setEyeicon]=useState(eye)
+    const [forgetPsw,setForgetPsw]=useState(false)
   
+   
     const handleSubmit = (event) => {
         
         event.preventDefault();
@@ -79,10 +82,18 @@ const Login = ()=>{
             <br></br><br></br>
             <div className="loginBtnDiv">
             <button class="btn btn-primary">Login</button>
-            <button className="showBtn" onClick={showPsw}><img src={eyeIcon} alt="eye/hide"></img></button>
-            
+            <br></br>
+            <label htmlFor="forgotPsw">Forget password?</label>
+            <input type="checkbox" id="forgotPsw" onChange={()=>setForgetPsw(!forgetPsw)}></input>
+            <br></br>
+            <label htmlFor="remMe">Remember me?</label>
+            <input type="checkbox" id="remMe"></input>
+           
+            {/*jos forget on true eli checkboksia klikattu navigoidaan /mail eli näyteään mailsender komp.*/}
+            {forgetPsw && navigate("/mail")}
             </div>
             </form>
+            <button className="showBtn" onClick={showPsw}><img src={eyeIcon} alt="eye/hide"></img></button>
             <br></br>
           
             <div className="createBtn">

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-const DropMenu =()=>{
+const DropMenu =(props)=>{
     return(
         <div class="dropdown show">
         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -7,9 +7,9 @@ const DropMenu =()=>{
         </a>
 
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="#"><Link to="/Add">New</Link></a>
-            <a class="dropdown-item" href="#"><Link to="/Search">Search</Link></a>
-            <a class="dropdown-item" href="#">Something else here</a>
+            <a class="dropdown-item" href="#"><Link to="/Add">New post</Link></a>
+            <a class="dropdown-item" href="#"><Link to="/Search">Search from post</Link></a>
+            <a class="dropdown-item" href="#">Show message text only &ensp;<input type="checkbox" onChange={() => props.setHideIdAndDate(!props.hideidAndDate)}></input></a>
         </div>
     </div>
     )

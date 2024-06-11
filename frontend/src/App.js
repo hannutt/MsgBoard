@@ -7,6 +7,7 @@ import Search from './pages/Search';
 import CreateAccount from './pages/CreateAccount'
 import PrivateRoutes from './pages/PrivateRoutes';
 import Update from './pages/Update';
+import MailSender from './pages/mailSender';
 
 function App() {
  
@@ -35,10 +36,12 @@ function App() {
           <Route path="/search" element={<Search/>}/>
           <Route path="/update/:id" element={<Update/>}/>
           
+          
           </Route>
           {/*nämä ei ole suojattuja routeja, eli niihin pääsee kirjautumatta*/}
           <Route path="/create" element={<CreateAccount/>}/>
           <Route path='/' element={<Login/>}/>
+          <Route path="/mail" element={<MailSender/>}/>
       </Routes>
       </BrowserRouter>
       

@@ -71,7 +71,7 @@
 }
 
 .searchView {
-    background-color: aliceblue;
+    background-image: url("./icons/BgPic.jpg");
     border: 2px solid;
 }
 
@@ -127,3 +127,18 @@
     right: 452px;
 }
 
+
+.dropdown-menu{
+    background-color: aquamarine;
+    
+}
+.tableMessages>tr,td,table{
+    border: 1px solid black;
+
+}
+
+.srcBtn{
+    position: fixed;
+    top:80px;
+    left:200px;
+}

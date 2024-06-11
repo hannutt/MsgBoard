@@ -23,6 +23,12 @@ You can select the option to use by clicking on the html checkbox. The check box
 The search component is the so-called unmanaged component so I use the useRef method to get the user input.
 The search result view is editable, you can hide unnecessary information using check boxes. By clicking on them, the state variable changes the hidden value of the html elements between true/false
 
+You can also choose whether you want to see the results of the sql query in a div element or a table element by clicking the checkbox.
+
+SQL SEARCH STATISTICS & CHARTJS
+
+All searches are saved in the search table. you can see the search statistics separated by search criteria in text and graphic form. The graphics are made with the ChartJS library.
+
 LIKE / UNLIKE THE POST
 
 Each saved post has likes and dislikes columns in the database, which can be added by clicking the thumbs up or thumbs down button. (SQL query: UPDATE messages SET `likes`= likes +1 WHERE id= ? )

@@ -17,6 +17,7 @@ const Messages = (props) => {
     const [hoverOff, setHoverOff] = useState('message')
     const [lbltext, setLblText] = useState('Disable hover effect')
     const [hoverStatus, setHoverStatus] = useState(true)
+    const [hideidAndDate, setHideIdAndDate] = useState(false)
 
     //tämä funktio vaihtaa divin tyylimäärittelyä.
     const changeHoverStatus = () => {
@@ -90,9 +91,12 @@ const Messages = (props) => {
 
         <div>
             <Logout />
-            <DropMenu />
+            {/*message komponentin statemuuttujan välitys dropmenu komponentille*/}
+            <DropMenu setHideIdAndDate={setHideIdAndDate} hideidAndDate={hideidAndDate} />
             <label htmlFor="hoverOff">{lbltext}</label>
             <input id="hoverOff" type="checkbox" onClick={changeHoverStatus} onChange={() => setHoverStatus(!hoverStatus)}></input>
+
+
             <div className="msg">
 
                 {/*map metodilla käytään listan alkiot läpi* message on toistomuuttuja samalla
@@ -103,11 +107,11 @@ const Messages = (props) => {
                         {/*ikoneita pystyy käyttämään silmukassa*/}
 
                         <img src={msgIcon} alt="icon"></img>
-                        <p>Message id: {message.id}</p>
+                        <p hidden={hideidAndDate}>Message id: {message.id}</p>
                         <p>{message.msgtxt}</p>
-                        <p className="msgTime">Posting time: <b>{message.txtposttime}</b></p>
-                        <p>Likes: {message.likes}</p>
-                        <p>Unlikes: {message.unlike}</p>
+                        <p hidden={hideidAndDate} className="msgTime">Posting time: <b>{message.txtposttime}</b></p>
+                        <p hidden={hideidAndDate}>Likes: {message.likes}</p>
+                        <p hidden={hideidAndDate}>Unlikes: {message.unlike}</p>
 
                         <div className="crudBtns">
                             {/*lähetetään postauksen id numero handleDelete fuktiolle*/}
@@ -132,6 +136,7 @@ const Messages = (props) => {
 
 
                 ))}
+             
 
 
                 {/*viestien kokonaismäärä näytetään map silmukan ulkopuolella, muuten se tulostuisi

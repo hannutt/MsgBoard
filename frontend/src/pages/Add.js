@@ -52,7 +52,7 @@ const Add = ()=>{
     if (bannedExist) {
         //palsutetaan banned komponentti ja ja navigaten avulla palataan etusivulle 5 sekunin kuluttua
             setTimeout(() => {
-              navigate('/')
+              navigate('/messages')
             }, redirectTime)
         
         return(
@@ -72,13 +72,13 @@ const Add = ()=>{
                 <p>Banned words, do not use, the program will check your message automatically</p>
                 {/*banned listan läpikäynti ja sanojen tulostus html-elementtiin*/}
                 {banned.map(item=>(
-                    <p id="bannedWords" className="bannedWords">{item}</p>
+                    <li id="bannedWords" className="bannedWords">{item}</li>
 
                 ))}
                 
                 <h3>Send a new message</h3>
-                <p className="count">{countChars}</p>
-                <input type="text" placeholder="Your message" id="msg" name="message" onChange={handleChange}></input>
+                <p className="count">{countChars}/255</p>
+                <input type="text" placeholder="Your message" id="msg" name="message" maxLength={255} onChange={handleChange}></input>
                 <br></br><br></br>
                 <input type="text" readOnly value={date} name="postDate" onChange={handleChange}></input>
                 <br></br>
