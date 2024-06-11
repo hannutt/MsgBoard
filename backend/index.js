@@ -1,7 +1,9 @@
 import express from 'express';
 import mysql from "mysql2";
 import cors from "cors";
+
 const app = express();
+
 
 
 const db = mysql.createConnection({
@@ -12,6 +14,7 @@ const db = mysql.createConnection({
     
 })
 app.use(express.json())
+
 
 //cors antaa "luvan" frontendille käyttää backendiä.
 app.use(cors())
@@ -58,7 +61,28 @@ app.get("/searchByDate/:date",(req,res)=>{
 })
 
 app.get("/searchById/:id",(req,res)=>{
-    const q = "SELECT * FROM messages WHERE id = ?"
+    const q = "SELECT * FROM messages WHERE id = ?";
+    //re.params.id lukee endpointin parametrina olevan arvon. parametrin täytyy olla saman
+    //niminen get.kutsussa ja reg.params.date
+    const val = [req.params.id]
+    
+    db.query(q,[val],(err,data)=>{
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.get("/searches",(req,res)=>{
+    const q = "SELECT `byid`, `bydate`, `bykeyword` FROM searches"
+    db.query(q,(err,data)=>{
+        if(err) return res.json(err)
+            return res.json(data)
+
+    })
+})
+
+app.put("/postbyid",(req,res)=>{
+    const q = "UPDATE  searches SET `byid`=byid+1";
     //re.params.id lukee endpointin parametrina olevan arvon. parametrin täytyy olla saman
     //niminen get.kutsussa ja reg.params.date
     const val = [req.params.id]
@@ -168,6 +192,23 @@ app.post("/login",(req,res)=>{
 
     })
 })
+
+app.post("/check",(req,res)=>{
+    const q = "SELECT `psw` FROM login WHERE email = ? AND username = ?"
+    //const values = [re.body.emailAdd]
+    db.query(q,[req.body.emailAdd,req.body.user],(err,data)=>{
+        if(err) return res.json("email not found")
+            //jos datan pituus on suurempi kuin 0 merkkiä eli käytännössä jos syötetyt arvot
+        //löytyvät
+        if (data.length>0) {
+            return res.json(data)
+        }
+        else if (data.length<=0)
+            return res.json(data)
+            
+
+    })
+})
 //poisto id:n perusteella.
 app.delete("/messages/:id",(req,res)=>{
     const msgid = req.params.id;
@@ -182,6 +223,7 @@ app.delete("/messages/:id",(req,res)=>{
     })
 
 })
+
 
 
 app.listen(8800,()=>{
