@@ -93,6 +93,30 @@ app.put("/postbyid",(req,res)=>{
     })
 })
 
+app.put("/postbydate",(req,res)=>{
+    const q = "UPDATE  searches SET `bydate`=bydate+1";
+    //re.params.id lukee endpointin parametrina olevan arvon. parametrin täytyy olla saman
+    //niminen get.kutsussa ja reg.params.date
+    const val = [req.params.id]
+    
+    db.query(q,[val],(err,data)=>{
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.put("/postbykeyword",(req,res)=>{
+    const q = "UPDATE  searches SET `bykeyword`=bykeyword+1";
+    //re.params.id lukee endpointin parametrina olevan arvon. parametrin täytyy olla saman
+    //niminen get.kutsussa ja reg.params.date
+    const val = [req.params.id]
+    
+    db.query(q,[val],(err,data)=>{
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
+
 app.get("/dataToUpdate/:id",(req,res)=>{
     const q = "SELECT * FROM messages WHERE id = ?"
     //re.params.id lukee endpointin parametrina olevan arvon. parametrin täytyy olla saman

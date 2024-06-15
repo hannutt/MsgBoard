@@ -27,7 +27,9 @@ You can also choose whether you want to see the results of the sql query in a di
 
 SQL SEARCH STATISTICS & CHARTJS
 
-All searches are saved in the search table. you can see the search statistics separated by search criteria in text and graphic form. The graphics are made with the ChartJS library.
+All searches are saved in the search table. you can see the search statistics separated by search criteria in text and graphic form. The graphics are made with the ChartJS library. You can switch the displayed chart between a bar chart and a donut chart using a checkbox.
+
+The colors of the charjs bar can be changed with the options in the drop-down menu. each option has 3 different colors and after selection, the program changes the color of all three bars to the colors of the selected option.
 
 LIKE / UNLIKE THE POST
 

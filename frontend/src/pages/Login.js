@@ -70,6 +70,7 @@ const Login = ()=>{
     return(
       
         <div className="loginDiv">
+          
             
             <h2>Login Page</h2>
             
@@ -77,8 +78,10 @@ const Login = ()=>{
             )*/}
             <form onSubmit={handleSubmit}>
             <p>{caps}</p>
+            <div className="fields">
             <input type="text" name="user" placeholder="username" onChange={e=>setUserName(e.target.value)}onKeyUp={(e)=>handleKeyPress(e)}></input>
             <input type="password" id="psw" name="psw" placeholder="password" onChange={e=>setPsw(e.target.value)} onKeyUp={(e)=>handleKeyPress(e)}></input>
+            </div>
             <br></br><br></br>
             <div className="loginBtnDiv">
             <button class="btn btn-primary">Login</button>
@@ -91,6 +94,7 @@ const Login = ()=>{
            
             {/*jos forget on true eli checkboksia klikattu navigoidaan /mail eli näyteään mailsender komp.*/}
             {forgetPsw && navigate("/mail")}
+            
             </div>
             </form>
             <button className="showBtn" onClick={showPsw}><img src={eyeIcon} alt="eye/hide"></img></button>
@@ -100,6 +104,7 @@ const Login = ()=>{
             <button class="btn btn-info">
                 <Link to="/create" className="createLink">Create account</Link></button>
                 </div>
+        
         </div>
         
     )

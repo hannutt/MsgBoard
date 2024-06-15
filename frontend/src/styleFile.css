@@ -10,7 +10,11 @@
 
 .App {
     background-image: url("./icons/BgPic.jpg");
+    height: 100vh;
+    margin-top: -2px;
+    background-repeat: no-repeat;
 }
+
 
 .message {
     /*3 elementtiä per rivi*/
@@ -88,8 +92,8 @@
 }
 /*responsiivivuus määritys loginbtndiville*/
 @media(max-width:490px) {
-.loginBtnDiv {
     
+.loginBtnDiv {
 
     position: fixed;
     top: 98px;
@@ -107,6 +111,19 @@
 }
 }
 
+.fields {
+    /*nimetään animaation + kesto*/
+    animation-name: fieldsAnimate;
+    animation-duration: 5s;
+}
+
+@keyframes fieldsAnimate {
+    /*aloitusväri*/
+    from {background-color:blue;}
+    /*lopetusväri ja paluu alkuperäiseen*/
+    to {background-color: red;}
+}
+
 
 .count {
     position: fixed;
@@ -121,11 +138,19 @@
 }
 
 
+
+
+
 .showBtn {
-    position: fixed;
-    top:101px;
-    right: 452px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top:16.5%;
+    right: 37%;
+    /*transformin avulla buttonin liikkuminen saatiin halutunlaiseksi responsiivisuuden osalta*/
+    transform: translateX(200%);
 }
+
 
 
 .dropdown-menu{
@@ -138,7 +163,14 @@
 }
 
 .srcBtn{
-    position: fixed;
-    top:80px;
+    /*absolute pitää painikkeen paikoillaan skrollauksen aikana*/
+    position: absolute;
+    top:148px;
     left:200px;
+}
+
+.statsBtn {
+    position: absolute;
+    left: 305px;
+    top:150px;
 }
