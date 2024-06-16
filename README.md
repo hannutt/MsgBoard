@@ -40,6 +40,9 @@ Login & CRUD features
 
 Before you can use crud functions, you need to login. Username and password are stored in the sql database used by the program. If the login is successful, the program uses the react-router-navigate method to move the user to the home page. Input fields on the login page detects whether CapsLock is on and displays a notification. Detection feature is done using the onKeyUp property and the KeyboardEvent.getModifierState() method.
 
+The login page has a remember me checkbox. clicking it saves the username and password to local storage.
+every time the login page is loaded, the program checks the local storage (onload property in the main div) and if credentials are found, they are placed in the login fields.
+
 Notice the update method: each message can be updated by clicking the update icon. when the user clicks the icon, the browser goes to, for example, this address http://localhost:3000/update/4, where the number is, is the message ID. The program uses the useParam hook to get the ID of the post.
 Then the useEffect hook executes an function that contains an Axios get call with the ID that came from the browser parameters and stored by useParam.
 

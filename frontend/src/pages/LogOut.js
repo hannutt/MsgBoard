@@ -3,7 +3,8 @@ const Logout = ()=>{
     const navigate = useNavigate()
 
     const logOut=()=>{
-      localStorage.clear()
+        localStorage.removeItem("auth")
+      //localStorage.clear()
       navigate("/")
     }
     return(

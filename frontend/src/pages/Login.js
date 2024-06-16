@@ -15,6 +15,11 @@ const Login = ()=>{
     const [caps,setCaps]=useState('')
     const [eyeIcon,setEyeicon]=useState(eye)
     const [forgetPsw,setForgetPsw]=useState(false)
+
+    const rememberMe=()=>{
+        localStorage.setItem('username',userName)
+        localStorage.setItem('psw',psw)
+    }
   
    
     const handleSubmit = (event) => {
@@ -67,9 +72,15 @@ const Login = ()=>{
        
         
     }
+    const checkLocalStorage=()=>{
+        document.getElementById("user").value=localStorage.getItem("username")
+        document.getElementById("psw").value=localStorage.getItem("psw")
+        
+        
+    }
     return(
       
-        <div className="loginDiv">
+        <div onLoad={checkLocalStorage} className="loginDiv">
           
             
             <h2>Login Page</h2>
@@ -79,7 +90,7 @@ const Login = ()=>{
             <form onSubmit={handleSubmit}>
             <p>{caps}</p>
             <div className="fields">
-            <input type="text" name="user" placeholder="username" onChange={e=>setUserName(e.target.value)}onKeyUp={(e)=>handleKeyPress(e)}></input>
+            <input type="text" name="user" id="user" placeholder="username" onChange={e=>setUserName(e.target.value)}onKeyUp={(e)=>handleKeyPress(e)}></input>
             <input type="password" id="psw" name="psw" placeholder="password" onChange={e=>setPsw(e.target.value)} onKeyUp={(e)=>handleKeyPress(e)}></input>
             </div>
             <br></br><br></br>
@@ -89,14 +100,15 @@ const Login = ()=>{
             <label htmlFor="forgotPsw">Forget password?</label>
             <input type="checkbox" id="forgotPsw" onChange={()=>setForgetPsw(!forgetPsw)}></input>
             <br></br>
-            <label htmlFor="remMe">Remember me?</label>
-            <input type="checkbox" id="remMe"></input>
+           
            
             {/*jos forget on true eli checkboksia klikattu navigoidaan /mail eli näyteään mailsender komp.*/}
             {forgetPsw && navigate("/mail")}
             
             </div>
             </form>
+            <label htmlFor="remMe">Remember me?</label>
+            <input type="checkbox" id="remMe" onClick={rememberMe}></input>
             <button className="showBtn" onClick={showPsw}><img src={eyeIcon} alt="eye/hide"></img></button>
             <br></br>
           
