@@ -7,7 +7,7 @@ import {Chart as ChartJS} from "chart.js/auto";
 import {Bar,Doughnut} from "react-chartjs-2";
 import DatePicker from "react-datepicker";
 import Carousel from "react-multi-carousel";
-
+import ColorSelect from "./ColorSelect";
 
 import "react-datepicker/dist/react-datepicker.css";
 const Search = (props) => {
@@ -100,11 +100,18 @@ const Search = (props) => {
             setChartTxt("Show in Donut")
         }
     }
+    const DoSimulateClick=()=>{
+        document.querySelector("#changeBarColorBtn").click()
+
+    }
 
     const changeBarColors=()=>{
         //katkaistaan merkkijono aina pilkun kohdalta, niin saadaan tehtyä 3 väriarvosta lista.
         //eli yhdistä merkkijonosta tulee kolme eri merkkijonoa.
        setSelection(selection.split(","))
+       DoSimulateClick()
+       //document.querySelector(".changeBarColorBtn").click()
+
         
     }
     return(
@@ -139,18 +146,18 @@ const Search = (props) => {
                 <p>Searches by ID: {s.byid}</p>
                 <p>Searches by date: {s.bydate}</p>
                 <p>Searches by Keyword: {s.bykeyword}</p>
-                {/*bar chartin piirto*/}
+           
             <label htmlFor="dg">{chartTxt}</label>
             <input type="checkbox" id="dg" onChange={changeChart}></input>
-     
-        <select class="form-select form-select-sm" aria-label="Small select example"onChange={e=>setSelection(e.target.value)}>
-        <option selected value="x">Change bar colors</option>
-        <option value="red,green,blue">Red/Green/Blue</option>
-        <option value="yellow,black,pink">Yellow/Black/Pink</option>
-        <option value="blue">Blue</option>
-        </select>
-        <button onClick={changeBarColors}>Change colors</button>
             
+     
+       {/*colorselect komponentti muuttaa propsina saamansa staten arvoa
+       state on määritelty Search komponentissa mutta sen arvoa voi muuttaa toisessa*/}
+       <br></br>
+       <ColorSelect setSelection={setSelection} selection={selection}/>
+       <br></br>
+        <button id="changeBarColorBtn" class="btn btn-primary btn-sm" onClick={changeBarColors}>Change colors</button>
+                {/*bar chartin piirto*/}
                 <Bar hidden={bar} 
                 
                
@@ -171,6 +178,7 @@ const Search = (props) => {
                 }}
                 
                 />
+                {/*donitsikaavio jos dg-state on true*/}
                 {dg &&<Doughnut
                   options={{
                     //kokosuhde

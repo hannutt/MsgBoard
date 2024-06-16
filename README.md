@@ -29,7 +29,7 @@ SQL SEARCH STATISTICS & CHARTJS
 
 All searches are saved in the search table. you can see the search statistics separated by search criteria in text and graphic form. The graphics are made with the ChartJS library. You can switch the displayed chart between a bar chart and a donut chart using a checkbox.
 
-The colors of the charjs bar can be changed with the options in the drop-down menu. each option has 3 different colors and after selection, the program changes the color of all three bars to the colors of the selected option.
+The colors of the charjs bar can be changed with the options in the drop-down menu. each option has 3 different colors and after selection, the program changes the color of all three bars to the colors of the selected option. For example, the option Red/Green/Blue changes the first bar to red, the second to green, and the third to blue.
 
 LIKE / UNLIKE THE POST
 
@@ -47,6 +47,10 @@ LOG OUT
 
 the logout feature uses the localstorage.clear() method to remove the token from local storage and navigates the user back to the login pages using the React useNavigation hook.
 
+TIMED LOGOUT
+
+Select a time from the drop-down menu and confirm your selection by clicking the checkbox. when the time runs out, the program returns to the login page with help of JS settimeout function.
+
 CREATE ACCOUNT
 
 If you don't have a username and password, you can create them. On the account creation page, the password is asked twice as in the real-life examples and stored in state variables. then the useEffect Hook checks if the passwords match. if the passwords are the same, the user will see a notification and the values ​​will be saved in the database. The Register button is disabled by default, but will be enabled if the password matches and The input fields are filled. The program also displays a green success icon if the requirements are met. The icon is stored in a state variable and displayed in the img element.
@@ -55,7 +59,7 @@ CSS
 
 With the help of the CSS-flex feature, 3 messages are always displayed in one line. After three messages, a new line starts for other messages. The CSS hover selector is used with paragraph tags to change the background color. If the user does not like the hover effect, it can be turned off by clicking the checkbox. Then the state variable changes to a different div class that doesn't have a hover selector.
 
-The login page has CSS animations. When the login pages load, the background of the login button changes from blue to yellow and back to blue. This is done with CSS animation and keyframe properties
+The login page has CSS animations. When the login pages load, the background of the login input fields changes from blue to red and back to blue. This is done with CSS animation and keyframe properties.
 
 Bootstrap 5
 

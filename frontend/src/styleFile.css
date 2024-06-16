@@ -81,10 +81,22 @@
 
 .logout {
     position: fixed;
-    top:30px;
+    top:5px;
     right:10px;
     background-color: yellow;
     border-radius: 15px;
+}
+
+.timedLogoutSelect {
+    position:absolute;
+    top:61px;
+    right:40px;
+}
+
+.timelogoutCB{
+    position: absolute;
+    right:15px;
+    top:66px;
 }
 .createLink {
     color: white;
@@ -173,4 +185,8 @@
     position: absolute;
     left: 305px;
     top:150px;
+}
+.colSelect {
+    width: 180px;
+    
 }

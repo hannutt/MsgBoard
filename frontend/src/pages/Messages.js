@@ -9,6 +9,7 @@ import unlikeIcon from "../icons/unlike.png"
 import Logout from "../pages/LogOut";
 import DropMenu from "./Dropdown";
 import updateIcon from "../icons/update.png"
+import TimedLogout from "./TimedLogout";
 
 const Messages = (props) => {
 
@@ -18,8 +19,21 @@ const Messages = (props) => {
     const [lbltext, setLblText] = useState('Disable hover effect')
     const [hoverStatus, setHoverStatus] = useState(true)
     const [hideidAndDate, setHideIdAndDate] = useState(false)
-
-    //tämä funktio vaihtaa divin tyylimäärittelyä.
+    const [timedLogOff,setTimedLogOff] = useState(false)
+    const navigate = useNavigate()
+   
+    
+    //timevar parametri saadan timedlogout komponentista
+    const timedLogout = (timevar) =>{
+        console.log("selected "+timevar)
+        setTimeout(() => {
+            navigate("/")
+            //aika annetaan millisekunteina, joten sekuntiarvo täytyy kertoa tuhannella
+          }, timevar*1000);
+           
+            
+    }
+     //tämä funktio vaihtaa divin tyylimäärittelyä.
     const changeHoverStatus = () => {
 
         console.log(hoverStatus)
@@ -86,11 +100,18 @@ const Messages = (props) => {
         }
 
     }
+   
+       
+    
+   
 
     return (
 
         <div>
             <Logout />
+            {/*välitetään timedlogout komponentille timedlogout funktio, eli käytetään
+            messages komponentissa olevaa funktiota toisesta funktiosta*/}
+            <TimedLogout timedLogout={timedLogout}/>
             {/*message komponentin statemuuttujan välitys dropmenu komponentille*/}
             <DropMenu setHideIdAndDate={setHideIdAndDate} hideidAndDate={hideidAndDate} />
             <label htmlFor="hoverOff">{lbltext}</label>
