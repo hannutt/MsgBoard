@@ -9,6 +9,7 @@ const SrcDrop=(props)=>{
             <a class="dropdown-item" href="#">Search by id <input id="byid" type="checkbox" onClick={()=>props.setById(!props.Byid)}></input></a>
             <a class="dropdown-item" href="#">Search by date <input id="bydate" type="checkbox" onClick={()=>props.setByDate(!props.ByDate)}></input></a>
             <a class="dropdown-item" href="#">Search by keyword <input id="byKeyword" type="checkbox" onClick={()=>props.setByKeyword(!props.Bykeyword)}></input></a>
+            <a class="dropdown-item" href="#">Most liked & least liked posts <input id="mostliked" type="checkbox" onClick={()=>props.setMostLikes(!props.mostLikes)}></input></a>
         </div>
     </div>
     )

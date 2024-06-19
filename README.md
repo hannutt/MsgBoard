@@ -15,6 +15,10 @@ SWEARWORD FILTER
 
 when you write messages, the program checks your sentences for swear words. if yes, the program will tell you about the use of prohibited words and you must remove them if you want to save your message in the database. This feature is made with a JavaScript list. the user's input is compared to a list of common English swear words.
 
+CAPTCHA 
+
+When the user leaves a new message, the program asks for the result of a simple addition. The numbers are randomly between 1-10, and if the user gives a correct result, the save message button will change from disabled to enabled. This is done with the javascript math.random and input field onChange methods
+
 SQL SEARCHES
 
 You can search the database using the html interface. search options: Search by ID number, Search by message sending date and SQL %Like% query where you can search with your own keyword.

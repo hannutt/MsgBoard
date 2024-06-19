@@ -19,7 +19,7 @@
 .message {
     /*3 elementtiä per rivi*/
     flex: 0 0 33.3333%;
-    outline: 1px solid;
+    outline: 2px solid;
     white-space: nowrap;
     background-image: url("./icons/BgPic.jpg");
     
@@ -189,4 +189,26 @@
 .colSelect {
     width: 180px;
     
+}
+.math {
+    white-space: nowrap;
+}
+
+.BackToBtn {
+    position: absolute;
+    left:100px;
+    top:360px;
+}
+.saveBtn {
+    position: absolute;
+    top:360px;
+}
+.postDateField {
+    position: absolute;
+    top:219px;
+    left:250px;
+}
+.math {
+    position: absolute;
+    top:270px;
 }

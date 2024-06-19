@@ -6,7 +6,7 @@ const Add = ()=>{
     //päivämääräolio asetetaan value komennolla automaattisesti
     //input kenttään. readOnly eli ajankohtaa ei pysty muokkaamaan input kentässä.
     
-    const banned =['idiot','jerk','moron']
+    const banned =['idiot','jerk','moron','pinhead']
     let date = new Date().toLocaleDateString("fi-FI");
     const [message,setMessage]=useState({
         message:'',
@@ -15,9 +15,29 @@ const Add = ()=>{
 
     })
     const [redirectTime,setredirectTime]=useState(3000)
-    const [disabledSt,setDisabled]=useState(false)
+    const [disabledSt,setDisabled]=useState(true)
     const [countChars,setCountChars]=useState(0)
+    const [hidePattern,setHidePattern]=useState(false)
     const navigate = useNavigate()
+
+    const random1 = Math.floor(Math.random() * 11)
+    const random2 = Math.floor(Math.random() * 11)
+
+    const doMath=()=>{
+        const expression = document.getElementById("pattern").innerHTML
+        const answer = document.getElementById("res").value
+        const result = eval(expression)
+        if (result==answer)
+            {
+                setDisabled(!disabledSt)
+                setHidePattern(!hidePattern)
+            }
+        else{
+            setDisabled(true)
+        }
+       
+
+    }
    
     const backToFrontpage = () =>{
         navigate("/")
@@ -80,11 +100,21 @@ const Add = ()=>{
                 <p className="count">{countChars}/255</p>
                 <input type="text" placeholder="Your message" id="msg" name="message" maxLength={255} onChange={handleChange}></input>
                 <br></br><br></br>
+                <div className="postDateField">
                 <input type="text" readOnly value={date} name="postDate" onChange={handleChange}></input>
-                <br></br>
-                <button class="btn btn-secondary" onClick={handleClick} >Save</button><br></br>
-                <br></br>
+                </div>
+                <br></br><br></br>
+                <div className="math">
+                <span id="pattern" hidden={hidePattern}>{random1} + {random2}</span> = <input type="text" size={11} onChange={doMath} id="res"></input>
+                 {/*}
+                 <button onClick={doMath}>do math</button>*/}
+                 </div>
+                <div className="saveBtn">
+                <button class="btn btn-secondary" disabled={disabledSt} onClick={handleClick} >Save</button><br></br>
+                </div>
+                <div className="BackToBtn">
                 <button class="btn btn-secondary" onClick={backToFrontpage}>Back to frontpage</button>
+                </div>
             </div>
         )
 

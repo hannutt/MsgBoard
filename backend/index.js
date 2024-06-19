@@ -1,7 +1,8 @@
 import express from 'express';
 import mysql from "mysql2";
 import cors from "cors";
-
+import Mailgun from 'mailgun.js';
+//const mailgun = require('mailgun-js');
 const app = express();
 
 
@@ -69,6 +70,24 @@ app.get("/searchById/:id",(req,res)=>{
     db.query(q,[val],(err,data)=>{
         if(err) return res.json(err)
         return res.json(data)
+    })
+})
+
+app.get("/mostliked",(req,res)=>{
+    const q = "SELECT `id`, `msgtxt`, `likes` FROM messages WHERE likes=(SELECT MAX(likes) FROM messages)"
+    db.query(q,(err,data)=>{
+        if(err) return res.json(err)
+            return res.json(data)
+
+    })
+})
+
+app.get("/leastliked",(req,res)=>{
+    const q = "SELECT `id`, `msgtxt`, `unlike` FROM messages WHERE unlike=(SELECT MAX(unlike) FROM messages)"
+    db.query(q,(err,data)=>{
+        if(err) return res.json(err)
+            return res.json(data)
+
     })
 })
 
@@ -235,6 +254,7 @@ app.post("/check",(req,res)=>{
 })
 //poisto id:n perusteella.
 app.delete("/messages/:id",(req,res)=>{
+    //parametrina oleva id talletetaan muuttujaan
     const msgid = req.params.id;
     const q="DELETE FROM messages WHERE id=?"
     db.query(q,[msgid],(err,data)=>{
@@ -247,6 +267,8 @@ app.delete("/messages/:id",(req,res)=>{
     })
 
 })
+
+
 
 
 
