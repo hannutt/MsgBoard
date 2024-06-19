@@ -48,7 +48,7 @@ app.get("/searchByKeyword/:key",(req,res)=>{
         return res.json(data)
     })
 })
-
+//haku päivämäärän perusteella
 app.get("/searchByDate/:date",(req,res)=>{
     const q = "SELECT * FROM messages WHERE txtposttime = ?"
     //re.params.id lukee endpointin parametrina olevan arvon. parametrin täytyy olla saman
@@ -60,7 +60,7 @@ app.get("/searchByDate/:date",(req,res)=>{
         return res.json(data)
     })
 })
-
+//haku id:n perusteella
 app.get("/searchById/:id",(req,res)=>{
     const q = "SELECT * FROM messages WHERE id = ?";
     //re.params.id lukee endpointin parametrina olevan arvon. parametrin täytyy olla saman
@@ -92,11 +92,23 @@ app.get("/leastliked",(req,res)=>{
 })
 
 app.get("/searches",(req,res)=>{
-    const q = "SELECT `byid`, `bydate`, `bykeyword` FROM searches"
+    const q = "SELECT `byid`, `bydate`, `bykeyword`, `byliked` FROM searches"
     db.query(q,(err,data)=>{
         if(err) return res.json(err)
             return res.json(data)
 
+    })
+})
+
+app.put("/postbylikes",(req,res)=>{
+    const q = "UPDATE  searches SET `byliked`=byliked+1";
+    //re.params.id lukee endpointin parametrina olevan arvon. parametrin täytyy olla saman
+    //niminen get.kutsussa ja reg.params.date
+    const val = [req.params.id]
+    
+    db.query(q,[val],(err,data)=>{
+        if(err) return res.json(err)
+        return res.json(data)
     })
 })
 

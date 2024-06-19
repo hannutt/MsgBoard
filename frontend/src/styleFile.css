@@ -20,7 +20,18 @@
     /*3 elementtiä per rivi*/
     flex: 0 0 33.3333%;
     outline: 2px solid;
-    white-space: nowrap;
+    /*ilman rivinvaihtoa rakenne rikkoutuu
+    /*white-space: nowrap;*/
+    background-image: url("./icons/BgPic.jpg");
+    
+}
+.messageCenter {
+    /*3 elementtiä per rivi*/
+    flex: 0 0 33.3333%;
+    outline: 2px solid;
+    text-align: center;
+    /*ilman rivinvaihtoa rakenne rikkoutuu
+    /*white-space: nowrap;*/
     background-image: url("./icons/BgPic.jpg");
     
 }
@@ -34,14 +45,16 @@
     /*3 elementtiä per rivi*/
     flex: 0 0 33.3333%;
     outline: 1px solid;
-    white-space: nowrap;
+    /*white-space: nowrap;*/
     background-image: url("./icons/BgPic.jpg");
 }
 
 .bannedWords {
+    position: relative;
     white-space: nowrap;
     color: red;
     font-weight: bold;
+    left: 40px;
 }
 
 .msgTotal {
@@ -138,7 +151,7 @@
 
 
 .count {
-    position: fixed;
+    position: absolute;
     left:200px;
 }
 /*kun display=flex niin gap buttoneiden välissä toimii*/
@@ -202,6 +215,7 @@
 .saveBtn {
     position: absolute;
     top:360px;
+    left:10px;
 }
 .postDateField {
     position: absolute;
@@ -210,5 +224,14 @@
 }
 .math {
     position: absolute;
-    top:270px;
+    top:287px;
 }
+
+.addFields {
+    top:330px;
+}
+
+.alarm {
+    
+  }
+

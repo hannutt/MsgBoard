@@ -59,7 +59,7 @@ const Add = ()=>{
             //post kutsun mukana lähetetään message state muuttuja, joka sisältää input kenttien arvot.
             await axios.post("http://localhost:8800/messages",message)
             //navigate siirtää ohjelman etusivulle
-            navigate("/")
+            navigate("/messages")
         } catch(err){
             console.log(err)
 
@@ -98,14 +98,13 @@ const Add = ()=>{
                 
                 <h3>Send a new message</h3>
                 <p className="count">{countChars}/255</p>
-                <input type="text" placeholder="Your message" id="msg" name="message" maxLength={255} onChange={handleChange}></input>
-                <br></br><br></br>
+                <textarea placeholder="Your message" id="msg" name="message" maxLength={255} onChange={handleChange}></textarea>
                 <div className="postDateField">
                 <input type="text" readOnly value={date} name="postDate" onChange={handleChange}></input>
                 </div>
                 <br></br><br></br>
                 <div className="math">
-                <span id="pattern" hidden={hidePattern}>{random1} + {random2}</span> = <input type="text" size={11} onChange={doMath} id="res"></input>
+                <span id="pattern" hidden={hidePattern}>{random1} + {random2}</span> <span hidden={hidePattern}>= </span><input hidden={hidePattern} type="text" size={11} onChange={doMath} id="res"></input>
                  {/*}
                  <button onClick={doMath}>do math</button>*/}
                  </div>

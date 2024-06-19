@@ -39,7 +39,7 @@ const Search = () => {
             event.preventDefault();
             //tämä on get-kutsu eli se hakee tiedon
             const res = await axios.get("http://localhost:8800/searchByDate/" + keywordRef.current.value)
-            //put kutsu päivittää tietokannan taulua
+            //put kutsu päivittää tietokannan taulua eli tallentaa hakukerran tauluun
             const res2 = await axios.put("http://localhost:8800/postbydate")
             setResults(res.data)
             //checkbox tulee hakutulosten myötä näkyväksi
@@ -69,7 +69,8 @@ const Search = () => {
         else if (mostLikes) {
             event.preventDefault();
             const res = await axios.get("http://localhost:8800/mostliked")
-            const res2=await axios.get("http://localhost:8800/leastliked")
+            const res2 =await axios.get("http://localhost:8800/leastliked")
+            const res3 = await axios.put("http://localhost:8800/postbylikes")
             setLikeData(res.data)
             setUnlikeData(res2.data)
 
@@ -150,6 +151,7 @@ const Search = () => {
                     <p>Searches by ID: {s.byid}</p>
                     <p>Searches by date: {s.bydate}</p>
                     <p>Searches by Keyword: {s.bykeyword}</p>
+                    <p>Searches by likes: {s.byliked}</p>
 
                     <label htmlFor="dg">{chartTxt}</label>
                     <input type="checkbox" id="dg" onChange={changeChart}></input>
@@ -172,13 +174,13 @@ const Search = () => {
                             aspectRatio: 3,  // this would be a 1:1 aspect ratio
                         }}
                         data={{
-                            labels: ["By id", "By date", "By keyword"],
+                            labels: ["By id", "By date", "By keyword","By likes"],
                             datasets: [
                                 {
                                     label: "Searches by",
-                                    data: [s.byid, s.bydate, s.bykeyword],
+                                    data: [s.byid, s.bydate, s.bykeyword,s.byliked],
                                     //taustavärit saadaan selection lista alkioista 0-2
-                                    backgroundColor: [selection[0], selection[1], selection[2]]
+                                    backgroundColor: [selection[0], selection[1], selection[2],selection[3]]
 
                                 },
                             ],
@@ -192,11 +194,11 @@ const Search = () => {
                             aspectRatio: 3,  // this would be a 1:1 aspect ratio
                         }}
                         data={{
-                            labels: ["By id", "By date", "By keyword"],
+                            labels: ["By id", "By date", "By keyword","By likes"],
                             datasets: [
                                 {
                                     label: "Searches by",
-                                    data: [s.byid, s.bydate, s.bykeyword]
+                                    data: [s.byid, s.bydate, s.bykeyword,s.byliked]
                                 },
                             ],
                         }} />}

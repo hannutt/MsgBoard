@@ -17,12 +17,12 @@ when you write messages, the program checks your sentences for swear words. if y
 
 CAPTCHA 
 
-When the user leaves a new message, the program asks for the result of a simple addition. The numbers are randomly between 1-10, and if the user gives a correct result, the save message button will change from disabled to enabled. This is done with the javascript math.random and input field onChange methods
+When the user leaves a new message, the program asks for the result of a simple addition. The numbers are randomly between 1-10, and if the user gives a correct result, the save message button will change from disabled to enabled. This is done with the javascript math.random, eval and input field onChange methods
 
 SQL SEARCHES
 
-You can search the database using the html interface. search options: Search by ID number, Search by message sending date and SQL %Like% query where you can search with your own keyword.
-You can select the option to use by clicking on the html checkbox. The check boxes are below the drop-down menu.
+You can search the database using the html interface. search options: Search by ID number, Search by message sending date, search by most liked and least liked posts and SQL %Like% query where you can
+search with your own keyword. You can select the option to use by clicking on the html checkbox. The check boxes are below the drop-down menu.
 
 The search component is the so-called unmanaged component so I use the useRef method to get the user input.
 The search result view is editable, you can hide unnecessary information using check boxes. By clicking on them, the state variable changes the hidden value of the html elements between true/false
@@ -65,6 +65,9 @@ If you don't have a username and password, you can create them. On the account c
 CSS
 
 With the help of the CSS-flex feature, 3 messages are always displayed in one line. After three messages, a new line starts for other messages. The CSS hover selector is used with paragraph tags to change the background color. If the user does not like the hover effect, it can be turned off by clicking the checkbox. Then the state variable changes to a different div class that doesn't have a hover selector.
+
+In the message view, text align is editable. You can align the message text to the center or to the
+left by clicking the checkbox.
 
 The login page has CSS animations. When the login pages load, the background of the login input fields changes from blue to red and back to blue. This is done with CSS animation and keyframe properties.
 

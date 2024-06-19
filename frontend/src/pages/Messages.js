@@ -10,6 +10,7 @@ import Logout from "../pages/LogOut";
 import DropMenu from "./Dropdown";
 import updateIcon from "../icons/update.png"
 import TimedLogout from "./TimedLogout";
+import alert from "../icons/alert.png";
 
 const Messages = (props) => {
 
@@ -20,6 +21,7 @@ const Messages = (props) => {
     const [hoverStatus, setHoverStatus] = useState(true)
     const [hideidAndDate, setHideIdAndDate] = useState(false)
     const [timedLogOff,setTimedLogOff] = useState(false)
+    const [alignText,setAlingText]=useState("message")
     const navigate = useNavigate()
    
     
@@ -113,7 +115,7 @@ const Messages = (props) => {
             messages komponentissa olevaa funktiota toisesta funktiosta*/}
             <TimedLogout timedLogout={timedLogout}/>
             {/*message komponentin statemuuttujan välitys dropmenu komponentille*/}
-            <DropMenu setHideIdAndDate={setHideIdAndDate} hideidAndDate={hideidAndDate} />
+            <DropMenu setHideIdAndDate={setHideIdAndDate} hideidAndDate={hideidAndDate} setHoverOff={setHoverOff} hoverOff={hoverOff} />
             <label htmlFor="hoverOff">{lbltext}</label>
             <input id="hoverOff" type="checkbox" onClick={changeHoverStatus} onChange={() => setHoverStatus(!hoverStatus)}></input>
 
@@ -134,15 +136,18 @@ const Messages = (props) => {
                         <p hidden={hideidAndDate}>Likes: {message.likes}</p>
                         <p hidden={hideidAndDate}>Unlikes: {message.unlike}</p>
 
+                        
                         <div className="crudBtns">
                             {/*lähetetään postauksen id numero handleDelete fuktiolle*/}
                             <button disabled={props.delBtnDisable} onClick={() => handleDelete(message.id)}>
-                                <img src={binIcon} alt="remove icon"></img>
+                            <img className="alarm" src={alert} ></img>
+                               <img src={binIcon} alt="remove icon"></img>
                             </button>
                             <button onClick={() => handleLike(message.id)}>
                                 {/*png kuvan sisällytys button elementtiin.*/}
                                 <img src={likeIcon} alt="like icon"></img>
                             </button>
+                           
                             <button className="delbtn" onClick={() => handleUnLike(message.id)}>
                                 <img src={unlikeIcon}></img>
                             </button>

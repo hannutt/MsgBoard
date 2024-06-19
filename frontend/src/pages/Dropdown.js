@@ -10,6 +10,8 @@ const DropMenu =(props)=>{
             <a class="dropdown-item" href="#"><Link to="/Add">New post</Link></a>
             <a class="dropdown-item" href="#"><Link to="/Search">Search from post</Link></a>
             <a class="dropdown-item" href="#">Show message text only &ensp;<input type="checkbox" onChange={() => props.setHideIdAndDate(!props.hideidAndDate)}></input></a>
+            <a class="dropdown-item" href="#">Align text to the center&ensp;<input type="checkbox" onChange={() => props.setHoverOff("messageCenter")}></input></a>
+            <a class="dropdown-item" href="#">Align text to the left&ensp; &ensp;<input type="checkbox" onChange={() => props.setHoverOff("message")}></input></a>
         </div>
     </div>
     )
