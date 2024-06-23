@@ -231,7 +231,10 @@
     top:330px;
 }
 
-.alarm {
-    
-  }
+.users {
+    position: absolute;
+    top:1px;
+    left: 405px;
+    font-weight: bold;
+}
 

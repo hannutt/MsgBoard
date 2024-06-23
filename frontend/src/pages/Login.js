@@ -5,7 +5,7 @@ import eye from "../icons/eye.png"
 import hide from "../icons/hide.png";
 import Messages from "./Messages";
 import PrivateRoutes from "./PrivateRoutes";
-
+import ErrorPage from "./ErrorPage";
 
 const Login = ()=>{
    
@@ -15,6 +15,8 @@ const Login = ()=>{
     const [caps,setCaps]=useState('')
     const [eyeIcon,setEyeicon]=useState(eye)
     const [forgetPsw,setForgetPsw]=useState(false)
+    const [type,setType]=useState('password')
+    const [credentialError,SetCredentialError]=useState('Username or password is wrong')
 
     const rememberMe=()=>{
         localStorage.setItem('username',userName)
@@ -33,12 +35,17 @@ const Login = ()=>{
                 //talletetaan true arvo localstorageen. arvoa käyttää PriveateRoutes komponentti, jonka
                 //token arvo on oletusarvoisesti false, eli routeja/sivuja ei pääse käyttämään ellei
                 //arvo ole true.
-                localStorage.setItem("auth",true) 
-                navigate("/messages")
-                
-                
+                localStorage.setItem("auth",true)
+                localStorage.setItem("present",userName) 
+                navigate("/messages")   
             
             }
+            //jos backendin lähettämä vastaus on mikä tahansa muu, navigoidaan erros sivulle
+            else{
+                navigate("/error")
+                
+            }
+          
         })
         .catch(err=>console.log(err))
 
@@ -54,22 +61,20 @@ const Login = ()=>{
             setCaps("")
         }
     }
-    var clicks = 0;
+    
     const showPsw=()=>{
-        clicks+=1
-         var input = document.querySelector("#psw")
-        if (clicks %1===0)
+        if (type==='password')
             {
-                input.type="text"
+                setType('text')
                 //state-muuttujan ikonin vaihto hide/eye
-                setEyeicon(hide)               
-            }
-        if (clicks %2===0)
-            {
-                input.type="password"
+                setEyeicon(hide)
+                console.log(type)               
+            } 
+            else{
+                setType('password')
                 setEyeicon(eye)
+                console.log(type)
             }
-       
         
     }
     const checkLocalStorage=()=>{
@@ -91,7 +96,8 @@ const Login = ()=>{
             <p>{caps}</p>
             <div className="fields">
             <input type="text" name="user" id="user" placeholder="username" onChange={e=>setUserName(e.target.value)}onKeyUp={(e)=>handleKeyPress(e)}></input>
-            <input type="password" id="psw" name="psw" placeholder="password" onChange={e=>setPsw(e.target.value)} onKeyUp={(e)=>handleKeyPress(e)}></input>
+            <input  id="psw" name="psw" type={type} placeholder="password" value={psw} onChange={(e)=>setPsw(e.target.value)} onKeyUp={(e)=>handleKeyPress(e)} ></input>
+            <button className="showBtn" onClick={showPsw}><img src={eyeIcon} alt="eye/hide"></img></button>
             </div>
             <br></br><br></br>
             <div className="loginBtnDiv">
@@ -109,7 +115,7 @@ const Login = ()=>{
             </form>
             <label htmlFor="remMe">Remember me?</label>
             <input type="checkbox" id="remMe" onClick={rememberMe}></input>
-            <button className="showBtn" onClick={showPsw}><img src={eyeIcon} alt="eye/hide"></img></button>
+           
             <br></br>
           
             <div className="createBtn">

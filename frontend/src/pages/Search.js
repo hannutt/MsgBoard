@@ -10,6 +10,8 @@ import Carousel from "react-multi-carousel";
 import ColorSelect from "./ColorSelect";
 
 import "react-datepicker/dist/react-datepicker.css";
+import { useNavigation } from "react-router-dom";
+import ErrorPage from "./ErrorPage";
 const Search = () => {
     const [results, setResults] = useState([])
     const [ByDate, setByDate] = useState(false)
@@ -29,6 +31,7 @@ const Search = () => {
     const [selection, setSelection] = useState("")
     const [likeData, setLikeData] = useState([])
     const [unLikeData, setUnlikeData] = useState([])
+    const [noMatches,setNoMatches]=useState(false)
 
     //userefin avulla saadaan haku toimimaan käyttäjän antamalla syötteellä.
     //kontroillamaton komponentti
@@ -44,6 +47,12 @@ const Search = () => {
             setResults(res.data)
             //checkbox tulee hakutulosten myötä näkyväksi
             setCBhide(!CBhide)
+            console.log(res)
+            if (res.data.length==0)
+                {
+                    setNoMatches(!noMatches)
+                }
+          
 
         }
         else if (Byid) {
@@ -55,6 +64,10 @@ const Search = () => {
             console.log(res)
             setResults(res.data)
             setCBhide(!CBhide)
+            if (res.data.length==0)
+                {
+                    setNoMatches(!noMatches)
+                }
         }
         else if (Bykeyword) {
             event.preventDefault();
@@ -65,6 +78,10 @@ const Search = () => {
             console.log(res)
             setResults(res.data)
             setCBhide(!CBhide)
+            if (res.data.length==0)
+                {
+                    setNoMatches(!noMatches)
+                }
         }
         else if (mostLikes) {
             event.preventDefault();
@@ -267,8 +284,10 @@ const Search = () => {
             ))}
 
 
-            {/*ehdollinen renderöinti jos results muuttujassa on enemmän kuin 0 merkkiä
+            {/*ehdollinen renderöinti jos nomatch on true näytetään errorpage
+            noMatches muuttuu trueksi, jos axios kutsun res muuttujan sisältö on tyhjä.
              results.length>0 &&<Translate/>*/}
+            {noMatches&& <ErrorPage/>}
 
         </div>
     )

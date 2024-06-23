@@ -1,9 +1,9 @@
 
 Project keywords: Axios, React-Frontend, Node.js-Backend, MySQL, CSS, HTML, Bootstrap 5
 
-A React application with a Node.js backend and a MySQL database. The main purpose of this app is to emulate message board and discussion forums. This is the first version, so the features are limited for now.
+A React application with a Node.js backend and a MySQL database. The main purpose of this app is to emulate message board and discussion forums.
 
-Features at this moment:
+MAIN FEATURES
 
 PROTECTED ROUTES
 
@@ -28,6 +28,9 @@ The search component is the so-called unmanaged component so I use the useRef me
 The search result view is editable, you can hide unnecessary information using check boxes. By clicking on them, the state variable changes the hidden value of the html elements between true/false
 
 You can also choose whether you want to see the results of the sql query in a div element or a table element by clicking the checkbox.
+
+ERROS HANDLING IN SQL QUERIES
+If no results are found with the search criteria, a separate error component is displayed that informs the user about the error.
 
 SQL SEARCH STATISTICS & CHARTJS
 

@@ -8,6 +8,7 @@ import CreateAccount from './pages/CreateAccount'
 import PrivateRoutes from './pages/PrivateRoutes';
 import Update from './pages/Update';
 import MailSender from './pages/mailSender';
+import ErrorPage from './pages/ErrorPage';
 
 function App() {
  
@@ -37,11 +38,13 @@ function App() {
           <Route path="/update/:id" element={<Update/>}/>
           
           
+          
           </Route>
           {/*nämä ei ole suojattuja routeja, eli niihin pääsee kirjautumatta*/}
           <Route path="/create" element={<CreateAccount/>}/>
           <Route path='/' element={<Login/>}/>
           <Route path="/mail" element={<MailSender/>}/>
+          <Route path="/error" element={<ErrorPage/>}/>
       </Routes>
       </BrowserRouter>
       

@@ -11,6 +11,7 @@ import DropMenu from "./Dropdown";
 import updateIcon from "../icons/update.png"
 import TimedLogout from "./TimedLogout";
 import alert from "../icons/alert.png";
+import UsersPresent from "./usersPresent";
 
 const Messages = (props) => {
 
@@ -22,8 +23,12 @@ const Messages = (props) => {
     const [hideidAndDate, setHideIdAndDate] = useState(false)
     const [timedLogOff,setTimedLogOff] = useState(false)
     const [alignText,setAlingText]=useState("message")
+    
+    
     const navigate = useNavigate()
    
+
+ 
     
     //timevar parametri saadan timedlogout komponentista
     const timedLogout = (timevar) =>{
@@ -110,6 +115,7 @@ const Messages = (props) => {
     return (
 
         <div>
+            <UsersPresent/>
             <Logout />
             {/*välitetään timedlogout komponentille timedlogout funktio, eli käytetään
             messages komponentissa olevaa funktiota toisesta funktiosta*/}

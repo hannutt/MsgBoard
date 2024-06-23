@@ -58,6 +58,9 @@ app.get("/searchByDate/:date",(req,res)=>{
     db.query(q,[val],(err,data)=>{
         if(err) return res.json(err)
         return res.json(data)
+        
+
+      
     })
 })
 //haku id:n perusteella
@@ -68,7 +71,7 @@ app.get("/searchById/:id",(req,res)=>{
     const val = [req.params.id]
     
     db.query(q,[val],(err,data)=>{
-        if(err) return res.json(err)
+        if(err) return res.json("error")
         return res.json(data)
     })
 })
@@ -242,6 +245,9 @@ app.post("/login",(req,res)=>{
         //löytyvät
         if (data.length>0) {
             return res.json("login ok")
+        }
+        else {
+            return res.json("login failed")
         }
             
 
