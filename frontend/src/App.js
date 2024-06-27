@@ -9,6 +9,7 @@ import PrivateRoutes from './pages/PrivateRoutes';
 import Update from './pages/Update';
 import MailSender from './pages/mailSender';
 import ErrorPage from './pages/ErrorPage';
+import MyProfile from './pages/MyProfile';
 
 function App() {
  
@@ -36,6 +37,7 @@ function App() {
           <Route path="/Add" element={<Add/>}/>
           <Route path="/search" element={<Search/>}/>
           <Route path="/update/:id" element={<Update/>}/>
+          <Route path="/profile" element={<MyProfile/>}/>
           
           
           

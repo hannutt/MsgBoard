@@ -24,7 +24,6 @@ const Messages = (props) => {
     const [timedLogOff,setTimedLogOff] = useState(false)
     const [alignText,setAlingText]=useState("message")
     
-    
     const navigate = useNavigate()
    
 
