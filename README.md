@@ -67,7 +67,7 @@ If you don't have a username and password, you can create them. On the account c
 
 PASSWORD CHANGE
 
-when changing the password, the program uses a "real life example" to evaluate the strength of the password. if the new password is less than 5 letters, the user sees a message in red text that the password is weak, if there are 5-8 letters, the text is yellow and if the password is longer than 8 letters, the text is green. this is done with two onChange events, the first event updates the state variable and the second is a function that does the evaluation.
+when changing the password, the program uses a "real life example" to evaluate the strength of the password. if the new password is less than 5 letters, the user sees a message in red text that the password is weak, if there are 5-8 letters, the text is yellow and if the password is longer than 8 letters, the text is green. this is done with two onChange events, the first event updates the state variable and the second is a function that does the evaluation. The password evaluator can also search for special characters. this is made with JS Array some method.
 
 CSS
 
@@ -84,6 +84,6 @@ The application's html buttons are made with Bootstrap 5 button components. The 
 
 ICONS
 
-The program uses some icons, mainly in buttons. Icons are downloaded from www.flaticons.com. All are 16 pixels in size.
+The program uses some icons, mainly in buttons. Icons are downloaded from www.flaticon.com. All are 16 pixels in size.
 
 

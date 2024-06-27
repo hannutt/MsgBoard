@@ -7,9 +7,14 @@ const MyProfile=()=>{
     const [newPsw,setNewPsw]=useState('')
     const [pswStrength,setPswStrength]=useState('')
     const [colorStyle,setColorStyle]=useState('')
+    var specialsExist=false
+    const specials=["!","#","?","%","&","/"]
+
 
    const checkPsw=()=>{
-    if (newPsw.length>0 && newPsw.length<=5)
+    specialsExist=specials.some(item =>newPsw.toLowerCase().includes(item));
+    console.log(specialsExist)
+    if (newPsw.length>=1 && newPsw.length<=5)
         {
             setPswStrength("Password strength weak")
             setColorStyle("weak")
@@ -19,11 +24,17 @@ const MyProfile=()=>{
                 setPswStrength("Password strength moderate")
                 setColorStyle("moderate")
             }
-            else if (newPsw.length>8)
+            else if (newPsw.length>8 && !specialsExist)
                 {
                     setPswStrength("Password strength strong")
                     setColorStyle("strong")
                 }
+            
+                else if (newPsw.length>8 && specialsExist)
+                    {
+                        setPswStrength("Password strength very strong")
+                        setColorStyle("strong")
+                    }
             else{
                 setPswStrength("")
             }

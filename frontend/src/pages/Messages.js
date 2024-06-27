@@ -12,6 +12,7 @@ import updateIcon from "../icons/update.png"
 import TimedLogout from "./TimedLogout";
 import alert from "../icons/alert.png";
 import UsersPresent from "./usersPresent";
+import censor from "../icons/censor.png";
 
 const Messages = (props) => {
 
@@ -23,6 +24,7 @@ const Messages = (props) => {
     const [hideidAndDate, setHideIdAndDate] = useState(false)
     const [timedLogOff,setTimedLogOff] = useState(false)
     const [alignText,setAlingText]=useState("message")
+    const [censored,setSencored]=useState(false)
     
     const navigate = useNavigate()
    
@@ -106,6 +108,11 @@ const Messages = (props) => {
         }
 
     }
+
+    const DoCensor = (id)=>{
+        
+        setSencored(!censored)
+    }
    
        
     
@@ -136,7 +143,7 @@ const Messages = (props) => {
 
                         <img src={msgIcon} alt="icon"></img>
                         <p hidden={hideidAndDate}>Message id: {message.id}</p>
-                        <p>{message.msgtxt}</p>
+                        <p className="messageText"hidden={censored}>{message.msgtxt}</p>
                         <p hidden={hideidAndDate} className="msgTime">Posting time: <b>{message.txtposttime}</b></p>
                         <p hidden={hideidAndDate}>Likes: {message.likes}</p>
                         <p hidden={hideidAndDate}>Unlikes: {message.unlike}</p>
@@ -160,6 +167,9 @@ const Messages = (props) => {
                                 {/*huomaa ikonia käyttäessä, että img tagin täytyy olla link tagin
                             sisällä, että linkitys toimii klikattaessa*/}
                                 <Link to={`/update/${message.id}`}><img src={updateIcon}></img></Link>
+                            </button>
+                            <button className="censor" onClick={()=>DoCensor(message.id)}>
+                                <img src={censor}></img>
                             </button>
                         </div>
 
