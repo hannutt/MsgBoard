@@ -109,9 +109,27 @@ const Messages = (props) => {
 
     }
 
+    //funktio saa parametrina klikatun viestin id:n. p-tagi, jossa teksti näytetään on nimetty m+id
+    //yhdistelmällä. näin saadaan ainoastaan valitun viestin tekstiosio piiloon vaihtamassa luokka
+    //m+id:stä censored luokkaan.
+    var clicks=0
     const DoCensor = (id)=>{
-        
         setSencored(!censored)
+        if (censored)
+            {
+                document.getElementById("m"+id).setAttribute("class","censored")
+
+            }
+        else {
+            document.getElementById("m"+id).setAttribute("class","notCensored")
+
+        }
+       
+        
+        
+        
+
+        //setSencored(!censored)
     }
    
        
@@ -143,7 +161,7 @@ const Messages = (props) => {
 
                         <img src={msgIcon} alt="icon"></img>
                         <p hidden={hideidAndDate}>Message id: {message.id}</p>
-                        <p className="messageText"hidden={censored}>{message.msgtxt}</p>
+                        <p id={"m"+message.id} className={"m"+message.id}>{message.msgtxt}</p>
                         <p hidden={hideidAndDate} className="msgTime">Posting time: <b>{message.txtposttime}</b></p>
                         <p hidden={hideidAndDate}>Likes: {message.likes}</p>
                         <p hidden={hideidAndDate}>Unlikes: {message.unlike}</p>

@@ -248,3 +248,11 @@
     color: green;
 }
 
+
+.censored {
+    text-indent: -9999px; 
+}
+
+.notCensored {
+    text-indent: 0px;
+}

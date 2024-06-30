@@ -63,7 +63,7 @@ const updateData = async e => {
             {results.map(result=>(
                 <div>
                     <h3>Current data</h3>
-                {/*vanha teksti näytetään placeholderina että päivitys onnistuu*/}
+                {/*vanha teksti*/}
                 <input type="text" value={result.msgtxt} readOnly ></input>
              
                 <input type="tetx" value={result.txtposttime} readOnly ></input>

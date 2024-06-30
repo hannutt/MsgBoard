@@ -220,6 +220,20 @@ app.put("/update/:id",(req,res)=>{
    })
 })
 
+app.put("/updatepsw",(req,res)=>{
+   
+    const q = "UPDATE login SET `psw` = ? WHERE username=user1"
+    
+    const values = [req.body.newPsw]
+    db.query(q,[values],(err,data)=>{
+        //jos virhe on true palautetaan error viesti.
+        if(err) return res.json(err)
+           //tämä palauttaa querylla haetun datan kannasta
+           return res.json("updated")
+
+   })
+})
+
 app.put("/unlike/:id",(req,res)=>{
     //kasvatetaan likes sarakkeen arvoa aina yhdellä / per painikkeen klikkaus
     const q = "UPDATE messages SET `unlike`= unlike +1 WHERE id= ? "

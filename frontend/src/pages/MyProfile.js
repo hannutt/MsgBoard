@@ -1,14 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const MyProfile=()=>{
     //talletetaan statemuuttujaan user id input kentän arvo
-    //const [currentUserName,setCurrentUsername]=useState(document.getElementById("user").value)
+    const [currentUserName,setCurrentUsername]=useState('')
     const [oldPsw,setOldPsw]=useState('')
     const [newPsw,setNewPsw]=useState('')
     const [pswStrength,setPswStrength]=useState('')
     const [colorStyle,setColorStyle]=useState('')
     var specialsExist=false
     const specials=["!","#","?","%","&","/"]
+
+    //useeffect toteuttaa staten päivityksen eli tallettaa user-kentän merkkijonon
+    //muuttujaan heti sivun latautuessa, näin saadaan changepsw funktio toimimaan
+    //siten että käyttäjänimi saadaan jo ensimäisellä painikkeen klikkauksella
+    useEffect(()=>{
+        setCurrentUsername(document.getElementById("user").value)
+
+    })
 
 
    const checkPsw=()=>{
@@ -43,8 +52,13 @@ const MyProfile=()=>{
   
 
     const changePsw=()=>{
-
-    }
+      
+        console.log(currentUserName)
+        console.log(newPsw)
+        axios.put("http://localhost:8800/updatepsw/"+newPsw)
+        
+     
+}
    
   
     return(
@@ -52,14 +66,17 @@ const MyProfile=()=>{
             <h4>My profile</h4>
             <p>Password changed times</p>
             <p>Your username</p>
+            <form onSubmit={changePsw}>
             <input name="user" id="user" type="text" value={localStorage.getItem("present")}></input>
             <h4>Change your password</h4>
-            <input name="oldPsw" id="oldPsw" type="text" onChange={e=>setOldPsw(e.target.value)}></input><br></br>
+            <input name="oldPsw" id="oldPsw" type="text" placeholder="current psw" onChange={e=>setOldPsw(e.target.value)}></input><br></br>
             {/* huomaa onchangessa 2 eventtiä syötteen talleennus stateen ja funktiokutsu*/}
-            <input name="newPsw" id="newPsw" type="text" onChange={e=>{setNewPsw(e.target.value);checkPsw()}}></input>
+            <input name="newPsw" id="newPsw" type="text" placeholder="New psw" onChange={e=>{setNewPsw(e.target.value);checkPsw()}}></input>
             <p className={colorStyle}><b>{pswStrength}</b></p>
             
-            <button onClick={changePsw}>Change</button>
+            <button>Change</button>
+            </form>
+            
             
           
         </div>
