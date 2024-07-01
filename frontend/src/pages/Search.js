@@ -187,7 +187,7 @@ const Search = () => {
         <button id="changeBarColorBtn" class="btn btn-primary btn-sm" onClick={changeBarColors}>Change colors</button>*/}
 
                     {/*bar chartin piirto*/}
-                    <Bar hidden={bar} style={{ width: 800 + "px" }}
+                    <Bar hidden={bar} style={{ width: 800 + "px",height:40+"px" }}
 
 
                         options={{

@@ -86,6 +86,7 @@ The login page has CSS animations. When the login pages load, the background of 
 Bootstrap 5
 
 The application's html buttons are made with Bootstrap 5 button components. The Message and Search components also has a Bootstrap 5 drop-down menu where you can find links to new post page and search page.
+Database data can also be displayed in the Bootstrap card container.
 
 ICONS
 

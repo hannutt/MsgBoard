@@ -13,7 +13,7 @@ import TimedLogout from "./TimedLogout";
 import alert from "../icons/alert.png";
 import UsersPresent from "./usersPresent";
 import censor from "../icons/censor.png";
-
+import MessageCards from "./MessageCards"
 const Messages = (props) => {
 
     //tähän statemuuttuja listaan talletetaan kannasta haettu data
@@ -25,6 +25,7 @@ const Messages = (props) => {
     const [timedLogOff,setTimedLogOff] = useState(false)
     const [alignText,setAlingText]=useState("message")
     const [censored,setSencored]=useState(false)
+    const [showInCards,setShowInCards]=useState(false)
     
     const navigate = useNavigate()
    
@@ -148,6 +149,10 @@ const Messages = (props) => {
             <DropMenu setHideIdAndDate={setHideIdAndDate} hideidAndDate={hideidAndDate} setHoverOff={setHoverOff} hoverOff={hoverOff} />
             <label htmlFor="hoverOff">{lbltext}</label>
             <input id="hoverOff" type="checkbox" onClick={changeHoverStatus} onChange={() => setHoverStatus(!hoverStatus)}></input>
+            <label htmlFor="bscards">Bootstrap cards</label>
+            <input id="bscards" type="checkbox" onChange={() =>setShowInCards(!showInCards)}></input>
+
+            {showInCards && <MessageCards messages={messages} msgIcon={msgIcon}/>}
 
 
             <div className="msg">
