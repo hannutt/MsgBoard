@@ -13,6 +13,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useNavigation } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 const Search = () => {
+    
     const [results, setResults] = useState([])
     const [ByDate, setByDate] = useState(false)
     const [Byid, setById] = useState(false)
@@ -32,6 +33,8 @@ const Search = () => {
     const [likeData, setLikeData] = useState([])
     const [unLikeData, setUnlikeData] = useState([])
     const [noMatches,setNoMatches]=useState(false)
+    const [sqlErr,setSqlErr]=useState("NO MATCHES")
+    
 
     //userefin avulla saadaan haku toimimaan käyttäjän antamalla syötteellä.
     //kontroillamaton komponentti
@@ -80,6 +83,7 @@ const Search = () => {
             setCBhide(!CBhide)
             if (res.data.length==0)
                 {
+                  
                     setNoMatches(!noMatches)
                 }
         }
@@ -287,7 +291,7 @@ const Search = () => {
             {/*ehdollinen renderöinti jos nomatch on true näytetään errorpage
             noMatches muuttuu trueksi, jos axios kutsun res muuttujan sisältö on tyhjä.
              results.length>0 &&<Translate/>*/}
-            {noMatches&& <ErrorPage/>}
+            {noMatches&& <ErrorPage sqlErr={sqlErr}/>}
 
         </div>
     )

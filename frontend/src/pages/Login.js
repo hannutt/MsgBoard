@@ -41,8 +41,9 @@ const Login = ()=>{
             
             }
             //jos backendin lähettämä vastaus on mikä tahansa muu, navigoidaan erros sivulle
+            //state:credentialerror = välitetään error-komponentille state-muuttuja
             else{
-                navigate("/error")
+                navigate("/error",{state:credentialError})
                 
             }
           
@@ -78,8 +79,17 @@ const Login = ()=>{
         
     }
     const checkLocalStorage=()=>{
-        document.getElementById("user").value=localStorage.getItem("username")
-        document.getElementById("psw").value=localStorage.getItem("psw")
+        //ilman tätä ehtoa showpsw funktio ei toimi kuten pitää.
+        if (document.getElementById("user")==null && document.getElementById("psw"==null))
+            {
+                document.getElementById("user").value=localStorage.getItem("username")
+                document.getElementById("psw").value=localStorage.getItem("psw")
+
+            }
+            else{
+                console.log("fields not null")
+            }
+       
         
         
     }
@@ -93,11 +103,12 @@ const Login = ()=>{
             {/*onchange eli kun syötekentän sisältö muuttuu, sisältö talletetaan state muuttujaan (e.target.value
             )*/}
             <form onSubmit={handleSubmit}>
+                
             <p>{caps}</p>
             <div className="fields">
             <input type="text" name="user" id="user" placeholder="username" onChange={e=>setUserName(e.target.value)}onKeyUp={(e)=>handleKeyPress(e)}></input>
-            <input  id="psw" name="psw" type={type} placeholder="password" value={psw} onChange={(e)=>setPsw(e.target.value)} onKeyUp={(e)=>handleKeyPress(e)} ></input>
-            <button className="showBtn" onClick={showPsw}><img src={eyeIcon} alt="eye/hide"></img></button>
+            <input  id="psw" name="psw" type={type} placeholder="password" value={psw} onChange={e=>setPsw(e.target.value)} onKeyUp={(e)=>handleKeyPress(e)} ></input>
+           
             </div>
             <br></br><br></br>
             <div className="loginBtnDiv">
@@ -113,6 +124,7 @@ const Login = ()=>{
             
             </div>
             </form>
+            <button className="showBtn" onClick={showPsw}><img src={eyeIcon} alt="eye/hide"></img></button>
             <label htmlFor="remMe">Remember me?</label>
             <input type="checkbox" id="remMe" onClick={rememberMe}></input>
            

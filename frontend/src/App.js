@@ -47,6 +47,7 @@ function App() {
           <Route path='/' element={<Login/>}/>
           <Route path="/mail" element={<MailSender/>}/>
           <Route path="/error" element={<ErrorPage/>}/>
+          
       </Routes>
       </BrowserRouter>
       

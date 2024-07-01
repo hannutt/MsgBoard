@@ -29,8 +29,9 @@ The search result view is editable, you can hide unnecessary information using c
 
 You can also choose whether you want to see the results of the sql query in a div element or a table element by clicking the checkbox.
 
-ERROS HANDLING IN SQL QUERIES
-If no results are found with the search criteria, a separate error component is displayed that informs the user about the error.
+ERROR HANDLING IN SQL QUERY AND INCORRECT USERNAME OR PASSWORD CASE
+
+If no results are found with the search criteria or the credentials are incorrect, a separate error component is displayed to notify the user of the error. With the UseLocation method, the error component always gets the right status variable, which tells whether the error was a failed login or a failed sql query.
 
 SQL SEARCH STATISTICS & CHARTJS
 
