@@ -1,5 +1,5 @@
 
-Project keywords: Axios, React-Frontend, Node.js-Backend, MySQL, CSS, HTML, Bootstrap 5
+Project keywords: Axios, React-Frontend, Node.js-Backend, MySQL, CSS, HTML, Bootstrap 5, Font awesome
 
 A React application with a Node.js backend and a MySQL database. The main purpose of this app is to emulate message board and discussion forums.
 
@@ -72,7 +72,10 @@ when changing the password, the program uses a "real life example" to evaluate t
 
 CENSORSHIP OF THE TEXT
 
-The user can hide the text of any message by clicking the censor button. The class name of the text part of each message is m and the ID number of the message, and the function performing the censorship receives the ID number of the clicked message as a parameter. Then with the js setAttribute method, the class name is changed to a censored class that hides the text of the selected message. State variable controls text censorship. is state is true, text will hide and if state is false, text show
+The user can hide the text of any message by clicking the censor button. The class name of the text part of each message is m and the ID number of the message, and the function performing the censorship receives the ID number of the clicked message as a parameter. Then with the js setAttribute method, the class name is changed to a censored class that hides the text of the selected message. State variable controls text censorship. is state is true, text will hide and replaced with censored word. if state is false, text show, and censored word disappear.
+
+STAR RATING Of MESSAGES
+the star rating system uses Font awesome icons and works on the same principle as the text censoring feature.
 
 CSS
 
@@ -86,7 +89,8 @@ The login page has CSS animations. When the login pages load, the background of 
 Bootstrap 5
 
 The application's html buttons are made with Bootstrap 5 button components. The Message and Search components also has a Bootstrap 5 drop-down menu where you can find links to new post page and search page.
-Database data can also be displayed in the Bootstrap card container.
+
+Database data can also be displayed in the Bootstrap card container. Click on the check box and a new component will be called which organizes the fetched data into Bootstarp cards, always showing 3 cards in one line. Pressing the checkbox again changes the view back to the home view, which means that the database information is displayed in the div element
 
 ICONS
 

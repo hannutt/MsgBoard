@@ -14,6 +14,7 @@ import alert from "../icons/alert.png";
 import UsersPresent from "./usersPresent";
 import censor from "../icons/censor.png";
 import MessageCards from "./MessageCards"
+
 const Messages = (props) => {
 
     //tähän statemuuttuja listaan talletetaan kannasta haettu data
@@ -26,6 +27,8 @@ const Messages = (props) => {
     const [alignText,setAlingText]=useState("message")
     const [censored,setSencored]=useState(false)
     const [showInCards,setShowInCards]=useState(false)
+    const [hideMsgDiv,setHideMsgDiv]=useState(false)
+
     
     const navigate = useNavigate()
    
@@ -113,25 +116,32 @@ const Messages = (props) => {
     //funktio saa parametrina klikatun viestin id:n. p-tagi, jossa teksti näytetään on nimetty m+id
     //yhdistelmällä. näin saadaan ainoastaan valitun viestin tekstiosio piiloon vaihtamassa luokka
     //m+id:stä censored luokkaan.
-    var clicks=0
     const DoCensor = (id)=>{
         setSencored(!censored)
         if (censored)
             {
+                
                 document.getElementById("m"+id).setAttribute("class","censored")
+                document.getElementById("c"+id).innerHTML="CENSORED"
+               
 
             }
         else {
             document.getElementById("m"+id).setAttribute("class","notCensored")
-
+            document.getElementById("c"+id).innerHTML=""
         }
-       
-        
-        
-        
-
-        //setSencored(!censored)
     }
+    //tämä funktio vaihtaa viestien esitystapaa divin ja BS5 korttien välillä.
+    const changeViews=()=>{
+        setHideMsgDiv(!hideMsgDiv)
+        setShowInCards(!showInCards)
+
+    }
+
+    var clicks = 0
+    const rate = (id)=>{
+        document.getElementById("star"+id).setAttribute("class","fa fa-star checked")
+        }
    
        
     
@@ -139,23 +149,25 @@ const Messages = (props) => {
 
     return (
 
-        <div>
+        <div className="firstMsgDiv">
+            
             <UsersPresent/>
             <Logout />
+            
             {/*välitetään timedlogout komponentille timedlogout funktio, eli käytetään
             messages komponentissa olevaa funktiota toisesta funktiosta*/}
             <TimedLogout timedLogout={timedLogout}/>
             {/*message komponentin statemuuttujan välitys dropmenu komponentille*/}
             <DropMenu setHideIdAndDate={setHideIdAndDate} hideidAndDate={hideidAndDate} setHoverOff={setHoverOff} hoverOff={hoverOff} />
             <label htmlFor="hoverOff">{lbltext}</label>
-            <input id="hoverOff" type="checkbox" onClick={changeHoverStatus} onChange={() => setHoverStatus(!hoverStatus)}></input>
-            <label htmlFor="bscards">Bootstrap cards</label>
-            <input id="bscards" type="checkbox" onChange={() =>setShowInCards(!showInCards)}></input>
+            <input id="hoverOff" type="checkbox" onClick={changeHoverStatus} onChange={() => setHoverStatus(!hoverStatus)}></input><br></br>
+            <label htmlFor="bscards">Show messages in Bootstrap cards</label>
+            <input id="bscards" type="checkbox" onChange={changeViews}></input>
 
             {showInCards && <MessageCards messages={messages} msgIcon={msgIcon}/>}
 
 
-            <div className="msg">
+            <div className="msg" hidden={hideMsgDiv}>
 
                 {/*map metodilla käytään listan alkiot läpi* message on toistomuuttuja samalla
                 lailla kuin esim i for loopissa*/}
@@ -166,10 +178,15 @@ const Messages = (props) => {
 
                         <img src={msgIcon} alt="icon"></img>
                         <p hidden={hideidAndDate}>Message id: {message.id}</p>
+                        <p id={"c"+message.id}></p>
                         <p id={"m"+message.id} className={"m"+message.id}>{message.msgtxt}</p>
                         <p hidden={hideidAndDate} className="msgTime">Posting time: <b>{message.txtposttime}</b></p>
                         <p hidden={hideidAndDate}>Likes: {message.likes}</p>
                         <p hidden={hideidAndDate}>Unlikes: {message.unlike}</p>
+                       
+                        <span id={"star"+message.id} class="fa fa-star" onClick={()=>rate(message.id)} ></span>
+                        
+                       
 
                         
                         <div className="crudBtns">

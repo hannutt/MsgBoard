@@ -219,7 +219,8 @@ const Search = () => {
                             datasets: [
                                 {
                                     label: "Searches by",
-                                    data: [s.byid, s.bydate, s.bykeyword,s.byliked]
+                                    data: [s.byid, s.bydate, s.bykeyword,s.byliked],
+                                    backgroundColor:[selection[0], selection[1], selection[2],selection[3]]
                                 },
                             ],
                         }} />}

@@ -2,7 +2,7 @@ const ColorSelect=(props)=>{
     
     return(
         <div className="colSelect">
-            {/*valittu väriyhdistelmä lähetetään takaisin changebarcolor komponentille*/}
+            {/*valittu väriyhdistelmä lähetetään takaisin changebarcolor funktiolle*/}
         <select class="form-select form-select-sm" aria-label="Small select example"onChange={e=>props.changeBarColors(e.target.value)}>
         <option selected value="x">Change bar colors</option>
         <option value="red,green,blue,lightblue">Red/Green/Blue/Lightblue</option>
