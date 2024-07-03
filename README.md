@@ -75,7 +75,8 @@ CENSORSHIP OF THE TEXT
 The user can hide the text of any message by clicking the censor button. The class name of the text part of each message is m and the ID number of the message, and the function performing the censorship receives the ID number of the clicked message as a parameter. Then with the js setAttribute method, the class name is changed to a censored class that hides the text of the selected message. State variable controls text censorship. is state is true, text will hide and replaced with censored word. if state is false, text show, and censored word disappear.
 
 STAR RATING Of MESSAGES
-the star rating system uses Font awesome icons and works on the same principle as the text censoring feature.
+
+the star rating system uses the Font awesome star icon and works on the same principle as the text censorship feature. You can give any post 1-5 stars by clicking on the star. the color of the star changes from black to yellow one by one.
 
 CSS
 

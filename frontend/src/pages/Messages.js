@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import msgIcon from "../icons/messenger.png"
@@ -28,8 +28,8 @@ const Messages = (props) => {
     const [censored,setSencored]=useState(false)
     const [showInCards,setShowInCards]=useState(false)
     const [hideMsgDiv,setHideMsgDiv]=useState(false)
-
-    
+    const [msgId,setMsgid]=useState(0)
+    const previousId=useRef()
     const navigate = useNavigate()
    
 
@@ -139,18 +139,35 @@ const Messages = (props) => {
     }
 
     var clicks = 0
+    //star-rating funktio, joka muuttaa tähden värin mustasta punaiseen
+    //clicks muuttujana avulla siirrytyään star1->eteenpäin ja id:n avulla
+    //päivitetään aina yhden viestiosion arvostelua.
     const rate = (id)=>{
-        document.getElementById("star"+id).setAttribute("class","fa fa-star checked")
+        console.log("message selected ",id)
+        clicks+=1
+       
+        document.getElementById("star"+clicks+id).setAttribute("class","fa fa-star checked")
+        if (clicks==5)
+            {
+                clicks=0
+            }    
+       
         }
-   
+
+        const mouseChange=(id)=>{
+            setMsgid(id)
+            console.log(msgId)
+
+        }
+
        
     
    
 
     return (
 
-        <div className="firstMsgDiv">
-            
+        <div className="firstMsgDiv" >
+             
             <UsersPresent/>
             <Logout />
             
@@ -173,7 +190,7 @@ const Messages = (props) => {
                 lailla kuin esim i for loopissa*/}
                 {messages.map(message => (
                     //divin classnamea voidaan muuttaa state-muuttujan avulla.
-                    <div className={hoverOff} key={message.id}>
+                    <div className={hoverOff} key={message.id} onMouseEnter={()=>mouseChange(message.id)} >
                         {/*ikoneita pystyy käyttämään silmukassa*/}
 
                         <img src={msgIcon} alt="icon"></img>
@@ -183,9 +200,13 @@ const Messages = (props) => {
                         <p hidden={hideidAndDate} className="msgTime">Posting time: <b>{message.txtposttime}</b></p>
                         <p hidden={hideidAndDate}>Likes: {message.likes}</p>
                         <p hidden={hideidAndDate}>Unlikes: {message.unlike}</p>
-                       
-                        <span id={"star"+message.id} class="fa fa-star" onClick={()=>rate(message.id)} ></span>
-                        
+                       {/*yksilöidään span elementit message.id:n avulla että voidaan päivittää
+                       aina vain halutun viestin ratingia*/}
+                        <span id={"star1"+message.id} class="fa fa-star" onClick={()=>rate(message.id)} ></span>
+                        <span id={"star2"+message.id} class="fa fa-star" onClick={()=>rate(message.id)} ></span>
+                        <span id={"star3"+message.id} class="fa fa-star" onClick={()=>rate(message.id)} ></span>
+                        <span id={"star4"+message.id} class="fa fa-star" onClick={()=>rate(message.id)} ></span>
+                        <span id={"star5"+message.id} class="fa fa-star" onClick={()=>rate(message.id)} ></span>
                        
 
                         
