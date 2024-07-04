@@ -76,7 +76,13 @@ The user can hide the text of any message by clicking the censor button. The cla
 
 STAR RATING Of MESSAGES
 
-the star rating system uses the Font awesome star icon and works on the same principle as the text censorship feature. You can give any post 1-5 stars by clicking on the star. the color of the star changes from black to yellow one by one.
+The star rating system uses the Font awesome star icon and works on the same principle as the text censorship feature. The function receives the id of the selected message as a parameter, then the star class of the selected message is changed using the setAttribute method fa from the fa-star class to the fa-star-checked class, where the star color is defined as yellow. The class name of each star contains an id number, which allows the program to update the stars of the correct messages.
+You can give any post 1-5 stars by clicking on the star. the color of the star changes from black to yellow one by one.
+
+STAR RESET
+
+Star reset works in the same way as star rating, but changes the star rating to fa fa-star using the setAttribute method.
+
 
 CSS
 

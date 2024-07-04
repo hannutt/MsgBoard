@@ -4,6 +4,7 @@ import axios from 'axios';
 import msgIcon from "../icons/messenger.png"
 import likeIcon from "../icons/like.png";
 import binIcon from "../icons/bin.png";
+import reset from "../icons/reset.png"
 import { Link } from "react-router-dom";
 import unlikeIcon from "../icons/unlike.png"
 import Logout from "../pages/LogOut";
@@ -28,8 +29,8 @@ const Messages = (props) => {
     const [censored,setSencored]=useState(false)
     const [showInCards,setShowInCards]=useState(false)
     const [hideMsgDiv,setHideMsgDiv]=useState(false)
-    const [msgId,setMsgid]=useState(0)
-    const previousId=useRef()
+    const [stars,setStars]=useState(false)
+    
     const navigate = useNavigate()
    
 
@@ -143,23 +144,36 @@ const Messages = (props) => {
     //clicks muuttujana avulla siirrytyään star1->eteenpäin ja id:n avulla
     //päivitetään aina yhden viestiosion arvostelua.
     const rate = (id)=>{
-        console.log("message selected ",id)
+       
         clicks+=1
        
         document.getElementById("star"+clicks+id).setAttribute("class","fa fa-star checked")
         if (clicks==5)
             {
                 clicks=0
-            }    
+            }
+       
        
         }
 
-        const mouseChange=(id)=>{
-            setMsgid(id)
-            console.log(msgId)
-
+        //tähtien resetointi
+    const resetStars=(id)=>{
+        console.log(id)
+        
+        document.getElementById("star1"+id).setAttribute("class","fa fa-star")
+        document.getElementById("star2"+id).setAttribute("class","fa fa-star")
+        document.getElementById("star3"+id).setAttribute("class","fa fa-star")
+        document.getElementById("star4"+id).setAttribute("class","fa fa-star")
+        document.getElementById("star5"+id).setAttribute("class","fa fa-star")
+    }
+     
+        const starsSelected=()=>{
+            setStars(!stars)
+            
+          
         }
-
+    
+      
        
     
    
@@ -190,7 +204,7 @@ const Messages = (props) => {
                 lailla kuin esim i for loopissa*/}
                 {messages.map(message => (
                     //divin classnamea voidaan muuttaa state-muuttujan avulla.
-                    <div className={hoverOff} key={message.id} onMouseEnter={()=>mouseChange(message.id)} >
+                    <div className={hoverOff} key={message.id} onMouseEnter={()=>starsSelected(message.id)} >
                         {/*ikoneita pystyy käyttämään silmukassa*/}
 
                         <img src={msgIcon} alt="icon"></img>
@@ -207,8 +221,8 @@ const Messages = (props) => {
                         <span id={"star3"+message.id} class="fa fa-star" onClick={()=>rate(message.id)} ></span>
                         <span id={"star4"+message.id} class="fa fa-star" onClick={()=>rate(message.id)} ></span>
                         <span id={"star5"+message.id} class="fa fa-star" onClick={()=>rate(message.id)} ></span>
-                       
-
+                        
+                        
                         
                         <div className="crudBtns">
                             {/*lähetetään postauksen id numero handleDelete fuktiolle*/}
@@ -232,6 +246,7 @@ const Messages = (props) => {
                             <button className="censor" onClick={()=>DoCensor(message.id)}>
                                 <img src={censor}></img>
                             </button>
+                            <button onClick={()=>resetStars(message.id)}><img src={reset}></img></button>
                         </div>
 
                     </div>
