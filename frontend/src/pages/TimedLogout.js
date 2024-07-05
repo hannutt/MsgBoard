@@ -12,7 +12,7 @@ const TimedLogout = (props) => {
                 <option value="30">30 seconds</option>
             </select>
             <br></br>
-            
+            <label className="timedlogoutlbl" htmlFor="timelogoutCB">Verify timed logout</label>
             <input className="timelogoutCB" type="checkbox" id="timed" onChange={()=>props.timedLogout(selectedTime)}></input>
         </div>
     )

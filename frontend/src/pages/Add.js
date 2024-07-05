@@ -8,6 +8,7 @@ const Add = ()=>{
     
     const banned =['idiot','jerk','moron','pinhead']
     let date = new Date().toLocaleDateString("fi-FI");
+    
     const [message,setMessage]=useState({
         message:'',
         //postdate arvo asetetaan valmiiksi.

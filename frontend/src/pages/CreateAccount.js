@@ -28,6 +28,24 @@ const CreateAccount = ()=>{
         axios.post("http://localhost:8800/register/",{username,password,email})
         
     }
+    const generatePassword=()=>{
+        let pass = '';
+        let str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' +
+        'abcdefghijklmnopqrstuvwxyz0123456789@#$';
+
+    for (let i = 1; i <= 10; i++) {
+        let char = Math.floor(Math.random()
+            * str.length + 1);
+
+        pass += str.charAt(char)
+    }
+    console.log(pass)
+    document.getElementById("psw").value=pass
+    document.getElementById("verifypsw").value=pass
+    setPassword(pass)
+    setVerifyPassword(pass)
+
+    }
     return(
         <div>
             <div>
@@ -37,11 +55,13 @@ const CreateAccount = ()=>{
             <input type="text" placeholder="email" onChange={e=>(setEmail(e.target.value))}></input>
             <input type="text" placeholder="Username" onChange={e=>setusername(e.target.value)}></input>
             <br></br>
-            <input type="password" placeholder="password" onChange={e=>setPassword(e.target.value)}></input>
-            <input type="password" placeholder="password again"onChange={e=>setVerifyPassword(e.target.value)}></input>
+            <input type="password" id="psw" placeholder="password" onChange={e=>setPassword(e.target.value)}></input>
+            {console.log("psw state ",password)}
+            <input type="password" id="verifypsw" placeholder="password again"onChange={e=>setVerifyPassword(e.target.value)}></input>
             <br></br>
             <button disabled={btnDisable}>Register</button>
             </form>
+            <button onClick={generatePassword}>Generate password</button>
             <p className="matchCheck"><img src={match} alt="success-icon"></img></p>
         </div>
     )

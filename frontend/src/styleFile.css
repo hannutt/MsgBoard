@@ -109,7 +109,12 @@
 .timelogoutCB{
     position: absolute;
     right:15px;
-    top:66px;
+    top:106px;
+}
+.timedlogoutlbl {
+    position: absolute;
+    top:100px;
+    right:50px;
 }
 .createLink {
     color: white;
@@ -275,4 +280,35 @@
     color: orange;
   }
 
+.endCB {
+    position:absolute;
+    top:121px;
+    right:50px;
+}
+.endLbl {
+    position: absolute;
+    right:75px;
+    top: 120px;
+}
+/*pudotusvalikon checkboxien asemointi*/
+.dropdown-menu input[type="checkbox"] {
+    display: flex;
+    flex-flow: column;
+  }
+
+.bscardslbl:hover {
+    background-color: yellow;
+}
+.hoverOff:hover  {
+    background-color: yellow;
+}
+
+.firstletter {
+    /*inlinen avulla p-tagien väliin ei tule rivinvaihtoa*/
+    display: inline;
+    font-size: 200%;
+    color: #42f5f2;
+    text-transform: capitalize;
+    
+}
   
