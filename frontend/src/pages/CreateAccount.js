@@ -8,6 +8,7 @@ const CreateAccount = ()=>{
     const [email,setEmail]=useState('')
     const [match,setMatch]=useState()
     const [btnDisable,setBtnDisable]=useState(true)
+    const [type,setType]=useState('password')
     //reali-aikainen tarkastus, onko password ja verifypassword samat
     useEffect(()=>{
         if (password===verifyPassword && password.length>0 && username.length>0 && email.length>0 )
@@ -28,22 +29,25 @@ const CreateAccount = ()=>{
         axios.post("http://localhost:8800/register/",{username,password,email})
         
     }
-    const generatePassword=()=>{
+    /*letters-parametri saa arvon onchange eventissää, 8 tai 10*/
+    const generatePassword=(letters)=>{
         let pass = '';
         let str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' +
         'abcdefghijklmnopqrstuvwxyz0123456789@#$';
 
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= letters; i++) {
         let char = Math.floor(Math.random()
             * str.length + 1);
 
         pass += str.charAt(char)
     }
     console.log(pass)
+    setType('text')
     document.getElementById("psw").value=pass
     document.getElementById("verifypsw").value=pass
     setPassword(pass)
-    setVerifyPassword(pass)
+    setVerifyPassword(verifyPassword)
+    
 
     }
     return(
@@ -55,13 +59,23 @@ const CreateAccount = ()=>{
             <input type="text" placeholder="email" onChange={e=>(setEmail(e.target.value))}></input>
             <input type="text" placeholder="Username" onChange={e=>setusername(e.target.value)}></input>
             <br></br>
-            <input type="password" id="psw" placeholder="password" onChange={e=>setPassword(e.target.value)}></input>
+            <input type={type} id="psw" placeholder="password" onChange={e=>setPassword(e.target.value)}></input>
             {console.log("psw state ",password)}
-            <input type="password" id="verifypsw" placeholder="password again"onChange={e=>setVerifyPassword(e.target.value)}></input>
+            <input type={type} id="verifypsw" placeholder="password again"onChange={e=>setVerifyPassword(e.target.value)}></input>
             <br></br>
             <button disabled={btnDisable}>Register</button>
             </form>
-            <button onClick={generatePassword}>Generate password</button>
+            <br></br>
+            <div className="pswCB">
+            <label htmlFor="8">Generate password with 8 letters</label>
+            {/*lähetetään funktiolle luk 8 tai 10*/}
+            
+            <input type="checkbox" id="cb8" onChange={()=>generatePassword(8)}></input>
+            
+            <label htmlFor="10">Generate password with 10 letters</label>
+            <input type="checkbox" id="cb10" onChange={()=>generatePassword(10)}></input>
+            </div>
+            <br></br>
             <p className="matchCheck"><img src={match} alt="success-icon"></img></p>
         </div>
     )

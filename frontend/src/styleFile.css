@@ -212,24 +212,20 @@
     white-space: nowrap;
 }
 
-.BackToBtn {
-    position: absolute;
-    left:100px;
-    top:360px;
-}
+
 .saveBtn {
     position: absolute;
-    top:360px;
-    left:10px;
+    top:354px;
+    left:190px;
 }
 .postDateField {
     position: absolute;
-    top:219px;
+    top:288px;
     left:250px;
 }
 .math {
     position: absolute;
-    top:287px;
+    top:357px;
 }
 
 .addFields {
@@ -311,4 +307,23 @@
     text-transform: capitalize;
     
 }
+.cb8 {
+    float: left;
+    
+}
+.pswCB {
+    border:solid 1px;
+    width: 30%;
+}
+
+.topOfPage {
+    position: fixed;
+    top:5px;
+    right:130px;
+}
+/*
+.pswCB input[type="checkbox"] {
+    display: flex;
+    flex-flow: row;
+  }*/
   

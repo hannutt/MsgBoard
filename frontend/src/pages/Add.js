@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import axios from 'axios';
 import Logout from "../pages/LogOut";
 const Add = ()=>{
@@ -87,8 +87,13 @@ const Add = ()=>{
     } else {
         console.log(message)
         return (
-            
             <div className="addForm">
+                 <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#"><Link to="/messages">Messages</Link></a></li>
+                    <li class="breadcrumb-item"><a href="#"><Link to="/Add">Add</Link></a></li> 
+                </ol>
+            </nav>
                 <Logout/>
                 <p>Banned words, do not use, the program will check your message automatically</p>
                 {/*banned listan läpikäynti ja sanojen tulostus html-elementtiin*/}
@@ -98,10 +103,11 @@ const Add = ()=>{
                 ))}
                 
                 <h3>Send a new message</h3>
+                <br></br>
                 <p className="count">{countChars}/255</p>
                 <textarea placeholder="Your message" id="msg" name="message" maxLength={255} onChange={handleChange}></textarea>
                 <div className="postDateField">
-                <input type="text" readOnly value={date} name="postDate" onChange={handleChange}></input>
+                <input type="text" readOnly value={date} name="postDate" size={11} onChange={handleChange}></input>
                 </div>
                 <br></br><br></br>
                 <div className="math">
@@ -110,11 +116,9 @@ const Add = ()=>{
                  <button onClick={doMath}>do math</button>*/}
                  </div>
                 <div className="saveBtn">
-                <button class="btn btn-secondary" disabled={disabledSt} onClick={handleClick} >Save</button><br></br>
+                <button class="btn btn-secondary" disabled={disabledSt} onClick={handleClick} >Save message</button><br></br>
                 </div>
-                <div className="BackToBtn">
-                <button class="btn btn-secondary" onClick={backToFrontpage}>Back to frontpage</button>
-                </div>
+              
             </div>
         )
 

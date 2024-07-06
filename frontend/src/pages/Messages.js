@@ -32,33 +32,35 @@ const Messages = (props) => {
     const [hideMsgDiv, setHideMsgDiv] = useState(false)
     const [stars, setStars] = useState(false)
     const [confirm, setConfirm] = useState(false)
+    const [hideTopPage,setHideTopPage]=useState(true)
     var first="";
 
+    let date = new Date().toLocaleDateString("fi-FI");
+    var repDateNow=date.replace(".","/").replace(".","/")
+    var dateDiff;
+    var finalDiff;
+    
+    
+  
 
     const navigate = useNavigate()
-    /*
-    let date = new Date().toLocaleDateString("fi-FI");
-    var repDate=date.replace(".","/").replace(".","/")
-    var finalDate = repDate
-    finalDate = new Date(finalDate.split('/')[2], finalDate.split('/')[1] - 1, finalDate.split('/')[0]);
-    var date2 = "4/7/2024"
-    date2 = new Date(date2.split('/')[2], date2.split('/')[1] - 1, date2.split('/')[0]);
-    var timeDiff = Math.abs(date2.getTime() - finalDate.getTime());
-    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    /*
-    //let date = new Date().toLocaleDateString("fi-FI");
-    var today = new Date("5/7/2024")
-    var dateobject = new Date("4/7/2024")
-    let Difference_In_Time = today.getTime() - dateobject.getTime();
-    let Difference_In_Days =
-        Math.round
-            (Difference_In_Time / (1000 * 3600 * 24));*/
-
-
-   // console.log(diffDays)
-
-
-
+    
+    
+    const monitoreScroll=()=>{
+        //jos ikkunaa on skrollattu y-suunassa yli 200 pikseliä muutetan staten arvoa
+        //eli tässä näytetään button elementti.
+        if (window.scrollY>200)
+            {
+                setHideTopPage(false)
+            }
+        else{
+            setHideTopPage(true)
+        }
+           
+    }
+    //kutsutaan monitorescroll funktiota 0,1 sekunnin välein että buttonin näyttö
+    //ja piilotus toimii ylläolevan ehdon mukaan
+    window.setInterval(monitoreScroll,100)
 
 
     //timevar parametri saadan timedlogout komponentista
@@ -219,14 +221,17 @@ const Messages = (props) => {
         scrollingElement.scrollTop = scrollingElement.scrollHeight;
 
     }
+
+    const startOfPage=()=>{
+        const scrollingElement = (document.scrollingElement || document.body);
+        scrollingElement.scrollTop = 0;
+        
+    }
     return (
 
-        <div className="firstMsgDiv" >
-
+        <div className="firstMsgDiv" ononline={monitoreScroll} >
             <UsersPresent />
             <Logout />
-
-
             {/*välitetään timedlogout komponentille timedlogout funktio, eli käytetään
             messages komponentissa olevaa funktiota toisesta funktiosta*/}
             <TimedLogout timedLogout={timedLogout} />
@@ -237,6 +242,9 @@ const Messages = (props) => {
                 <input id="hoverOff" type="checkbox" onClick={changeHoverStatus} onChange={() => setHoverStatus(!hoverStatus)}></input><br></br>
                 <label className="bscardslbl" htmlFor="bscards">Show messages in Bootstrap cards</label>
                 <input id="bscards" type="checkbox" onChange={changeViews}></input>
+            </span>
+            <span className="topOfPage">
+            <button hidden={hideTopPage} class="btn btn-info" onClick={startOfPage}>Top of the page</button>
             </span>
 
 
@@ -260,10 +268,17 @@ const Messages = (props) => {
                         {/*jokaisen viestin ensimmäinen kirjain first-muuttujassa ja kirjain näytetään 200% suurempana kuin muut replacella korvataan
                         ensimmäinen kirjain tyhjällä koska muuten eka kirjain näytettäisiin kahdesti*/}
                         <p id={"m" + message.id} className={"m" + message.id}><p className="firstletter">{first}</p>{message.msgtxt.replace(first,"")}</p>
-                        <p hidden={hideidAndDate} className="msgTime">Posting time: <b>{message.txtposttime.replace(".", "/").replace(".", "/")}</b></p>
+                        <p hidden={hideidAndDate} className="msgTime">Posting time: <b>{message.txtposttime}</b></p>
                         <p hidden={hideidAndDate}>Likes: {message.likes}</p>
                         <p hidden={hideidAndDate}>Unlikes: {message.unlike}</p>
                         <p>Characters: {message.msgtxt.length}</p>
+                        {/*dd-mm-yyy formaatti saadaan vaihtamalla split komennolla / merkin jälkeisiä merkkijonoja
+                        tässä lasketaan montako päivää viestin postauksesta on kulunut repDatenow on aina meneillään
+                        oleva päivä message.txtpostime on silmukassa vaihtuva postauspäivä*/}
+                        <p hidden > {dateDiff=new Date(repDateNow.split('/')[2], repDateNow.split('/')[1] - 1, repDateNow.split('/')[0]).getTime() - new Date(message.txtposttime.split('.')[2], message.txtposttime.split('.')[1] - 1, message.txtposttime.split('.')[0]).getTime()}
+                        {finalDiff = Math.round (dateDiff / (1000 * 3600 * 24))}</p>
+                        <p>Posted: {finalDiff} days ago</p>
+                       
                         
 
 
@@ -315,9 +330,10 @@ const Messages = (props) => {
                 jokaisen viestin yhteydessä erikseen*/}
                 <p className="msgTotal">Total messages: {messages.length}</p>
             </div>
+            
 
 
-
+            
         </div>
     )
 

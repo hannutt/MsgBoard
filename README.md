@@ -66,6 +66,10 @@ CREATE ACCOUNT
 
 If you don't have a username and password, you can create them. On the account creation page, the password is asked twice as in the real-life examples and stored in state variables. then the useEffect Hook checks if the passwords match. if the passwords are the same, the user will see a notification and the values ​​will be saved in the database. The Register button is disabled by default, but will be enabled if the password matches and The input fields are filled. The program also displays a green success icon if the requirements are met. The icon is stored in a state variable and displayed in the img element.
 
+When you create an account, you can also use the option to create a password.
+there are two checkboxes for random password: password with 8 letters and password with 10 letters. by choosing one of the two options, the function call is implemented with the onChange method, where the function receives either 8 or 10 as a parameter, which is the length of the password.
+Random password including uppercase and lowercase letters and numbers.
+
 PASSWORD CHANGE
 
 when changing the password, the program uses a "real life example" to evaluate the strength of the password. if the new password is less than 5 letters, the user sees a message in red text that the password is weak, if there are 5-8 letters, the text is yellow and if the password is longer than 8 letters, the text is green. this is done with two onChange events, the first event updates the state variable and the second is a function that does the evaluation. The password evaluator can also search for special characters. this is made with JS Array some method.
@@ -98,6 +102,8 @@ Bootstrap 5
 The application's html buttons are made with Bootstrap 5 button components. The Message and Search components also has a Bootstrap 5 drop-down menu where you can find links to new post page and search page.
 
 Database data can also be displayed in the Bootstrap card container. Click on the check box and a new component will be called which organizes the fetched data into Bootstarp cards, always showing 3 cards in one line. Pressing the checkbox again changes the view back to the home view, which means that the database information is displayed in the div element
+
+For navigating between pages, there is a Bootstrap breadcrumb component with react-router-dom link API.
 
 ICONS
 

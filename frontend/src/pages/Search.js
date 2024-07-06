@@ -8,12 +8,12 @@ import { Bar, Doughnut } from "react-chartjs-2";
 import DatePicker from "react-datepicker";
 import Carousel from "react-multi-carousel";
 import ColorSelect from "./ColorSelect";
-
+import { Link } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigation } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 const Search = () => {
-    
+
     const [results, setResults] = useState([])
     const [ByDate, setByDate] = useState(false)
     const [Byid, setById] = useState(false)
@@ -32,9 +32,9 @@ const Search = () => {
     const [selection, setSelection] = useState("")
     const [likeData, setLikeData] = useState([])
     const [unLikeData, setUnlikeData] = useState([])
-    const [noMatches,setNoMatches]=useState(false)
-    const [sqlErr,setSqlErr]=useState("NO MATCHES")
-    
+    const [noMatches, setNoMatches] = useState(false)
+    const [sqlErr, setSqlErr] = useState("NO MATCHES")
+
 
     //userefin avulla saadaan haku toimimaan käyttäjän antamalla syötteellä.
     //kontroillamaton komponentti
@@ -51,11 +51,10 @@ const Search = () => {
             //checkbox tulee hakutulosten myötä näkyväksi
             setCBhide(!CBhide)
             console.log(res)
-            if (res.data.length==0)
-                {
-                    setNoMatches(!noMatches)
-                }
-          
+            if (res.data.length == 0) {
+                setNoMatches(!noMatches)
+            }
+
 
         }
         else if (Byid) {
@@ -67,10 +66,9 @@ const Search = () => {
             console.log(res)
             setResults(res.data)
             setCBhide(!CBhide)
-            if (res.data.length==0)
-                {
-                    setNoMatches(!noMatches)
-                }
+            if (res.data.length == 0) {
+                setNoMatches(!noMatches)
+            }
         }
         else if (Bykeyword) {
             event.preventDefault();
@@ -81,16 +79,15 @@ const Search = () => {
             console.log(res)
             setResults(res.data)
             setCBhide(!CBhide)
-            if (res.data.length==0)
-                {
-                  
-                    setNoMatches(!noMatches)
-                }
+            if (res.data.length == 0) {
+
+                setNoMatches(!noMatches)
+            }
         }
         else if (mostLikes) {
             event.preventDefault();
             const res = await axios.get("http://localhost:8800/mostliked")
-            const res2 =await axios.get("http://localhost:8800/leastliked")
+            const res2 = await axios.get("http://localhost:8800/leastliked")
             const res3 = await axios.put("http://localhost:8800/postbylikes")
             setLikeData(res.data)
             setUnlikeData(res2.data)
@@ -141,6 +138,13 @@ const Search = () => {
 
     return (
         <div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#"><Link to="/messages">Messages</Link></a></li>
+                    <li class="breadcrumb-item"><a href="#"><Link to="/search">Search</Link></a></li>
+                   
+                </ol>
+            </nav>
             <Logout />
             <h3>Search options</h3>
             {/*state-muuttujien lähetys srcDrop komponentille */}
@@ -187,7 +191,7 @@ const Search = () => {
         <button id="changeBarColorBtn" class="btn btn-primary btn-sm" onClick={changeBarColors}>Change colors</button>*/}
 
                     {/*bar chartin piirto*/}
-                    <Bar hidden={bar} style={{ width: 800 + "px",height:40+"px" }}
+                    <Bar hidden={bar} style={{ width: 800 + "px", height: 40 + "px" }}
 
 
                         options={{
@@ -195,13 +199,13 @@ const Search = () => {
                             aspectRatio: 3,  // this would be a 1:1 aspect ratio
                         }}
                         data={{
-                            labels: ["By id", "By date", "By keyword","By likes"],
+                            labels: ["By id", "By date", "By keyword", "By likes"],
                             datasets: [
                                 {
                                     label: "Searches by",
-                                    data: [s.byid, s.bydate, s.bykeyword,s.byliked],
+                                    data: [s.byid, s.bydate, s.bykeyword, s.byliked],
                                     //taustavärit saadaan selection lista alkioista 0-2
-                                    backgroundColor: [selection[0], selection[1], selection[2],selection[3]]
+                                    backgroundColor: [selection[0], selection[1], selection[2], selection[3]]
 
                                 },
                             ],
@@ -215,12 +219,12 @@ const Search = () => {
                             aspectRatio: 3,  // this would be a 1:1 aspect ratio
                         }}
                         data={{
-                            labels: ["By id", "By date", "By keyword","By likes"],
+                            labels: ["By id", "By date", "By keyword", "By likes"],
                             datasets: [
                                 {
                                     label: "Searches by",
-                                    data: [s.byid, s.bydate, s.bykeyword,s.byliked],
-                                    backgroundColor:[selection[0], selection[1], selection[2],selection[3]]
+                                    data: [s.byid, s.bydate, s.bykeyword, s.byliked],
+                                    backgroundColor: [selection[0], selection[1], selection[2], selection[3]]
                                 },
                             ],
                         }} />}
@@ -252,7 +256,7 @@ const Search = () => {
                     <input id="inTable" type="checkbox" onClick={handleTable}></input>*/}
                 </div>
             ))}
-             {unLikeData.map(u => (
+            {unLikeData.map(u => (
                 <div className="mostLikes" key={u.id}>
                     <h3>Least liked post</h3>
                     <p hidden={hideId}>Message id: {u.id}</p>
@@ -292,7 +296,7 @@ const Search = () => {
             {/*ehdollinen renderöinti jos nomatch on true näytetään errorpage
             noMatches muuttuu trueksi, jos axios kutsun res muuttujan sisältö on tyhjä.
              results.length>0 &&<Translate/>*/}
-            {noMatches&& <ErrorPage sqlErr={sqlErr}/>}
+            {noMatches && <ErrorPage sqlErr={sqlErr} />}
 
         </div>
     )
