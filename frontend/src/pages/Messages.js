@@ -49,7 +49,7 @@ const Messages = (props) => {
     const monitoreScroll=()=>{
         //jos ikkunaa on skrollattu y-suunassa yli 200 pikseliä muutetan staten arvoa
         //eli tässä näytetään button elementti.
-        if (window.scrollY>200)
+        if (window.scrollY>300)
             {
                 setHideTopPage(false)
             }
@@ -227,6 +227,8 @@ const Messages = (props) => {
         scrollingElement.scrollTop = 0;
         
     }
+
+   
     return (
 
         <div className="firstMsgDiv" ononline={monitoreScroll} >
@@ -278,6 +280,7 @@ const Messages = (props) => {
                         <p hidden > {dateDiff=new Date(repDateNow.split('/')[2], repDateNow.split('/')[1] - 1, repDateNow.split('/')[0]).getTime() - new Date(message.txtposttime.split('.')[2], message.txtposttime.split('.')[1] - 1, message.txtposttime.split('.')[0]).getTime()}
                         {finalDiff = Math.round (dateDiff / (1000 * 3600 * 24))}</p>
                         <p>Posted: {finalDiff} days ago</p>
+                        
                        
                         
 

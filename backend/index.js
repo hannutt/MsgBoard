@@ -220,12 +220,12 @@ app.put("/update/:id",(req,res)=>{
    })
 })
 
-app.put("/updatepsw",(req,res)=>{
-   
-    const q = "UPDATE login SET `psw` = ? WHERE username=user1"
-    
+app.put("/updatepsw/:user",(req,res)=>{
+    //endpointin user parametri talletetaan user muuttujaan
+    const user=req.params.user
+    const q = "UPDATE login SET `psw` = ? WHERE username= ?"
     const values = [req.body.newPsw]
-    db.query(q,[values],(err,data)=>{
+    db.query(q,[...values,user],(err,data)=>{
         //jos virhe on true palautetaan error viesti.
         if(err) return res.json(err)
            //tämä palauttaa querylla haetun datan kannasta

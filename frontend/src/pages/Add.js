@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate,Link,useLocation } from "react-router-dom";
 import axios from 'axios';
 import Logout from "../pages/LogOut";
 const Add = ()=>{
@@ -19,10 +19,22 @@ const Add = ()=>{
     const [disabledSt,setDisabled]=useState(true)
     const [countChars,setCountChars]=useState(0)
     const [hidePattern,setHidePattern]=useState(false)
+    const [random1,setRandom1]=useState(0)
+    const [random2,setRandom2]=useState(0)
     const navigate = useNavigate()
+    const location = useLocation()
+    //haetaaan osoitekentässä näkyvä käyttäjänimi katkaisemalla merkkijono / merkistä eli
+    //localhost:8800/profile/user osoitteesta talletetaan viimeinen alkio eli user tähän
+    //muuttujaan.
+    const userName =location.pathname.split("/")[2]
 
-    const random1 = Math.floor(Math.random() * 11)
-    const random2 = Math.floor(Math.random() * 11)
+    const randNums=()=>{
+        setRandom1(Math.floor(Math.random() * 11))
+        setRandom2(Math.floor(Math.random() * 11))
+       
+
+    }
+   
 
     const doMath=()=>{
         const expression = document.getElementById("pattern").innerHTML
@@ -102,10 +114,10 @@ const Add = ()=>{
 
                 ))}
                 
-                <h3>Send a new message</h3>
+                <h3>Send a new message as {userName}</h3>
                 <br></br>
                 <p className="count">{countChars}/255</p>
-                <textarea placeholder="Your message" id="msg" name="message" maxLength={255} onChange={handleChange}></textarea>
+                <textarea placeholder="Your message" id="msg" name="message" maxLength={255} onChange={handleChange} onBlur={randNums}></textarea>
                 <div className="postDateField">
                 <input type="text" readOnly value={date} name="postDate" size={11} onChange={handleChange}></input>
                 </div>

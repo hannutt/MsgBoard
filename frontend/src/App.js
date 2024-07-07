@@ -12,6 +12,7 @@ import ErrorPage from './pages/ErrorPage';
 import MyProfile from './pages/MyProfile';
 
 function App() {
+  
  
 
   
@@ -34,10 +35,12 @@ function App() {
         ei pääse ilman kirjautumista ja localstoragesta haettu auth:true arvoa. ks login & privateRoutes.*/}
         <Route element={<PrivateRoutes/>}>
           <Route path='/messages' element={<Messages/>}/>
-          <Route path="/Add" element={<Add/>}/>
+          <Route path="/Add/:user" element={<Add/>}/>
           <Route path="/search" element={<Search/>}/>
           <Route path="/update/:id" element={<Update/>}/>
-          <Route path="/profile" element={<MyProfile/>}/>
+          {/*user saadaan localstoragesta ja se määritellään tarkemmin dropdown.js komponentissä
+          se täytyy kuitenkin määritellä myös tässä :user (tai millä tahansa) päättellä että reititys toimii*/}
+          <Route path="/profile/:user" element={<MyProfile/>}/>
           
           
           

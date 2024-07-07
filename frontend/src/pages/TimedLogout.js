@@ -13,6 +13,7 @@ const TimedLogout = (props) => {
             </select>
             <br></br>
             <label className="timedlogoutlbl" htmlFor="timelogoutCB">Verify timed logout</label>
+            {/*onchangessa lähetetään selectedtime eli valittu aika timedLogout funktiolle*/}
             <input className="timelogoutCB" type="checkbox" id="timed" onChange={()=>props.timedLogout(selectedTime)}></input>
         </div>
     )

@@ -17,7 +17,7 @@ when you write messages, the program checks your sentences for swear words. if y
 
 CAPTCHA 
 
-When the user leaves a new message, the program asks for the result of a simple addition. The numbers are randomly between 1-10, and if the user gives a correct result, the save message button will change from disabled to enabled. This is done with the javascript math.random, eval and input field onChange methods
+When the user leaves a new message, the program asks for the result of a simple addition. The numbers are randomly between 1-10, and if the user gives a correct result, the save message button will change from disabled to enabled. This is done with the javascript math.random, eval and input field onBlur methods.
 
 SQL SEARCHES
 
@@ -71,6 +71,8 @@ there are two checkboxes for random password: password with 8 letters and passwo
 Random password including uppercase and lowercase letters and numbers.
 
 PASSWORD CHANGE
+
+a logged in user can use the My profile page. The path of my profile is /profile/{username} and the application gets the username from the local storage where it is saved at login. This way, changing the password is faster, because the username is already ready. the page cannot be accessed without a saved username
 
 when changing the password, the program uses a "real life example" to evaluate the strength of the password. if the new password is less than 5 letters, the user sees a message in red text that the password is weak, if there are 5-8 letters, the text is yellow and if the password is longer than 8 letters, the text is green. this is done with two onChange events, the first event updates the state variable and the second is a function that does the evaluation. The password evaluator can also search for special characters. this is made with JS Array some method.
 
