@@ -3,6 +3,8 @@ Project keywords: Axios, React-Frontend, Node.js-Backend, MySQL, CSS, HTML, Boot
 
 A React application with a Node.js backend and a MySQL database. The main purpose of this app is to emulate message board and discussion forums.
 
+![alt text](msgboard.png)
+
 MAIN FEATURES
 
 PROTECTED ROUTES
