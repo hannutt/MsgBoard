@@ -176,7 +176,7 @@
     flex-direction: column;
     position: absolute;
     top:16.5%;
-    right: 37%;
+    right: 38%;
     /*transformin avulla buttonin liikkuminen saatiin halutunlaiseksi responsiivisuuden osalta*/
     transform: translateX(200%);
 }
