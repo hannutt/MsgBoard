@@ -9,7 +9,7 @@ An example image of a login page that mimics the login view of commonly used web
 
 Example image of a page showing all messages stored in a MySQL database. each message has its own buttons with which you can e.g. like, edit, censor a post, etc. Posts also have a CSS Flex style definition where each post has its own post area that is 33% wide
 
-![alt text](msgboard.png)
+![alt text](frontend/src/icons/msgBoardFront.png)
 
 MAIN FEATURES
 
