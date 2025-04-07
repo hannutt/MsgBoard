@@ -32,35 +32,34 @@ const Messages = (props) => {
     const [hideMsgDiv, setHideMsgDiv] = useState(false)
     const [stars, setStars] = useState(false)
     const [confirm, setConfirm] = useState(false)
-    const [hideTopPage,setHideTopPage]=useState(true)
-    var first="";
+    const [hideTopPage, setHideTopPage] = useState(true)
+    var first = "";
 
     let date = new Date().toLocaleDateString("fi-FI");
-    var repDateNow=date.replace(".","/").replace(".","/")
+    var repDateNow = date.replace(".", "/").replace(".", "/")
     var dateDiff;
     var finalDiff;
-    
-    
-  
+
+
+
 
     const navigate = useNavigate()
-    
-    
-    const monitoreScroll=()=>{
+
+
+    const monitoreScroll = () => {
         //jos ikkunaa on skrollattu y-suunassa yli 200 pikseliä muutetan staten arvoa
         //eli tässä näytetään button elementti.
-        if (window.scrollY>300)
-            {
-                setHideTopPage(false)
-            }
-        else{
+        if (window.scrollY > 300) {
+            setHideTopPage(false)
+        }
+        else {
             setHideTopPage(true)
         }
-           
+
     }
     //kutsutaan monitorescroll funktiota 0,1 sekunnin välein että buttonin näyttö
     //ja piilotus toimii ylläolevan ehdon mukaan
-    window.setInterval(monitoreScroll,100)
+    window.setInterval(monitoreScroll, 100)
 
 
     //timevar parametri saadan timedlogout komponentista
@@ -222,31 +221,42 @@ const Messages = (props) => {
 
     }
 
-    const startOfPage=()=>{
+    const startOfPage = () => {
         const scrollingElement = (document.scrollingElement || document.body);
         scrollingElement.scrollTop = 0;
-        
+
     }
 
-   
+
     return (
 
         <div className="firstMsgDiv" ononline={monitoreScroll} >
+            <h2 className='title'>Message Board</h2>
             <UsersPresent />
+            <p className="title">Total messages: {messages.length}</p>
             <Logout />
             {/*välitetään timedlogout komponentille timedlogout funktio, eli käytetään
             messages komponentissa olevaa funktiota toisesta funktiosta*/}
             <TimedLogout timedLogout={timedLogout} />
             {/*message komponentin statemuuttujan välitys dropmenu komponentille*/}
+            <span className="dropMenu">
             <DropMenu setHideIdAndDate={setHideIdAndDate} hideidAndDate={hideidAndDate} setHoverOff={setHoverOff} hoverOff={hoverOff} endOfPage={endOfPage} />
-            <span className="changeCB">
-                <label htmlFor="hoverOff" className="hoverOff">{lbltext}</label>
-                <input id="hoverOff" type="checkbox" onClick={changeHoverStatus} onChange={() => setHoverStatus(!hoverStatus)}></input><br></br>
-                <label className="bscardslbl" htmlFor="bscards">Show messages in Bootstrap cards</label>
-                <input id="bscards" type="checkbox" onChange={changeViews}></input>
-            </span>
+            
+         
+                <div class="form-check">
+                    <input class="form-check-input" value="" id="hoverOff" type="checkbox" onClick={changeHoverStatus} onChange={() => setHoverStatus(!hoverStatus)}></input>
+                    <label class="form-check-label" for="hoverOff">{lbltext}</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="bscards"  onChange={changeViews} ></input>
+                        <label class="form-check-label" for="bscards">Show messages in Bootstrap cards</label>
+                </div>
+                </span>
+
+              
+            
             <span className="topOfPage">
-            <button hidden={hideTopPage} class="btn btn-info" onClick={startOfPage}>Top of the page</button>
+                <button hidden={hideTopPage} class="btn btn-info" onClick={startOfPage}>Top of the page</button>
             </span>
 
 
@@ -261,15 +271,15 @@ const Messages = (props) => {
                 {messages.map(message => (
                     //divin classnamea voidaan muuttaa state-muuttujan avulla.
                     <div className={hoverOff} key={message.id} onMouseEnter={() => starsSelected(message.id)} >
-                       {/*talletetaan msgtxt:n ensimmäinen kirjain muuttujaan*/}
-                        <p hidden>{first=message.msgtxt[0]}</p>
-                         {/*ikoneita pystyy käyttämään silmukassa*/}
+                        {/*talletetaan msgtxt:n ensimmäinen kirjain muuttujaan*/}
+                        <p hidden>{first = message.msgtxt[0]}</p>
+                        {/*ikoneita pystyy käyttämään silmukassa*/}
                         <img src={msgIcon} alt="icon"></img>
                         <p hidden={hideidAndDate}>Message id: {message.id}</p>
                         <p id={"c" + message.id}></p>
                         {/*jokaisen viestin ensimmäinen kirjain first-muuttujassa ja kirjain näytetään 200% suurempana kuin muut replacella korvataan
                         ensimmäinen kirjain tyhjällä koska muuten eka kirjain näytettäisiin kahdesti*/}
-                        <p id={"m" + message.id} className={"m" + message.id}><p className="firstletter">{first}</p>{message.msgtxt.replace(first,"")}</p>
+                        <p id={"m" + message.id} className={"m" + message.id}><p className="firstletter">{first}</p>{message.msgtxt.replace(first, "")}</p>
                         <p hidden={hideidAndDate} className="msgTime">Posting time: <b>{message.txtposttime}</b></p>
                         <p hidden={hideidAndDate}>Likes: {message.likes}</p>
                         <p hidden={hideidAndDate}>Unlikes: {message.unlike}</p>
@@ -277,12 +287,12 @@ const Messages = (props) => {
                         {/*dd-mm-yyy formaatti saadaan vaihtamalla split komennolla / merkin jälkeisiä merkkijonoja
                         tässä lasketaan montako päivää viestin postauksesta on kulunut repDatenow on aina meneillään
                         oleva päivä message.txtpostime on silmukassa vaihtuva postauspäivä*/}
-                        <p hidden > {dateDiff=new Date(repDateNow.split('/')[2], repDateNow.split('/')[1] - 1, repDateNow.split('/')[0]).getTime() - new Date(message.txtposttime.split('.')[2], message.txtposttime.split('.')[1] - 1, message.txtposttime.split('.')[0]).getTime()}
-                        {finalDiff = Math.round (dateDiff / (1000 * 3600 * 24))}</p>
+                        <p hidden > {dateDiff = new Date(repDateNow.split('/')[2], repDateNow.split('/')[1] - 1, repDateNow.split('/')[0]).getTime() - new Date(message.txtposttime.split('.')[2], message.txtposttime.split('.')[1] - 1, message.txtposttime.split('.')[0]).getTime()}
+                            {finalDiff = Math.round(dateDiff / (1000 * 3600 * 24))}</p>
                         <p>Posted: {finalDiff} days ago</p>
-                        
-                       
-                        
+
+
+
 
 
 
@@ -331,12 +341,12 @@ const Messages = (props) => {
 
                 {/*viestien kokonaismäärä näytetään map silmukan ulkopuolella, muuten se tulostuisi
                 jokaisen viestin yhteydessä erikseen*/}
-                <p className="msgTotal">Total messages: {messages.length}</p>
+                
             </div>
-            
 
 
-            
+
+
         </div>
     )
 

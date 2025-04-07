@@ -5,14 +5,15 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    padding: 0;   
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .App {
     background-image: url("./icons/BgPic.jpg");
     height: 100vh;
     margin-top: -2px;
-    background-repeat: no-repeat;
+    background-repeat: cover;
 }
 
 
@@ -57,13 +58,7 @@
     left: 40px;
 }
 
-.msgTotal {
-    padding: 4px;
-    border: 2px solid black;
-    position: absolute;
-    top:1px;
-    left: 245px;
-}
+
 
 .msgIcon {
     position: absolute;
@@ -103,7 +98,7 @@
 .timedLogoutSelect {
     position:absolute;
     top:61px;
-    right:40px;
+    right:10px;
 }
 
 .timelogoutCB{
@@ -114,7 +109,7 @@
 .timedlogoutlbl {
     position: absolute;
     top:100px;
-    right:50px;
+    right:10px;
 }
 .createLink {
     color: white;
@@ -204,6 +199,10 @@
     left: 305px;
     top:150px;
 }
+.stats{
+    text-align: center;
+    background-color: #6d9c92;
+}
 .colSelect {
     width: 180px;
     
@@ -262,10 +261,21 @@
 .card-img-top {
     background-color: #6d9c92;
     width: 26px;
+
    
+}
+.card {
+    background-image: url("./icons/BgPic.jpg");
+
 }
 .card-body {
     background-image: url("./icons/BgPic.jpg");
+    background-size: cover;
+    border-radius: 20px;
+}
+
+.card-text,.card-title {
+    font-weight: bold;
 }
 
 .firstMsgDiv {
@@ -302,8 +312,9 @@
 .firstletter {
     /*inlinen avulla p-tagien väliin ei tule rivinvaihtoa*/
     display: inline;
+    font-weight: bold;
     font-size: 200%;
-    color: #42f5f2;
+    color: black;
     text-transform: capitalize;
     
 }
@@ -321,6 +332,16 @@
     top:5px;
     right:130px;
 }
+.title {
+    text-align: center;
+    font-weight: bold;
+}
+.dropMenu {
+    position: absolute;
+    top:10px
+}
+ 
+
 /*
 .pswCB input[type="checkbox"] {
     display: flex;

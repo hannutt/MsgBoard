@@ -9,8 +9,9 @@ const MessageCards=(props)=>{
           
              {props.messages.map(message =>(
               /*col-div tarvitaan myös että korttien näyttö 3:n riveissä toimii*/
-              <div class="col">
-                <div class="card" style={{width: 12 +"rem"}}>
+              <div class="col" >
+                <div class="card">
+                
                 <img class="card-img-top" src={props.msgIcon}  alt="Card image cap"></img>
                 <div class="card-body">
                   <h5 class="card-title">{message.txtposttime}</h5>

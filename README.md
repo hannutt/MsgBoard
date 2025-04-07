@@ -3,7 +3,7 @@ Project keywords: Axios, React-Frontend, Node.js-Backend, MySQL, CSS, HTML, Boot
 
 A React application with a Node.js backend and a MySQL database. The main purpose of this app is to emulate message board and discussion forums.
 
-An example image of a login page that mimics the login view of commonly used web applications.
+An example image of a login page that mimics the login view of commonly used web applications. A CSS animation method is used on the right side of the input fields, where after the page loads, a 5-second animation is performed, where the color changes from blue to red and finally disappears. The idea is to draw the user's attention to the input fields.
 
 ![alt text](frontend/src/icons/loginExample.png)
 
@@ -15,9 +15,13 @@ MAIN FEATURES
 
 PROTECTED ROUTES
 
-The routes are secured with the React router V6. On the login page, the authentication token is stored in LocalStorage if the username and password are correct.then the private routes component uses the localstorage get item method to get a "true" value that authenticates access to other pages.
+The routes are secured with the React router V6. On the login page, the authentication token is stored in LocalStorage if the username and password are correct.then the private routes component uses the localstorage get item method to get a "true" value that authenticates access to other pages. The default value of the private route component is "False", which prevents access to routes without a successful login.
 
-The default value of the private route component is "False", which prevents access to routes without a successful login.
+VIEW CUSTOMIZATION
+
+User can change message view from default view to Bootstrap 5 card style. By clicking the checkbox, each message in the database will appear on own BS5 card. Example image where the user has switch the view to BS5 card style.
+
+![alt text](frontend/src/icons/BsCards.png)
 
 SWEARWORD FILTER
 
@@ -46,6 +50,11 @@ SQL SEARCH STATISTICS & CHARTJS
 All searches are saved in the search table. you can see the search statistics separated by search criteria in text and graphic form. The graphics are made with the ChartJS library. You can switch the displayed chart between a bar chart and a donut chart using a checkbox.
 
 The colors of the charjs bar can be changed with the options in the drop-down menu. each option has 3 different colors and after selection, the program changes the color of all three bars to the colors of the selected option. For example, the option Red/Green/Blue changes the first bar to red, the second to green, and the third to blue.
+
+Example image where the user has chosen to display the results in a ChartJS donut with a color combination of turquoise/light green/orange and blue.
+
+![alt text](frontend/src/icons/donut.png)
+
 
 LIKE / UNLIKE THE POST
 
@@ -90,8 +99,11 @@ The user can hide the text of any message by clicking the censor button. The cla
 
 STAR RATING Of MESSAGES
 
-The star rating system uses the Font awesome star icon and works on the same principle as the text censorship feature. The function receives the id of the selected message as a parameter, then the star class of the selected message is changed using the setAttribute method fa from the fa-star class to the fa-star-checked class, where the star color is defined as yellow. The class name of each star contains an id number, which allows the program to update the stars of the correct messages.
-You can give any post 1-5 stars by clicking on the star. the color of the star changes from black to yellow one by one.
+The star rating system uses the Font awesome star icon and works on the same principle as the text censorship feature. The function receives the id of the selected message as a parameter, then the star class of the selected message is changed using the setAttribute method fa from the fa-star class to the fa-star-checked class, where the star color is defined as yellow. The class name of each star contains an id number, which allows the program to update the stars of the correct messages. You can give any post 1-5 stars by clicking on the star. the color of the star changes from black to yellow one by one.
+
+Example image where a user has given a single post 4 stars/5
+
+![alt text](frontend/src/icons/stars.png)
 
 STAR RESET
 

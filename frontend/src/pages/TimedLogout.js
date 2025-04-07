@@ -1,10 +1,10 @@
 import { useState } from "react"
 
 const TimedLogout = (props) => {
-    const [selectedTime,setSelectedTime]=useState()
+    const [selectedTime, setSelectedTime] = useState()
     return (
         <div>
-            <select class="timedLogoutSelect" style={{width:140+'px'}} aria-label="Small select example" onChange={e=>setSelectedTime(e.target.value)}>
+            <select class="timedLogoutSelect" style={{ width: 140 + 'px' }} aria-label="Small select example" onChange={e => setSelectedTime(e.target.value)}>
                 <option selected>Select logout time</option>
                 <option value="5">5 seconds</option>
                 <option value="10">10 seconds</option>
@@ -12,9 +12,17 @@ const TimedLogout = (props) => {
                 <option value="30">30 seconds</option>
             </select>
             <br></br>
-            <label className="timedlogoutlbl" htmlFor="timelogoutCB">Verify timed logout</label>
-            {/*onchangessa lähetetään selectedtime eli valittu aika timedLogout funktiolle*/}
-            <input className="timelogoutCB" type="checkbox" id="timed" onChange={()=>props.timedLogout(selectedTime)}></input>
+            <span className="timedlogoutlbl">
+            <div class="form-check">
+                
+                     {/*onchangessa lähetetään selectedtime eli valittu aika timedLogout funktiolle*/}
+                <input class="form-check-input" type="checkbox" value="" id="timed" onClick={() => props.timedLogout(selectedTime)}></input>
+                    <label class="form-check-label" for="timed">Verify timed logout</label>
+            </div>
+  
+            </span>
+           
+          
         </div>
     )
 }
