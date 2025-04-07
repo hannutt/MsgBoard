@@ -7,7 +7,7 @@ An example image of a login page that mimics the login view of commonly used web
 
 ![alt text](frontend/src/icons/loginExample.png)
 
-Example image of a page showing all messages stored in a MySQL database. each message has its own buttons with which you can e.g. like, edit, censor a post, etc. Posts also have a CSS Flex style definition where each post has its own post area that is 33% wide
+Example image of a page showing all messages stored in a MySQL database. each message has its own buttons with which you can e.g. like, edit, censor a post, etc. Posts also have a CSS Flex style definition where each post has its own post area that is 33% wide. At the end of each post is a row of Bootstrap 5 style buttons that allow the user to like or dislike the post, edit the post, censor the post text, and reset the censored text. Most of the buttons use Bootstrap's primary button style, but the delete button uses Bootstrap 5's danger button style, and the censorship button uses BS5's warning style. This is done for a good user experience
 
 ![alt text](frontend/src/icons/msgBoardFront.png)
 

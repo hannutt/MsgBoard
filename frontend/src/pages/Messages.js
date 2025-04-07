@@ -309,27 +309,27 @@ const Messages = (props) => {
 
                         <div className="crudBtns">
                             {/*lähetetään postauksen id numero handleDelete fuktiolle*/}
-                            <button disabled={props.delBtnDisable} onClick={() => handleDelete(message.id, message.msgtxt)}>
+                            <button class="btn btn-danger btn-sm" disabled={props.delBtnDisable} onClick={() => handleDelete(message.id, message.msgtxt)}>
                                 <img className="alarm" src={alertIcon} ></img>
                                 <img src={binIcon} alt="remove icon"></img>
                             </button>
-                            <button onClick={() => handleLike(message.id)}>
+                            <button class="btn btn-primary btn-sm" onClick={() => handleLike(message.id)}>
                                 {/*png kuvan sisällytys button elementtiin.*/}
                                 <img src={likeIcon} alt="like icon"></img>
                             </button>
 
-                            <button className="delbtn" onClick={() => handleUnLike(message.id)}>
+                            <button class="btn btn-primary btn-sm" onClick={() => handleUnLike(message.id)}>
                                 <img src={unlikeIcon}></img>
                             </button>
-                            <button className="updateBtn">
+                            <button class="btn btn-primary btn-sm">
                                 {/*huomaa ikonia käyttäessä, että img tagin täytyy olla link tagin
                             sisällä, että linkitys toimii klikattaessa*/}
                                 <Link to={`/update/${message.id}`}><img src={updateIcon}></img></Link>
                             </button>
-                            <button className="censor" onClick={() => DoCensor(message.id)}>
+                            <button class="btn btn-warning btn-sm" onClick={() => DoCensor(message.id)}>
                                 <img src={censor}></img>
                             </button>
-                            <button onClick={() => resetStars(message.id)}><img src={reset}></img></button>
+                            <button class="btn btn-primary btn-sm" onClick={() => resetStars(message.id)}><img src={reset}></img></button>
                         </div>
 
                     </div>
