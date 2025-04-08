@@ -67,14 +67,23 @@
 
 
 .loginDiv {
+    display: flex;
+
     text-align: center;
+    align-items: center;
     margin: auto;
-    width: 45%;
+    width: 32%;
+    height: auto;
+    padding-left: 5px;
     /*syötekenttien ja painikkeiden taustakuva ns taustakuva taustakuvassa
     background-image:url("./icons/crudBtnBg.jpg");*/
     background-color: #748f8c;
-    border-radius: 15px;
+    border-radius: 25px;
+        /*nimetään animaation + kesto*/
 }
+
+  
+
 
 .matchCheck {
     color: green;
@@ -114,38 +123,21 @@
     
 }
 /*responsiivivuus määritys loginbtndiville*/
-@media(max-width:490px) {
+
     
 .loginBtnDiv {
-
+    align-items: center;
+    border-radius: 25px;
+    text-align: center;
+    
+   /*
     position: fixed;
     top: 98px;
     right: 375px;
-    width: 75px;
+    width: 75px;*/
 
-    background-color: blue;
-    animation-name: loginBtnAnimate;
-    animation-duration: 5s;
   }
   /*buttonin taustadivin väri muuttuu sinisestä keltaiseen ja takaisin siniseen.*/
-  @keyframes loginBtnAnimate {
-    from {background-color:blue;}
-    to {background-color: red;}
-}
-}
-
-.fields {
-    /*nimetään animaation + kesto*/
-    animation-name: fieldsAnimate;
-    animation-duration: 5s;
-}
-
-@keyframes fieldsAnimate {
-    /*aloitusväri*/
-    from {background-color:blue;}
-    /*lopetusväri ja paluu alkuperäiseen*/
-    to {background-color: red;}
-}
 
 
 .count {
