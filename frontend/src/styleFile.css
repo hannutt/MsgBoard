@@ -50,12 +50,10 @@
     background-image: url("./icons/BgPic.jpg");
 }
 
-.bannedWords {
-    position: relative;
-    white-space: nowrap;
-    color: red;
-    font-weight: bold;
-    left: 40px;
+.banned {
+    padding: 70px 0;
+    border: 3px solid green;
+    text-align: center;
 }
 
 

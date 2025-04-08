@@ -1,5 +1,5 @@
 
-Project keywords: Axios, React-Frontend, Node.js-Backend, MySQL, CSS, HTML, Bootstrap 5, Font awesome
+Project keywords: Axios, ReactJS NodeJS MySQL, CSS, HTML, Bootstrap 5, Profanity API
 
 A React application with a Node.js backend and a MySQL database. The main purpose of this app is to emulate message board and discussion forums.
 
@@ -25,7 +25,7 @@ User can change message view from default view to Bootstrap 5 card style. By cli
 
 SWEARWORD FILTER
 
-when you write messages, the program checks your sentences for swear words. if yes, the program will tell you about the use of prohibited words and you must remove them if you want to save your message in the database. This feature is made with a JavaScript list. the user's input is compared to a list of common English swear words.
+The application uses API Ninja's Profanity Filter API to detect profanity. After the user has typed text into the textarea filter and removed focus, the textarea onBlur event handler executes an action that sends the user's text to the API. If the API detects foul language, the user sees a notification informing them and is redirected back to the home page after 10 seconds.
 
 CAPTCHA 
 
