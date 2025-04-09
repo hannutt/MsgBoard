@@ -3,7 +3,9 @@ Project keywords: Axios, ReactJS NodeJS MySQL, CSS, HTML, Bootstrap 5, Profanity
 
 A React application with a Node.js backend and a MySQL database. The main purpose of this app is to emulate message board and discussion forums.
 
-An example image of a login page that mimics the login view of commonly used web applications. A CSS animation method is used on the right side of the input fields, where after the page loads, a 5-second animation is performed, where the color changes from blue to red and finally disappears. The idea is to draw the user's attention to the input fields.
+An example image of a login page that mimics the login view of commonly used web applications.  A user can log in by typing in the username and password fields or by using the voice login feature. Voice login listens to the user using the device's microphone and then populates the username and password fields with the values ​​it hears. The application uses the device's microphone for 20 seconds, after which it is closed. This feature is implemented using the JavaScript SpeechRecognition API.
+
+The Remember Me feature stores the username and password in LocalStorage. The login page uses a onload event in the body element, which is executed by a function that checks LocalStorage and places the username and password found there into the input fields.
 
 ![alt text](frontend/src/icons/loginExample.png)
 

@@ -2,6 +2,7 @@ import express from 'express';
 import mysql from "mysql2";
 import cors from "cors";
 import Mailgun from 'mailgun.js';
+import os from "node:os"
 //const mailgun = require('mailgun-js');
 const app = express();
 
@@ -303,4 +304,8 @@ app.delete("/messages/:id",(req,res)=>{
 
 app.listen(8800,()=>{
     console.log("connection ok!")
+})
+
+app.get("/devicename",(req,res)=>{
+    return res.json({device:os.hostname()})
 })

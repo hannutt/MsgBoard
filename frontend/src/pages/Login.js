@@ -17,10 +17,19 @@ const Login = () => {
     const [forgetPsw, setForgetPsw] = useState(false)
     const [type, setType] = useState('password')
     const [credentialError, SetCredentialError] = useState('Username or password is wrong')
+    var [deviceName,setDeviceName]=useState('')
 
-    const rememberMe = () => {
+    const rememberMe = async () => {
         localStorage.setItem('username', userName)
         localStorage.setItem('psw', psw)
+    }
+
+    const saveDeviceName= async () =>{
+        const res = await axios("http://localhost:8800/devicename")
+        setDeviceName(deviceName=res.data)
+        localStorage.setItem("devicename",deviceName.device)
+        console.log(deviceName.device)
+
     }
 
 
@@ -90,6 +99,60 @@ const Login = () => {
 
 
     }
+    const voiceLogin=(event)=>{
+        event.preventDefault();
+        console.log("listening")
+        var seconds = 20
+     
+        //vähennetään seconds muuttujasta luku 1 joka sekunti ja näytetän muuttuva luku html-elementissä
+        var interval= setInterval(() => {
+            seconds=seconds-1
+            console.log(seconds)
+           
+          
+            if (seconds===0)
+            {
+                clearInterval(interval)
+              
+            }
+            
+        }, 1000);
+    
+        const recognitionSvc = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new recognitionSvc();
+        var resList = []
+        recognition.lang = 'en-GB';
+        // Start the speech recognition
+        recognition.start();
+        recognition.onresult = (event) => {
+            // iterate through speech recognition results
+            for (const result of event.results) {
+                // Print the transcription to the console
+                console.log(`${result[0].transcript}`);
+                //talleteaan lausutut sanat listaan, että niitä voidan hyödyntää input-kenttiin sijoittamisessa
+                resList.push(result[0].transcript)
+    
+    
+            }
+            document.getElementById("user").value = resList[0]
+            //listan viimeinen elementti
+            var lastItem = resList.pop()
+            document.getElementById("psw").value = lastItem
+            console.log(resList)
+    
+    
+    
+            setTimeout(() => {
+                recognition.stop();
+                console.log("stopped")
+                resList = []
+    
+            }, 20000);
+    
+         
+        }
+    }
+    
     return (
 
         <div onLoad={checkLocalStorage} className="loginDiv">
@@ -99,7 +162,7 @@ const Login = () => {
 
             {/*onchange eli kun syötekentän sisältö muuttuu, sisältö talletetaan state muuttujaan (e.target.value
             )*/}
-            <form onSubmit={handleSubmit}>
+            <form>
 
                 <p>{caps}</p>
 
@@ -117,10 +180,10 @@ const Login = () => {
                     <input id="psw" name="psw" type={type} placeholder="password" value={psw} onChange={e => setPsw(e.target.value)} onKeyUp={(e) => handleKeyPress(e)} ></input>
                     <button style={{ marginLeft: 5 + "px" }} class="btn btn-light btn-sm" onClick={showPsw}><img src={eyeIcon} alt="eye/hide"></img></button>
                     <br></br><br></br>
-                    <button class="btn btn-primary btn-sm" style={{ marginRight: 15 + "px" }}>Login</button>
+                    <button class="btn btn-primary btn-sm" onClick={handleSubmit} style={{ marginRight: 15 + "px" }}>Login</button>
                     <button class="btn btn-info btn-sm">
                         <Link to="/create" className="createLink">Create account</Link></button>
-                        <button class="btn btn-primary btn-sm" style={{ marginLeft: 15 + "px" }}>Voice Login</button>
+                        <button class="btn btn-primary btn-sm" onClick={voiceLogin} style={{ marginLeft: 15 + "px" }}>Voice Login</button>
                     <br></br><br></br>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" id="forgotPsw" onChange={() => setForgetPsw(!forgetPsw)}></input>
