@@ -1,6 +1,6 @@
 const SrcDrop=(props)=>{
     return(
-        <div class="dropdown show">
+        <div class="dropdown show" style={{ marginLeft: 10 + "px" }}>
         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Search filters
         </a>

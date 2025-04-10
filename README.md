@@ -27,7 +27,7 @@ User can change message view from default view to Bootstrap 5 card style. By cli
 
 SWEARWORD FILTER
 
-The app uses API Ninja's Profanity Filter API to detect profanity. After the user has typed text into the textarea filter and removed focus, the textarea onBlur event handler executes an action that sends the user's text to the API. If the API detects foul language, the user will see a Modal that tells them that the message contains profanity. The modal is created using the reactjs-popup library, see the example image below.
+The app uses API Ninja's Profanity Filter API to detect profanity. After the user has typed text into the textarea filter and removed focus, the textarea onBlur event handler executes an action that sends the user's text to the API. If the API detects foul language, the user will see a Modal that tells them that the message contains profanity. The modal is created using the reactjs-popup library. In the example image, the Filter API recognizes the word "Damn it" in the sentence.
 
 ![alt text](frontend/src/icons/swfilter.png)
 
@@ -41,6 +41,10 @@ The search component is the so-called unmanaged component so I use the useRef me
 The search result view is editable, you can hide unnecessary information using check boxes. By clicking on them, the state variable changes the hidden value of the html elements between true/false
 
 You can also choose whether you want to see the results of the sql query in a div element or a table element by clicking the checkbox.
+
+Example image where the user has searched for messages with the keyword "under".
+
+![alt text](frontend/src/icons/search.png)
 
 ERROR HANDLING IN SQL QUERY AND INCORRECT USERNAME OR PASSWORD CASE
 

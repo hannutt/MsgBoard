@@ -138,35 +138,35 @@ const Search = () => {
 
     return (
         <div>
-            <nav aria-label="breadcrumb">
+            <nav aria-label="breadcrumb"style={{ marginLeft: 10 + "px" }}>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#"><Link to="/messages">Messages</Link></a></li>
                     <li class="breadcrumb-item"><a href="#"><Link to="/search">Search</Link></a></li>
-                   
+
                 </ol>
             </nav>
             <Logout />
-            <h3>Search options</h3>
+            <h3 style={{ marginLeft: 10 + "px" }}>Search options</h3>
             {/*state-muuttujien lähetys srcDrop komponentille */}
-            <SrcDrop Byid={Byid} setById={setById} ByDate={ByDate} setByDate={setByDate} ByKeyword={Bykeyword} setByKeyword={setByKeyword} mostLikes={mostLikes} setMostLikes={setMostLikes} />
+            <SrcDrop  Byid={Byid} setById={setById} ByDate={ByDate} setByDate={setByDate} ByKeyword={Bykeyword} setByKeyword={setByKeyword} mostLikes={mostLikes} setMostLikes={setMostLikes} />
             {ByDate && <DatePicker dateFormat={"dd.MM.yyyy"} selected={startDate} onChange={(date) => setStartDate(date)} />}
             {/*onChange={(date) => setStartDate(date)} */}
 
 
             <br></br>
-            <form onSubmit={handleSearch}>
-                <input id="src" type="text" ref={keywordRef} placeholder="Id, date or keyword" />
-                <div className="srcBtn">
-                    <button class="btn btn-primary btn-sm" type="submit">Search <span class="badge text-bg-secondary"><img src={zoom}></img></span></button>
-                </div>
-            </form>
-            <br></br>
-            <div className="statsBtn">
-                <button class="btn btn-primary btn-sm" onClick={statistics}> Show search statistics</button>
-            </div>
-            <label hidden={CBhide} htmlFor="hideId">Hide id</label>
-            <input hidden={CBhide} type="checkbox" id="hideId" onChange={() => setHideId(!hideId)}></input>
-            <div>
+            <div className="flex-search">
+                <form onSubmit={handleSearch}>
+                    <div>
+                        <input id="src" type="text" ref={keywordRef} placeholder="Id, date or keyword" style={{ marginLeft: 10 + "px" }} />
+
+                        <button class="btn btn-primary btn-sm" style={{ marginLeft: 10 + "px" }} type="submit">Search</button>
+                    </div>
+
+                </form>
+
+
+                <button class="btn btn-primary btn-sm" style={{ marginLeft: 10 + "px" }} onClick={statistics}> Show search statistics</button>
+
 
 
             </div>
@@ -271,6 +271,8 @@ const Search = () => {
 
             {results.map(message => (
                 <div>
+                    <h3 className="srcTitle">Search results</h3>
+                    <br></br>
                     <table className="tableMessages" hidden={dataInTable}>
                         <tr>
                             <td>ID</td>
@@ -287,8 +289,15 @@ const Search = () => {
                             <td>{message.unlikes}</td>
                         </tr>
                     </table>
-                    <label htmlFor="inTable">Show data in div</label>
-                    <input id="inTable" type="checkbox" onClick={handleTable}></input>
+                    <br></br>
+                   
+                    <div class="form-check">
+        
+                            <label class="form-check-label" for="inTable">Show data in div</label>
+                            <input class="form-check-input" type="checkbox" value="" id="inTable" onClick={handleTable}></input>
+                            
+                    </div>
+              
                 </div>
             ))}
 
