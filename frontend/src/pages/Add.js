@@ -2,8 +2,11 @@ import { useState } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import axios from 'axios';
 import Logout from "../pages/LogOut";
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 const Add = () => {
-    var [profanity, setProfanity] = useState()
+    var [profanity, setProfanity] = useState(false)
+   
     //päivämääräolio asetetaan value komennolla automaattisesti
     //input kenttään. readOnly eli ajankohtaa ei pysty muokkaamaan input kentässä.
     let date = new Date().toLocaleDateString("fi-FI");
@@ -27,28 +30,7 @@ const Add = () => {
     //muuttujaan.
     const userName = location.pathname.split("/")[2]
 
-    const randNums = () => {
-        setRandom1(Math.floor(Math.random() * 11))
-        setRandom2(Math.floor(Math.random() * 11))
-
-
-    }
-
-
-    const doMath = () => {
-        const expression = document.getElementById("pattern").innerHTML
-        const answer = document.getElementById("res").value
-        const result = eval(expression)
-        if (result == answer) {
-            setDisabled(!disabledSt)
-            setHidePattern(!hidePattern)
-        }
-        else {
-            setDisabled(true)
-        }
-
-
-    }
+  
 
     const backToFrontpage = () => {
         navigate("/")
@@ -58,7 +40,7 @@ const Add = () => {
         var text = document.getElementById("msg").value
         let options = {
             method: 'GET',
-            headers: { 'x-api-key': `${process.env.REACT_APP_apk}`}
+            headers: { 'x-api-key': '' }
         }
 
         let url = `https://api.api-ninjas.com/v1/profanityfilter?text=${text}`
@@ -66,7 +48,7 @@ const Add = () => {
             .then(res => res.json()) // parse response as JSON
             .then(data => {
                 setProfanity(profanity = data.has_profanity)
-                console.log(profanity)
+              
             })
             .catch(err => {
                 console.log(`error ${err}`)
@@ -98,71 +80,62 @@ const Add = () => {
         }
     }
     if (profanity) {
-        //palsutetaan banned komponentti ja ja navigaten avulla palataan etusivulle 5 sekunin kuluttua
-        setTimeout(() => {
-            navigate('/messages')
-        }, redirectTime)
-
-        return (
-            //statemuuttujan välitys banned komponentille
-            <Banned time={redirectTime} />
-
-
-        )
+        document.getElementById("button").click()
+        setProfanity(!profanity)
+      
 
 
     } else {
         console.log(message)
-        return (
-            <div className="addForm">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#"><Link to="/messages">Messages</Link></a></li>
-                        <li class="breadcrumb-item"><a href="#"><Link to="/Add">Add</Link></a></li>
-                    </ol>
-                </nav>
-                <Logout />
-
-                <h3>Send a new message as {userName}</h3>
-
-                <div class="mb-3">
-                    <label for="postDate" class="form-label">Message sent date: </label>
-                    <input type="text" id="postDate"   readOnly value={date} name="postDate" size={11} onChange={handleChange}></input>
-                    <hr></hr>
-                    <textarea class="form-control" placeholder="Your message" id="msg" name="message" maxLength={255} onChange={handleChange} onBlur={wordCheck}></textarea>
-                    <hr></hr>
-                    
-                    <button class="btn btn-secondary" onClick={handleClick} >Save message</button><br></br>
-                    <p> Message length:{countChars}/255</p>
-                </div>
-                <br></br>
-                
-
-
-            </div>
-        )
-
     }
-
-
-
-}
-const Banned = (props) => {
     return (
-    
+        <div className="addForm">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#"><Link to="/messages">Messages</Link></a></li>
+                    <li class="breadcrumb-item"><a href="#"><Link to="/Add">Add</Link></a></li>
+                </ol>
+            </nav>
+            <Logout />
+            <div hidden>
+            <Modal/></div>
 
-        
-        <div className="banned">
-            
-            <h2 >You try to use a Banned words! You will be
-                {/*statemuuttujan jako tuhannella eli millisekunnit sekunneiksi*/}
-                automatically redirected to the home page after {props.time / 1000} seconds.</h2>
+            <center>
+            <h3>Send a new message as {userName}</h3>
+            </center>
+
+            <center>
+            <div class="mb-3 w-25">
+               
                 
-                </div>
-            
-        
+                <input type="text" id="postDate" readOnly value={date} name="postDate" size={11} onChange={handleChange}></input>
+                <hr></hr>
+                <textarea class="form-control" placeholder="Your message" id="msg" name="message" rows={3} maxLength={255} onChange={handleChange} onBlur={wordCheck}></textarea>
+                <hr></hr>
 
+                <button class="btn btn-secondary" onClick={handleClick} >Save message</button><br></br>
+                <p> Message length: {countChars}</p>
+            </div>
+            </center>
+            <br></br>
+
+
+
+        </div>
     )
+
 }
+
+
+const Modal = () => (
+    <Popup trigger={<button id="button"> Open Modal </button>} position={"top left"} modal>
+        
+        <div className="header">WARNING</div>
+      <div className="content">You use swear words in your message.</div>
+      
+    </Popup>
+  );
+
+
 
 export default Add;

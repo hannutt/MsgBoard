@@ -335,6 +335,22 @@
 }
  
 
+  .header {
+    background-color: #86bfb1;
+    width: 100%;
+    border-bottom: 1px solid gray;
+    font-size: 20px;
+    color: #eb1520;
+    text-align: center;
+    padding: 5px;
+  }
+  .content {
+    font-size: 18px;
+    text-align: center;
+    background-color: #86bfb1;
+    width: 100%;
+    padding: 10px 5px;
+  }
 /*
 .pswCB input[type="checkbox"] {
     display: flex;

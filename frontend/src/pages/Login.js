@@ -24,13 +24,14 @@ const Login = () => {
         localStorage.setItem('psw', psw)
     }
 
+    /*
     const saveDeviceName= async () =>{
         const res = await axios("http://localhost:8800/devicename")
         setDeviceName(deviceName=res.data)
         localStorage.setItem("devicename",deviceName.device)
         console.log(deviceName.device)
 
-    }
+    }*/
 
 
     const handleSubmit = (event) => {

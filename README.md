@@ -27,11 +27,10 @@ User can change message view from default view to Bootstrap 5 card style. By cli
 
 SWEARWORD FILTER
 
-The application uses API Ninja's Profanity Filter API to detect profanity. After the user has typed text into the textarea filter and removed focus, the textarea onBlur event handler executes an action that sends the user's text to the API. If the API detects foul language, the user sees a notification informing them and is redirected back to the home page after 10 seconds.
+The app uses API Ninja's Profanity Filter API to detect profanity. After the user has typed text into the textarea filter and removed focus, the textarea onBlur event handler executes an action that sends the user's text to the API. If the API detects foul language, the user will see a Modal that tells them that the message contains profanity. The modal is created using the reactjs-popup library, see the example image below.
 
-CAPTCHA 
+![alt text](frontend/src/icons/swfilter.png)
 
-When the user leaves a new message, the program asks for the result of a simple addition. The numbers are randomly between 1-10, and if the user gives a correct result, the save message button will change from disabled to enabled. This is done with the javascript math.random, eval and input field onBlur methods.
 
 SQL SEARCHES
 
