@@ -3,16 +3,20 @@ import mysql from "mysql2";
 import cors from "cors";
 import Mailgun from 'mailgun.js';
 import os from "node:os"
-//const mailgun = require('mailgun-js');
+import axios from 'axios';
+import * as dotenv from 'dotenv'
+dotenv.config({ path:'../backend/.env' })
+
+
 const app = express();
 
 
 
 const db = mysql.createConnection({
-    host:"localhost",
-    user:"root",
-    password:"Root512!",
-    database:"msgdb"
+    host:process.env.host,
+    user:process.env.user,
+    password:process.env.psw,
+    database:process.env.dbName
     
 })
 app.use(express.json())
@@ -22,6 +26,7 @@ app.use(express.json())
 app.use(cors())
 //näytetään localhost:8800 alla oleva teksti.
 app.get("/",(req,res)=>{
+    console.log(process.env.dbName)
     res.json("hello from backend")
 })
 //get-metodilla haetaan queryn mukaisesti kaikki data memoryvalues taulusta.
@@ -269,18 +274,21 @@ app.post("/login",(req,res)=>{
     })
 })
 
-app.post("/check",(req,res)=>{
-    const q = "SELECT `psw` FROM login WHERE email = ? AND username = ?"
+
+app.post("/check/:email",(req,res)=>{
+    const q = "SELECT `psw` FROM login WHERE email = ?"
+    var mailAdd=req.params.email
     //const values = [re.body.emailAdd]
-    db.query(q,[req.body.emailAdd,req.body.user],(err,data)=>{
+    db.query(q,[req.params.email],(err,data)=>{
         if(err) return res.json("email not found")
             //jos datan pituus on suurempi kuin 0 merkkiä eli käytännössä jos syötetyt arvot
         //löytyvät
         if (data.length>0) {
+            console.log(data)
+            sendMail(mailAdd,data)
             return res.json(data)
+            
         }
-        else if (data.length<=0)
-            return res.json(data)
             
 
     })
@@ -309,3 +317,32 @@ app.listen(8800,()=>{
 app.get("/devicename",(req,res)=>{
     return res.json({device:os.hostname()})
 })
+async function sendMail(Email,psw) {
+    var pswtext=psw.toString()
+    try {
+
+        
+        const api = axios.create({
+            baseURL: "https://api.smtpexpress.com/",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${apk}`,
+            },
+        });
+        const body = {
+            subject: "Your password",
+            message: `<h4> Hello </h4>`,
+            sender: {
+                name: "Traffic Helper",
+                email: "traffic-helper-b1134d@smtpexpress.email",
+            },
+            recipients: {
+                email: Email,
+            },
+        };
+        const response = await api.post("send", body);
+        console.log(response.data);
+    } catch (error) {
+        console.error("Error sending email:", error);
+    }
+}

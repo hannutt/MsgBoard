@@ -122,8 +122,6 @@ With the help of the CSS-flex feature, 3 messages are always displayed in one li
 In the message view, text align is editable. You can align the message text to the center or to the
 left by clicking the checkbox.
 
-The login page has CSS animations. When the login pages load, the background of the login input fields changes from blue to red and back to blue. This is done with CSS animation and keyframe properties.
-
 Bootstrap 5
 
 The application's html buttons are made with Bootstrap 5 button components. The Message and Search components also has a Bootstrap 5 drop-down menu where you can find links to new post page and search page.
