@@ -7,6 +7,7 @@ import Messages from "./Messages";
 import PrivateRoutes from "./PrivateRoutes";
 import ErrorPage from "./ErrorPage";
 import account from "../icons/account.png"
+import MailSender from "./mailSender";
 const Login = () => {
 
     const navigate = useNavigate()
@@ -167,24 +168,25 @@ const Login = () => {
 
                 <p>{caps}</p>
 
-                <div className="fields">
-
-
-                </div>
-                <br></br><br></br>
+              
+               
                 <div className="loginBtnDiv">
                     <img src={account}></img>
-                    <h2>Login Page</h2>
+                    <h3>Login Page</h3>
 
                     <br></br>
-                    <input type="text"  name="user" id="user" placeholder="username" style={{ marginRight: 10 + "px" }} onChange={e => setUserName(e.target.value)} onKeyUp={(e) => handleKeyPress(e)}></input>
+                    <input type="text"  name="user" id="user" className="user" placeholder="username" onChange={e => setUserName(e.target.value)} onKeyUp={(e) => handleKeyPress(e)}></input>
                     <input id="psw" name="psw" type={type} placeholder="password" value={psw} onChange={e => setPsw(e.target.value)} onKeyUp={(e) => handleKeyPress(e)} ></input>
-                    <button style={{ marginLeft: 5 + "px" }} class="btn btn-light btn-sm" onClick={showPsw}><img src={eyeIcon} alt="eye/hide"></img></button>
+                    <button style={{ marginLeft: 5 + "px" }} class="btn btn-light btn-sm p-0" onClick={showPsw}><img src={eyeIcon} alt="eye/hide"></img></button>
                     <br></br><br></br>
-                    <button class="btn btn-primary btn-sm" onClick={handleSubmit} style={{ marginRight: 15 + "px" }}>Login</button>
+                    <span className="loginButton">
+                    <button class="btn btn-primary btn-sm" onClick={handleSubmit}>Login</button>
+                    </span>
                     <button class="btn btn-info btn-sm">
                         <Link to="/create" className="createLink">Create account</Link></button>
-                        <button class="btn btn-primary btn-sm" onClick={voiceLogin} style={{ marginLeft: 15 + "px" }}>Voice Login</button>
+                        <span className="voiceLoginButton">
+                        <button class="btn btn-primary btn-sm" onClick={voiceLogin}>Voice Login</button>
+                        </span>
                     <br></br><br></br>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" id="forgotPsw" onChange={() => setForgetPsw(!forgetPsw)}></input>
@@ -195,7 +197,7 @@ const Login = () => {
                         <label class="form-check-label" for="remMe">Remember me?</label>
                     </div>
                     {/*jos forget on true eli checkboksia klikattu navigoidaan /mail eli näyteään mailsender komp.*/}
-                    {forgetPsw && navigate("/mail")}
+                    {forgetPsw && <MailSender/>}
 
                 </div>
             </form>

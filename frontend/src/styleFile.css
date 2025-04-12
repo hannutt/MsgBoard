@@ -377,3 +377,9 @@
     border-width: 3px;
     color: red;
 }
+.user,.loginButton{
+    margin-right: 15px;
+}
+.voiceLoginButton {
+    margin-left: 15px;
+}

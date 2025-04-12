@@ -49,7 +49,8 @@ function App() {
           {/*nämä ei ole suojattuja routeja, eli niihin pääsee kirjautumatta*/}
           <Route path="/create" element={<CreateAccount/>}/>
           <Route path='/' element={<Login/>}/>
-          <Route path="/mail" element={<MailSender/>}/>
+          {/*
+          <Route path="/mail" element={<MailSender/>}/>*/}
           <Route path="/error" element={<ErrorPage/>}/>
           
       </Routes>
