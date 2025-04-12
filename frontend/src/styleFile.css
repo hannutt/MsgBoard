@@ -92,6 +92,8 @@
 .searchView {
     background-image: url("./icons/BgPic.jpg");
     border: 2px solid;
+    overflow: visible;
+    
 }
 
 .logout {
@@ -204,6 +206,9 @@
 .stats{
     text-align: center;
     background-color: #6d9c92;
+    max-height: 400px;
+    max-width: 400px;
+    border-radius: 25px;
 }
 .colSelect {
     width: 180px;
@@ -360,9 +365,15 @@
     width: 100%;
     padding: 10px 5px;
   }
-/*
-.pswCB input[type="checkbox"] {
-    display: flex;
-    flex-flow: row;
-  }*/
-  
+
+.breadcrumb,.searchH3 {
+    margin-left: 10px;
+}
+.breadcrumb {
+    background-color: #cdcfd1;
+   /* padding: 25;*/
+}
+.isolator {
+    border-width: 3px;
+    color: red;
+}

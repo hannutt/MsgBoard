@@ -17,7 +17,7 @@ const Search = () => {
     const [results, setResults] = useState([])
     const [ByDate, setByDate] = useState(false)
     const [Byid, setById] = useState(false)
-    const [hideId, setHideId] = useState(false)
+
     const [CBhide, setCBhide] = useState(true)
     const [Bykeyword, setByKeyword] = useState(false)
     const [dataInTable, setDataInTable] = useState(true)
@@ -138,7 +138,7 @@ const Search = () => {
 
     return (
         <div>
-            <nav aria-label="breadcrumb"style={{ marginLeft: 10 + "px" }}>
+            <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#"><Link to="/messages">Messages</Link></a></li>
                     <li class="breadcrumb-item"><a href="#"><Link to="/search">Search</Link></a></li>
@@ -146,9 +146,9 @@ const Search = () => {
                 </ol>
             </nav>
             <Logout />
-            <h3 style={{ marginLeft: 10 + "px" }}>Search options</h3>
+            <h3 className="searchH3">Search options</h3>
             {/*state-muuttujien lähetys srcDrop komponentille */}
-            <SrcDrop  Byid={Byid} setById={setById} ByDate={ByDate} setByDate={setByDate} ByKeyword={Bykeyword} setByKeyword={setByKeyword} mostLikes={mostLikes} setMostLikes={setMostLikes} />
+            <SrcDrop Byid={Byid} setById={setById} ByDate={ByDate} setByDate={setByDate} ByKeyword={Bykeyword} setByKeyword={setByKeyword} mostLikes={mostLikes} setMostLikes={setMostLikes} />
             {ByDate && <DatePicker dateFormat={"dd.MM.yyyy"} selected={startDate} onChange={(date) => setStartDate(date)} />}
             {/*onChange={(date) => setStartDate(date)} */}
 
@@ -166,10 +166,8 @@ const Search = () => {
 
 
                 <button class="btn btn-primary btn-sm" style={{ marginLeft: 10 + "px" }} onClick={statistics}> Show search statistics</button>
-
-
-
             </div>
+            <br></br>
 
             {searches.map(s => (
                 <div hidden={showStats} className="stats">
@@ -178,56 +176,63 @@ const Search = () => {
                     <p>Searches by Keyword: {s.bykeyword}</p>
                     <p>Searches by likes: {s.byliked}</p>
 
-                    <label htmlFor="dg">{chartTxt}</label>
-                    <input type="checkbox" id="dg" onChange={changeChart}></input>
+                    <input class="form-check-input" type="checkbox" onChange={changeChart} id="dg"></input>
+                        <label class="form-check-label" for="dg">{chartTxt}</label>
 
+                      
 
-                    {/*colorselect komponentti muuttaa propsina saamansa staten arvoa
+                        {/*colorselect komponentti muuttaa propsina saamansa staten arvoa
        state on määritelty Search komponentissa mutta sen arvoa voi muuttaa toisessa*/}
-                    <br></br>
-                    <ColorSelect setSelection={setSelection} selection={selection} changeBarColors={changeBarColors} />
-                    <br></br>
-                    {/*}
+                        <br></br>
+                        <ColorSelect setSelection={setSelection} selection={selection} changeBarColors={changeBarColors} />
+                        <br></br>
+                        {/*}
         <button id="changeBarColorBtn" class="btn btn-primary btn-sm" onClick={changeBarColors}>Change colors</button>*/}
 
-                    {/*bar chartin piirto*/}
-                    <Bar hidden={bar} style={{ width: 800 + "px", height: 40 + "px" }}
+                        {/*bar chartin piirto*/}
+                        <Bar hidden={bar}
 
 
-                        options={{
-                            //kokosuhde
-                            aspectRatio: 3,  // this would be a 1:1 aspect ratio
-                        }}
-                        data={{
-                            labels: ["By id", "By date", "By keyword", "By likes"],
-                            datasets: [
-                                {
-                                    label: "Searches by",
-                                    data: [s.byid, s.bydate, s.bykeyword, s.byliked],
-                                    //taustavärit saadaan selection lista alkioista 0-2
-                                    backgroundColor: [selection[0], selection[1], selection[2], selection[3]]
-
+                            options={{
+                                scales: {
+                                    xAxes: [{
+                                        // number (pixels) or 'flex'
+                                        maxBarThickness: 25 // number (pixels)
+                                    }]
                                 },
-                            ],
-                        }}
+                                //kokosuhde
+                                aspectRatio: 2,  // this would be a 1:1 aspect ratio
+                            }}
+                            data={{
+                                labels: ["By id", "By date", "By keyword", "By likes"],
+                                datasets: [
+                                    {
+                                        label: "Searches by",
+                                        data: [s.byid, s.bydate, s.bykeyword, s.byliked],
+                                        //taustavärit saadaan selection lista alkioista 0-2
+                                        backgroundColor: [selection[0], selection[1], selection[2], selection[3]]
 
-                    />
-                    {/*donitsikaavio jos dg-state on true*/}
-                    {dg && <Doughnut
-                        options={{
-                            //kokosuhde
-                            aspectRatio: 3,  // this would be a 1:1 aspect ratio
-                        }}
-                        data={{
-                            labels: ["By id", "By date", "By keyword", "By likes"],
-                            datasets: [
-                                {
-                                    label: "Searches by",
-                                    data: [s.byid, s.bydate, s.bykeyword, s.byliked],
-                                    backgroundColor: [selection[0], selection[1], selection[2], selection[3]]
-                                },
-                            ],
-                        }} />}
+                                    },
+                                ],
+                            }}
+
+                        />
+                        {/*donitsikaavio jos dg-state on true*/}
+                        {dg && <Doughnut
+                            options={{
+                                //kokosuhde
+                                aspectRatio: 3,  // this would be a 1:1 aspect ratio
+                            }}
+                            data={{
+                                labels: ["By id", "By date", "By keyword", "By likes"],
+                                datasets: [
+                                    {
+                                        label: "Searches by",
+                                        data: [s.byid, s.bydate, s.bykeyword, s.byliked],
+                                        backgroundColor: [selection[0], selection[1], selection[2], selection[3]]
+                                    },
+                                ],
+                            }} />}
 
 
                 </div>
@@ -235,20 +240,27 @@ const Search = () => {
             ))}
 
 
-            {results.map(result => (
-                <div className="searchView" hidden={dataInDiv} key={result.id}>
-                    <p hidden={hideId}>Message id: {result.id}</p>
-                    <p>Message text: {result.msgtxt}</p>
-                    <p>Message post date: {result.txtposttime}</p>
-                    <label htmlFor="inTable">Show data in table</label>
-                    <input id="inTable" type="checkbox" onClick={handleTable}></input>
-                </div>
-            ))}
+
+            <div className="searchView" hidden={dataInDiv} >
+                {results.map(result => (
+                    <span key={result.id}>
+                        <p hidden>{result.id}</p>
+                        <p>Message text: {result.msgtxt}</p>
+                        <p>Message post date: {result.txtposttime}</p>
+                        <hr className="isolator"></hr>
+                    </span>
+                ))}
+                {/* checkbox silmukan ulkopuolelle*/}
+                <input class="form-check-input" type="checkbox" value="" id="inTable" onClick={handleTable}></input>
+                <label class="form-check-label" for="inTable">Show data in table</label>
+
+            </div>
+
 
             {likeData.map(l => (
                 <div className="mostLikes" key={l.id}>
                     <h3>Most liked post</h3>
-                    <p hidden={hideId}>Message id: {l.id}</p>
+                    <p hidden>{l.id}</p>
                     <p>Message text: {l.msgtxt}</p>
                     <p>Likes: {l.likes}</p>
                     {/*}
@@ -259,7 +271,7 @@ const Search = () => {
             {unLikeData.map(u => (
                 <div className="mostLikes" key={u.id}>
                     <h3>Least liked post</h3>
-                    <p hidden={hideId}>Message id: {u.id}</p>
+                    <p hidden>{u.id}</p>
                     <p>Message text: {u.msgtxt}</p>
                     <p>Unlikes: {u.unlike}</p>
                     {/*}
@@ -269,37 +281,41 @@ const Search = () => {
             ))}
 
 
-            {results.map(message => (
-                <div>
-                    <h3 className="srcTitle">Search results</h3>
-                    <br></br>
-                    <table className="tableMessages" hidden={dataInTable}>
+
+            <div>
+                <h3 className="srcTitle" hidden={dataInTable}>Search results</h3>
+                <br></br>
+                <table className="tableMessages" hidden={dataInTable}>
+                    <tr>
+                        <td>ID</td>
+                        <td>Message</td>
+                        <td>Posted</td>
+                        <td>Likes</td>
+                        <td>Unlikes</td>
+                    </tr>
+                    {/*map eli toisto tähän kohtaa niin kaikki löydetyt tulokset näkyvät samassa tablessa*/}
+                    {results.map(message => (
                         <tr>
-                            <td>ID</td>
-                            <td>Message</td>
-                            <td>Posted</td>
-                            <td>Likes</td>
-                            <td>Unlikes</td>
-                        </tr>
-                        <tr>
+
                             <td>{message.id}</td>
                             <td>{message.msgtxt}</td>
                             <td>{message.txtposttime}</td>
                             <td>{message.likes}</td>
                             <td>{message.unlikes}</td>
                         </tr>
-                    </table>
-                    <br></br>
-                   
-                    <div class="form-check">
-        
-                            <label class="form-check-label" for="inTable">Show data in div</label>
-                            <input class="form-check-input" type="checkbox" value="" id="inTable" onClick={handleTable}></input>
-                            
-                    </div>
-              
+                    ))}
+                </table>
+                <br></br>
+
+                <div class="form-check">
+
+                    <label class="form-check-label" for="inTable">Show data in div</label>
+                    <input class="form-check-input" type="checkbox" value="" id="inTable" onClick={handleTable}></input>
+
                 </div>
-            ))}
+
+            </div>
+
 
 
             {/*ehdollinen renderöinti jos nomatch on true näytetään errorpage
