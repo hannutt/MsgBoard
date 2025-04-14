@@ -1,13 +1,23 @@
 import express from 'express';
 import mysql from "mysql2";
 import cors from "cors";
-import Mailgun from 'mailgun.js';
+
 import os from "node:os"
 import axios from 'axios';
 import * as dotenv from 'dotenv'
+import nodemailer from "nodemailer"
+
 dotenv.config({ path:'../backend/.env' })
 
-
+const transporter = nodemailer.createTransport({
+    host: "smtp.mailersend.net",
+    port: 2525,
+    secure: false, // true for port 465, false for other ports
+    auth: {
+      user: process.env.msUser,
+      pass: process.env.msPsw,
+    },
+  });
 const app = express();
 
 
@@ -278,18 +288,16 @@ app.post("/login",(req,res)=>{
 app.post("/check/:email",(req,res)=>{
     const q = "SELECT `psw` FROM login WHERE email = ?"
     var mailAdd=req.params.email
-    //const values = [re.body.emailAdd]
-    db.query(q,[req.params.email],(err,data)=>{
+    db.query(q,[req.params.email], (err,data)=>{
         if(err) return res.json("email not found")
-            //jos datan pituus on suurempi kuin 0 merkkiä eli käytännössä jos syötetyt arvot
+        //jos datan pituus on suurempi kuin 0 merkkiä eli käytännössä jos syötetyt arvot
         //löytyvät
         if (data.length>0) {
             console.log(data)
-            sendMail(mailAdd,data)
-            return res.json(data)
             
-        }
-            
+            //main toteuttaa sähköpostin lähetyksen nodemailerin avulla
+            main(mailAdd,data)           
+        }          
 
     })
 })
@@ -317,32 +325,20 @@ app.listen(8800,()=>{
 app.get("/devicename",(req,res)=>{
     return res.json({device:os.hostname()})
 })
-async function sendMail(Email,psw) {
-    var pswtext=psw.toString()
-    try {
-
-        
-        const api = axios.create({
-            baseURL: "https://api.smtpexpress.com/",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${apk}`,
-            },
-        });
-        const body = {
-            subject: "Your password",
-            message: `<h4> Hello </h4>`,
-            sender: {
-                name: "Traffic Helper",
-                email: "traffic-helper-b1134d@smtpexpress.email",
-            },
-            recipients: {
-                email: Email,
-            },
-        };
-        const response = await api.post("send", body);
-        console.log(response.data);
-    } catch (error) {
-        console.error("Error sending email:", error);
-    }
-}
+//sähköpostin lähetys
+async function main(mailAdd,psw) {
+    //salasanan muunto objektista json-merkkijonoksi. Ilman tätä sähköpostin teksti olisi [object object] muodossa.
+    var pswConvert=JSON.stringify(psw)
+    const info = await transporter.sendMail({
+      from: process.env.msAdd, 
+      to: mailAdd, 
+      subject: "Your password", 
+      text: pswConvert,
+     
+    });
+  
+    console.log("Message sent: %s", info.messageId);
+    // Message sent: <d786aa62-4e0a-070a-47ed-0b0666549519@ethereal.email>
+  }
+  
+  main().catch(console.error);
