@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom";
 
 const MessageCards = (props) => {
 
@@ -18,7 +18,8 @@ const MessageCards = (props) => {
             <div class="card-body">
               <h5 class="card-title">{message.txtposttime}</h5>
               <p hidden class="card-text">{message.id}</p>
-              <p class="card-text">{message.msgtxt}</p>
+              <p id={"m"+message.id} class="card-text">{message.msgtxt}</p>
+              <p id={"c"+message.id}></p>
               <p class="card-text">Likes:{message.likes}</p>
               <p class="card-text">Unlikes:{message.unlike}</p>
               <div className="crudBtns">
@@ -35,6 +36,13 @@ const MessageCards = (props) => {
                 <button class="btn btn-primary btn-sm" onClick={() => props.handleUnLike(message.id)}>
 
                   <img src={props.unlikeIcon} alt="like icon"></img>
+                </button>
+                  <button class="btn btn-primary btn-sm">
+                                          
+                <Link to={`/update/${message.id}`}><img src={props.updateIcon}></img></Link>
+                </button>
+                 <button class="btn btn-warning btn-sm" onClick={() => props.DoCensor(message.id)}>
+                 <img src={props.censor}></img>
                 </button>
               </div>
              
