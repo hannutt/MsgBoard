@@ -19,6 +19,7 @@ const Login = () => {
     const [type, setType] = useState('password')
     const [credentialError, SetCredentialError] = useState('Username or password is wrong')
     var [deviceName,setDeviceName]=useState('')
+  
 
     const rememberMe = async () => {
         localStorage.setItem('username', userName)

@@ -6,6 +6,7 @@ import os from "node:os"
 import axios from 'axios';
 import * as dotenv from 'dotenv'
 import nodemailer from "nodemailer"
+import { error } from 'node:console';
 
 dotenv.config({ path:'../backend/.env' })
 
@@ -195,16 +196,36 @@ app.post("/messages",(req,res)=>{
 
     })
 })
-
+var emailExist;
 app.post("/register",(req,res)=>{
-    const q = "INSERT INTO login (`username`,`psw`,`email`) VALUES (?)"
-    const values = [req.body.username,req.body.password,req.body.email]
-    db.query(q,[values],(err,data)=>{
-        if(err) return res.json(err)
-            //tämä palauttaa querylla haetun datan kannasta
-            return res.json(data)
+    var email=req.body.email
+    //lasketaan emailila löytyvät tilit
+    const q1="SELECT COUNT (*) AS count FROM login WHERE email=?"
+    db.query(q1,[email],(error,result)=>{
 
+        const count = result[0].count
+        emailExist=count===1
+        console.log(emailExist)
+        //jos emailia ei ole ennestään niin luodaan uusi tili
+        if (emailExist===false)
+            {
+                const q = "INSERT INTO login (`username`,`psw`,`email`) VALUES (?)"
+                const values = [req.body.username,req.body.password,req.body.email]
+                db.query(q,[values],(err,data)=>{
+                    if(err) return res.json(err)
+                        //tämä palauttaa querylla haetun datan kannasta
+                        return res.json(data)
+            
+                })
+        
+            }
+        if (emailExist)
+        {
+            console.log("email already used")
+            return res.json("Email is already in use")
+        }
     })
+  
 })
 
 
@@ -338,7 +359,7 @@ async function main(mailAdd,psw) {
     });
   
     console.log("Message sent: %s", info.messageId);
-    // Message sent: <d786aa62-4e0a-070a-47ed-0b0666549519@ethereal.email>
+
   }
   
   main().catch(console.error);

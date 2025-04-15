@@ -89,7 +89,9 @@ CREATE ACCOUNT
 If you don't have a username and password, you can create them. On the account creation page, the password is asked twice as in the real-life examples and stored in state variables. then the useEffect Hook checks if the passwords match. if the passwords are the same, the user will see a notification and the values ​​will be saved in the database. The Register button is disabled by default, but will be enabled if the password matches and The input fields are filled. The program also displays a green success icon if the requirements are met. The icon is stored in a state variable and displayed in the img element.
 
 When you create an account, you can also use the option to create a password.
-there are two checkboxes for random password: password with 8 letters and password with 10 letters. by choosing one of the two options, the function call is implemented with the onChange method, where the function receives either 8 or 10 as a parameter, which is the length of the password. Random password including uppercase and lowercase letters and numbers.
+there are two checkboxes for random password: password with 8 letters and password with 10 letters. by choosing one of the two options, the function call is implemented with the onChange method, where the function receives either 8 or 10 as a parameter, which is the length of the password. Random password including uppercase and lowercase letters and numbers. Before registering, the app checks whether an account already exists with the email address. If so, a notification will be displayed in red text.
+
+![alt text](frontend/src/icons/emailUsed.png)
 
 PASSWORD CHANGE
 

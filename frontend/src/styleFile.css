@@ -383,3 +383,8 @@
 .voiceLoginButton {
     margin-left: 15px;
 }
+.emailUsed {
+    color: #e32044;
+    font-weight: bold;
+
+}
