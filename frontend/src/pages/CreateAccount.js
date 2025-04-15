@@ -3,8 +3,8 @@ import axios from "axios";
 import checked from "../icons/checked.png";
 const CreateAccount = () => {
     const [username, setusername] = useState('')
-    const [password, setPassword] = useState('')
-    const [verifyPassword, setVerifyPassword] = useState('')
+    var [password, setPassword] = useState('')
+    var [verifyPassword, setVerifyPassword] = useState('')
     const [email, setEmail] = useState('')
     const [match, setMatch] = useState()
     const [btnDisable, setBtnDisable] = useState(true)
@@ -13,7 +13,7 @@ const CreateAccount = () => {
     //reali-aikainen tarkastus, onko password ja verifypassword samat
     useEffect(() => {
         if (password === verifyPassword && password.length > 0 && username.length > 0 && email.length > 0) {
-            //stateen voi asettaa myös kuvatiedoston
+            
             setMatch(checked)
             setBtnDisable(false)
 
@@ -30,11 +30,13 @@ const CreateAccount = () => {
         setEmailUsed(emailUsed = res.data)
 
     }
-    /*letters-parametri saa arvon onchange eventissää, 8 tai 10*/
-    const generatePassword = (letters) => {
+    /*letters-parametri saa arvon onchange eventissää, id parametri on cb:n id property*/
+    const generatePassword = (letters,id) => {
+       
         let pass = '';
         let str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' +
-            'abcdefghijklmnopqrstuvwxyz0123456789@#$';
+            'abcdefghijklmnopqrstuvwxyz0123456789@#$!?.';
+       
 
         for (let i = 1; i <= letters; i++) {
             let char = Math.floor(Math.random()
@@ -46,8 +48,14 @@ const CreateAccount = () => {
         setType('text')
         document.getElementById("psw").value = pass
         document.getElementById("verifypsw").value = pass
-        setPassword(pass)
-        setVerifyPassword(verifyPassword)
+        setPassword(password=pass)
+        setVerifyPassword(verifyPassword=pass)
+        setTimeout(() => {
+             //poistaa checkboksin valinnan 5 sekunnin kuluttua
+        document.getElementById(id).checked=false
+            
+        }, 5000);
+        
 
 
     }
@@ -69,12 +77,12 @@ const CreateAccount = () => {
             </form>
             <br></br>
             <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="cb8" onChange={() => generatePassword(8)}></input>
-            <label class="form-check-label" for="cb8">Generate password with 8 letters</label>
+            <input class="form-check-input" type="checkbox" value="" id="cb10" onChange={(e) => generatePassword(10,e.target.id)}></input>
+            <label class="form-check-label" for="cb10">Generate password with 10 letters</label>
             </div>
             <div class="form-check">
-                <label class="form-check-label" for="cb10">Generate password with 10 letters</label>
-                <input class="form-check-input" type="checkbox" value="" id="cb10" onChange={() => generatePassword(10)}></input>
+                <label class="form-check-label" for="cb12">Generate password with 12 letters</label>
+                <input class="form-check-input" type="checkbox" value="" id="cb12" onChange={(e) => generatePassword(12,e.target.id)}></input>
             </div>
             <br></br>
             <p className="matchCheck"><img src={match} alt="success-icon"></img></p>

@@ -91,6 +91,8 @@ If you don't have a username and password, you can create them. On the account c
 When you create an account, you can also use the option to create a password.
 there are two checkboxes for random password: password with 8 letters and password with 10 letters. by choosing one of the two options, the function call is implemented with the onChange method, where the function receives either 8 or 10 as a parameter, which is the length of the password. Random password including uppercase and lowercase letters and numbers. Before registering, the app checks whether an account already exists with the email address. If so, a notification will be displayed in red text.
 
+Example image where the user has entered an email address that is already in use
+
 ![alt text](frontend/src/icons/emailUsed.png)
 
 PASSWORD CHANGE

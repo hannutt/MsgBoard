@@ -261,7 +261,7 @@ const Messages = (props) => {
 
 
 
-            {showInCards && <MessageCards messages={messages} msgIcon={msgIcon} />}
+            {showInCards && <MessageCards messages={messages} msgIcon={msgIcon} handleLike={handleLike} likeIcon={likeIcon} handleDelete={handleDelete} alertIcon={alertIcon} handleUnLike={handleUnLike} unlikeIcon={unlikeIcon} />}
 
 
             <div className="msg" hidden={hideMsgDiv}>
