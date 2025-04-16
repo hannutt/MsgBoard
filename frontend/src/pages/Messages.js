@@ -17,6 +17,7 @@ import censor from "../icons/censor.png";
 import MessageCards from "./MessageCards"
 import Popup from 'reactjs-popup';
 import sentiment from "../icons/sentiment.png"
+import apikey from "../pages/apikey.txt"
 const Messages = (props) => {
 
     //tähän statemuuttuja listaan talletetaan kannasta haettu data
@@ -37,12 +38,19 @@ const Messages = (props) => {
     var [modalText, setModalText] = useState('')
     var [msgID,setMsgID]=useState(0)
     var [okDisabled,setOkDisabled]=useState(false)
+    var [apk,setApk]=useState('')
     var first = "";
 
     let date = new Date().toLocaleDateString("fi-FI");
     var repDateNow = date.replace(".", "/").replace(".", "/")
     var dateDiff;
     var finalDiff;
+    fetch(apikey)
+    .then(r => r.text())
+    .then(text => {
+        setApk(apk=text)
+       
+    });
 
 
 
@@ -244,20 +252,18 @@ const Messages = (props) => {
         scrollingElement.scrollTop = 0;
 
     }
-    const sentimentAnalys = (mid) =>{
-        var text=document.getElementById(mid).innerText
+    const sentimentAnalys = (id) =>{
+        var text=document.getElementById("m"+id).innerText
         let options = {
             method: 'GET',
-            headers: { 'x-api-key': '' }
+            headers: { 'x-api-key':apk}
         }
 
         let url = `https://api.api-ninjas.com/v1/sentiment?text=${text}`
         fetch(url, options)
             .then(res => res.json()) 
             .then(data => {
-                console.log(data.sentiment)
-                var plainId=mid.replace("m","")
-                document.getElementById("analysResult"+plainId).innerText="Sentiment analysis: "+data.sentiment
+                document.getElementById("analysResult"+id).innerText="Sentiment analysis: "+data.sentiment
               
             })
             .catch(err => {
@@ -365,7 +371,7 @@ const Messages = (props) => {
                             </button>
                             <button class="btn btn-primary btn-sm" onClick={() => resetStars(message.id)}><img src={reset}></img></button>
                             
-                            <button class="btn btn-info btn-sm" onClick={() =>sentimentAnalys("m"+message.id)}><img src={sentiment}></img></button>
+                            <button class="btn btn-info btn-sm" onClick={() =>sentimentAnalys(message.id)}><img src={sentiment}></img></button>
                         </div>
 
                     </div>
