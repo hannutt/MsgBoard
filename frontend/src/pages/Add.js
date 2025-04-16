@@ -3,9 +3,23 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 import axios from 'axios';
 import Logout from "../pages/LogOut";
 import Popup from 'reactjs-popup';
+
 import 'reactjs-popup/dist/index.css';
+import apikey from "../pages/apikey.txt"
+//dotenv.config({ path: '../backend/.env' })
 const Add = () => {
     var [profanity, setProfanity] = useState(false)
+    var [OpenPopup,setOpenPopup]=useState(false)
+    var [apk,setApk]=useState('')
+    fetch(apikey)
+    .then(r => r.text())
+    .then(text => {
+        setApk(apk=text)
+       
+    });
+    
+    
+    
    
     //päivämääräolio asetetaan value komennolla automaattisesti
     //input kenttään. readOnly eli ajankohtaa ei pysty muokkaamaan input kentässä.
@@ -21,8 +35,7 @@ const Add = () => {
     const [disabledSt, setDisabled] = useState(true)
     const [countChars, setCountChars] = useState(0)
     const [hidePattern, setHidePattern] = useState(false)
-    const [random1, setRandom1] = useState(0)
-    const [random2, setRandom2] = useState(0)
+  
     const navigate = useNavigate()
     const location = useLocation()
     //haetaaan osoitekentässä näkyvä käyttäjänimi katkaisemalla merkkijono / merkistä eli
@@ -37,10 +50,11 @@ const Add = () => {
     }
 
     const wordCheck = () => {
+        
         var text = document.getElementById("msg").value
         let options = {
             method: 'GET',
-            headers: { 'x-api-key': '' }
+            headers: { 'x-api-key': apk }
         }
 
         let url = `https://api.api-ninjas.com/v1/profanityfilter?text=${text}`
@@ -65,6 +79,14 @@ const Add = () => {
         setCountChars(e.target.value.length)
         console.log(countChars)
     }
+    const Modal = () => (
+        <Popup open={OpenPopup} position={"top left"} modal>
+            
+            <div className="header">WARNING</div>
+          <div className="content">You use swear words in your message.</div>
+          
+        </Popup>
+      );
     const handleClick = async e => {
 
         //estetään default toiminnallisuus eli tässä tapauksessa painikkeen klikkaaminen päivittäisi sivun.
@@ -80,7 +102,7 @@ const Add = () => {
         }
     }
     if (profanity) {
-        document.getElementById("button").click()
+        setOpenPopup(OpenPopup=true)
         setProfanity(!profanity)
       
 
@@ -97,8 +119,7 @@ const Add = () => {
                 </ol>
             </nav>
             <Logout />
-            <div hidden>
-            <Modal/></div>
+          
 
             <center>
             <h3>Send a new message as {userName}</h3>
@@ -115,6 +136,7 @@ const Add = () => {
 
                 <button class="btn btn-secondary" onClick={handleClick} >Save message</button><br></br>
                 <p> Message length: {countChars}</p>
+                {OpenPopup&&<Modal/>}
             </div>
             </center>
             <br></br>
@@ -123,18 +145,12 @@ const Add = () => {
 
         </div>
     )
+  
 
 }
 
 
-const Modal = () => (
-    <Popup trigger={<button id="button"> Open Modal </button>} position={"top left"} modal>
-        
-        <div className="header">WARNING</div>
-      <div className="content">You use swear words in your message.</div>
-      
-    </Popup>
-  );
+
 
 
 

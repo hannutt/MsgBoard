@@ -15,7 +15,7 @@ import alertIcon from "../icons/alert.png";
 import UsersPresent from "./usersPresent";
 import censor from "../icons/censor.png";
 import MessageCards from "./MessageCards"
-
+import Popup from 'reactjs-popup';
 
 const Messages = (props) => {
 
@@ -33,6 +33,9 @@ const Messages = (props) => {
     const [stars, setStars] = useState(false)
     const [confirm, setConfirm] = useState(false)
     const [hideTopPage, setHideTopPage] = useState(true)
+    var [showModal, setShowModal] = useState(false)
+    var [modalText, setModalText] = useState('')
+    var [msgID,setMsgID]=useState(0)
     var first = "";
 
     let date = new Date().toLocaleDateString("fi-FI");
@@ -72,6 +75,18 @@ const Messages = (props) => {
 
 
     }
+    const Modal = () => (
+        <Popup open={showModal} position={"top left"} modal>
+
+            <div className="header">WARNING</div>
+            <div className="content">{modalText}
+                <br></br>
+                <button onClick={actualDelete}>OK</button>
+                <button onClick={() => setShowModal(!showModal)}>Close</button>
+            </div>
+
+        </Popup>
+    );
     //tämä funktio vaihtaa divin tyylimäärittelyä.
     const changeHoverStatus = () => {
 
@@ -131,29 +146,30 @@ const Messages = (props) => {
 
 
     const handleDelete = async (id, txt) => {
-        //vahvistusikkuna
-        var text = "This will delete a message with ID " + id + "and text " + txt + " are you sure?"
-        window.confirm(text)
-        if (window.confirm() == true) {
-            try {
-                await axios.delete("http://localhost:8800/messages/" + id)
-                window.location.reload();
+        var user = localStorage.getItem("present")
+        if (user === 'admin') {
+          setModalText(modalText="This will delete a message with ID " + id + "and text " + txt + " are you sure?")
+          setShowModal(showModal=true)
+          setMsgID(msgID=id)
+        }
+        else {
+            setModalText(modalText = 'Only admin can delete messages.')
+            setShowModal(showModal=true)
 
-            } catch (err) {
-
-                console.log(err)
-
-
-            }
 
         }
 
 
+    }
+    const actualDelete=async ()=>{
+        try {
+            await axios.delete("http://localhost:8800/messages/" + msgID)
+            window.location.reload();
 
+        } catch (err) {
 
-
-
-
+            console.log(err)
+        }
 
     }
 
@@ -240,21 +256,21 @@ const Messages = (props) => {
             <TimedLogout timedLogout={timedLogout} />
             {/*message komponentin statemuuttujan välitys dropmenu komponentille*/}
             <span className="dropMenu">
-            <DropMenu setHideIdAndDate={setHideIdAndDate} hideidAndDate={hideidAndDate} setHoverOff={setHoverOff} hoverOff={hoverOff} endOfPage={endOfPage} />
-            
-         
+                <DropMenu setHideIdAndDate={setHideIdAndDate} hideidAndDate={hideidAndDate} setHoverOff={setHoverOff} hoverOff={hoverOff} endOfPage={endOfPage} />
+                {showModal && <Modal />}
+
                 <div class="form-check">
                     <input class="form-check-input" value="" id="hoverOff" type="checkbox" onClick={changeHoverStatus} onChange={() => setHoverStatus(!hoverStatus)}></input>
                     <label class="form-check-label" for="hoverOff">{lbltext}</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="bscards"  onChange={changeViews} ></input>
-                        <label class="form-check-label" for="bscards">Show messages in Bootstrap cards</label>
+                    <input class="form-check-input" type="checkbox" value="" id="bscards" onChange={changeViews} ></input>
+                    <label class="form-check-label" for="bscards">Show messages in Bootstrap cards</label>
                 </div>
-                </span>
+            </span>
 
-              
-            
+
+
             <span className="topOfPage">
                 <button hidden={hideTopPage} class="btn btn-info" onClick={startOfPage}>Top of the page</button>
             </span>
@@ -341,7 +357,7 @@ const Messages = (props) => {
 
                 {/*viestien kokonaismäärä näytetään map silmukan ulkopuolella, muuten se tulostuisi
                 jokaisen viestin yhteydessä erikseen*/}
-                
+
             </div>
 
 
