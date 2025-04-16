@@ -16,7 +16,7 @@ import UsersPresent from "./usersPresent";
 import censor from "../icons/censor.png";
 import MessageCards from "./MessageCards"
 import Popup from 'reactjs-popup';
-
+import sentiment from "../icons/sentiment.png"
 const Messages = (props) => {
 
     //tähän statemuuttuja listaan talletetaan kannasta haettu data
@@ -36,6 +36,7 @@ const Messages = (props) => {
     var [showModal, setShowModal] = useState(false)
     var [modalText, setModalText] = useState('')
     var [msgID,setMsgID]=useState(0)
+    var [okDisabled,setOkDisabled]=useState(false)
     var first = "";
 
     let date = new Date().toLocaleDateString("fi-FI");
@@ -81,7 +82,7 @@ const Messages = (props) => {
             <div className="header">WARNING</div>
             <div className="content">{modalText}
                 <br></br>
-                <button onClick={actualDelete}>OK</button>
+                <button disabled={okDisabled} onClick={actualDelete}>OK</button>
                 <button onClick={() => setShowModal(!showModal)}>Close</button>
             </div>
 
@@ -155,6 +156,7 @@ const Messages = (props) => {
         else {
             setModalText(modalText = 'Only admin can delete messages.')
             setShowModal(showModal=true)
+            setOkDisabled(okDisabled=true)
 
 
         }
@@ -242,6 +244,27 @@ const Messages = (props) => {
         scrollingElement.scrollTop = 0;
 
     }
+    const sentimentAnalys = (mid) =>{
+        var text=document.getElementById(mid).innerText
+        let options = {
+            method: 'GET',
+            headers: { 'x-api-key': '' }
+        }
+
+        let url = `https://api.api-ninjas.com/v1/sentiment?text=${text}`
+        fetch(url, options)
+            .then(res => res.json()) 
+            .then(data => {
+                console.log(data.sentiment)
+                var plainId=mid.replace("m","")
+                document.getElementById("analysResult"+plainId).innerText="Sentiment analysis: "+data.sentiment
+              
+            })
+            .catch(err => {
+                console.log(`error ${err}`)
+            });
+
+    }
 
 
     return (
@@ -306,12 +329,7 @@ const Messages = (props) => {
                         <p hidden > {dateDiff = new Date(repDateNow.split('/')[2], repDateNow.split('/')[1] - 1, repDateNow.split('/')[0]).getTime() - new Date(message.txtposttime.split('.')[2], message.txtposttime.split('.')[1] - 1, message.txtposttime.split('.')[0]).getTime()}
                             {finalDiff = Math.round(dateDiff / (1000 * 3600 * 24))}</p>
                         <p>Posted: {finalDiff} days ago</p>
-
-
-
-
-
-
+                        <p id={"analysResult"+message.id}></p>
 
                         {/*yksilöidään span elementit message.id:n avulla että voidaan päivittää
                        aina vain halutun viestin ratingia*/}
@@ -346,18 +364,14 @@ const Messages = (props) => {
                                 <img src={censor}></img>
                             </button>
                             <button class="btn btn-primary btn-sm" onClick={() => resetStars(message.id)}><img src={reset}></img></button>
+                            
+                            <button class="btn btn-info btn-sm" onClick={() =>sentimentAnalys("m"+message.id)}><img src={sentiment}></img></button>
                         </div>
 
                     </div>
 
 
                 ))}
-
-
-
-                {/*viestien kokonaismäärä näytetään map silmukan ulkopuolella, muuten se tulostuisi
-                jokaisen viestin yhteydessä erikseen*/}
-
             </div>
 
 

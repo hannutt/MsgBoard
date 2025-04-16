@@ -31,6 +31,13 @@ The app uses API Ninja's Profanity Filter API to detect profanity. After the use
 
 ![alt text](frontend/src/icons/swfilter.png)
 
+MESSAGE SENTIMENT ANALYSIS
+
+The application uses Api-Ninjas sentiment Rest-Api to create sentiment analytics for message content.
+You can send a text for evaluation with a mouse click and the evaluation will be displayed at the end
+of the message as shown in the image below.
+
+![alt text](frontend/src/icons/sentimentAnalys.png)
 
 SQL SEARCHES
 
