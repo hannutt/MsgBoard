@@ -349,7 +349,7 @@ const Messages = (props) => {
                         <div class="accordion accordion-flush" id={"accordionFlushExample"+message.id}>
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" style={{backgroundColor:"#8eb3ed",height:20+"px"}} type="button" data-bs-toggle="collapse" data-bs-target={"#flush-collapse"+message.id} aria-expanded="false" aria-controls="flush-collapseOne">
+                                    <button class="accordion-button collapsed" style={{backgroundColor:"#8eb3ed",height:20+"px",border:1+"px solid black"}} type="button" data-bs-toggle="collapse" data-bs-target={"#flush-collapse"+message.id} aria-expanded="false" aria-controls="flush-collapseOne">
                                         Function buttons |
                                     </button>
                                 </h2>
