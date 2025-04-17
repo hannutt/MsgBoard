@@ -22,7 +22,7 @@
     flex: 0 0 33.3333%;
     outline: 2px solid;
     /*ilman rivinvaihtoa rakenne rikkoutuu
-    /*white-space: nowrap;*/
+    white-space: nowrap;*/
     background-image: url("./icons/BgPic.jpg");
     
 }
@@ -31,8 +31,8 @@
     flex: 0 0 33.3333%;
     outline: 2px solid;
     text-align: center;
-    /*ilman rivinvaihtoa rakenne rikkoutuu
-    /*white-space: nowrap;*/
+    /*ilman rivinvaihtoa rakenne rikkoutuu*/
+    white-space: nowrap;
     background-image: url("./icons/BgPic.jpg");
     
 }
@@ -152,6 +152,7 @@
 /*kun display=flex niin gap buttoneiden välissä toimii*/
 .crudBtns {
     display: flex;
+    align-items: flex-end;
     /*
     background-image:url("./icons/crudBtnBg.jpg") ;*/
     gap: 10px;
@@ -387,4 +388,13 @@
     color: #e32044;
     font-weight: bold;
 
+}
+.likesP,.unlikesP {
+    display: inline;
+    background-color: #a3c7ae;
+    padding: 5px;
+    border-radius: 10px;
+}
+.likesP {
+    margin-right: 8px;
 }

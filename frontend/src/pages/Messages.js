@@ -36,9 +36,9 @@ const Messages = (props) => {
     const [hideTopPage, setHideTopPage] = useState(true)
     var [showModal, setShowModal] = useState(false)
     var [modalText, setModalText] = useState('')
-    var [msgID,setMsgID]=useState(0)
-    var [okDisabled,setOkDisabled]=useState(false)
-    var [apk,setApk]=useState('')
+    var [msgID, setMsgID] = useState(0)
+    var [okDisabled, setOkDisabled] = useState(false)
+    var [apk, setApk] = useState('')
     var first = "";
 
     let date = new Date().toLocaleDateString("fi-FI");
@@ -46,11 +46,11 @@ const Messages = (props) => {
     var dateDiff;
     var finalDiff;
     fetch(apikey)
-    .then(r => r.text())
-    .then(text => {
-        setApk(apk=text)
-       
-    });
+        .then(r => r.text())
+        .then(text => {
+            setApk(apk = text)
+
+        });
 
 
 
@@ -157,21 +157,21 @@ const Messages = (props) => {
     const handleDelete = async (id, txt) => {
         var user = localStorage.getItem("present")
         if (user === 'admin') {
-          setModalText(modalText="This will delete a message with ID " + id + "and text " + txt + " are you sure?")
-          setShowModal(showModal=true)
-          setMsgID(msgID=id)
+            setModalText(modalText = "This will delete a message with ID " + id + "and text " + txt + " are you sure?")
+            setShowModal(showModal = true)
+            setMsgID(msgID = id)
         }
         else {
             setModalText(modalText = 'Only admin can delete messages.')
-            setShowModal(showModal=true)
-            setOkDisabled(okDisabled=true)
+            setShowModal(showModal = true)
+            setOkDisabled(okDisabled = true)
 
 
         }
 
 
     }
-    const actualDelete=async ()=>{
+    const actualDelete = async () => {
         try {
             await axios.delete("http://localhost:8800/messages/" + msgID)
             window.location.reload();
@@ -252,19 +252,19 @@ const Messages = (props) => {
         scrollingElement.scrollTop = 0;
 
     }
-    const sentimentAnalys = (id) =>{
-        var text=document.getElementById("m"+id).innerText
+    const sentimentAnalys = (id) => {
+        var text = document.getElementById("m" + id).innerText
         let options = {
             method: 'GET',
-            headers: { 'x-api-key':apk}
+            headers: { 'x-api-key': apk }
         }
 
         let url = `https://api.api-ninjas.com/v1/sentiment?text=${text}`
         fetch(url, options)
-            .then(res => res.json()) 
+            .then(res => res.json())
             .then(data => {
-                document.getElementById("analysResult"+id).innerText="Sentiment analysis: "+data.sentiment
-              
+                document.getElementById("analysResult" + id).innerText = "Sentiment analysis: " + data.sentiment
+
             })
             .catch(err => {
                 console.log(`error ${err}`)
@@ -320,22 +320,23 @@ const Messages = (props) => {
                         <p hidden>{first = message.msgtxt[0]}</p>
                         {/*ikoneita pystyy käyttämään silmukassa*/}
                         <img src={msgIcon} alt="icon"></img>
-                        <p hidden={hideidAndDate}>Message id: {message.id}</p>
+                        <p hidden={hideidAndDate}>id: {message.id}</p>
                         <p id={"c" + message.id}></p>
                         {/*jokaisen viestin ensimmäinen kirjain first-muuttujassa ja kirjain näytetään 200% suurempana kuin muut replacella korvataan
                         ensimmäinen kirjain tyhjällä koska muuten eka kirjain näytettäisiin kahdesti*/}
                         <p id={"m" + message.id} className={"m" + message.id}><p className="firstletter">{first}</p>{message.msgtxt.replace(first, "")}</p>
                         <p hidden={hideidAndDate} className="msgTime">Posting time: <b>{message.txtposttime}</b></p>
-                        <p hidden={hideidAndDate}>Likes: {message.likes}</p>
-                        <p hidden={hideidAndDate}>Unlikes: {message.unlike}</p>
-                        <p>Characters: {message.msgtxt.length}</p>
+                        <p className="likesP" hidden={hideidAndDate}>Likes: {message.likes}</p>
+                        <p className="unlikesP" hidden={hideidAndDate}>Unlikes: {message.unlike}</p>
+
+                        <p className="chars">Characters: {message.msgtxt.length}</p>
                         {/*dd-mm-yyy formaatti saadaan vaihtamalla split komennolla / merkin jälkeisiä merkkijonoja
                         tässä lasketaan montako päivää viestin postauksesta on kulunut repDatenow on aina meneillään
                         oleva päivä message.txtpostime on silmukassa vaihtuva postauspäivä*/}
                         <p hidden > {dateDiff = new Date(repDateNow.split('/')[2], repDateNow.split('/')[1] - 1, repDateNow.split('/')[0]).getTime() - new Date(message.txtposttime.split('.')[2], message.txtposttime.split('.')[1] - 1, message.txtposttime.split('.')[0]).getTime()}
                             {finalDiff = Math.round(dateDiff / (1000 * 3600 * 24))}</p>
                         <p>Posted: {finalDiff} days ago</p>
-                        <p id={"analysResult"+message.id}></p>
+                        <p id={"analysResult" + message.id}></p>
 
                         {/*yksilöidään span elementit message.id:n avulla että voidaan päivittää
                        aina vain halutun viestin ratingia*/}
@@ -345,35 +346,74 @@ const Messages = (props) => {
                         <span id={"star4" + message.id} class="fa fa-star" onClick={() => rate(message.id)} ></span>
                         <span id={"star5" + message.id} class="fa fa-star" onClick={() => rate(message.id)} ></span>
 
+                        <div class="accordion accordion-flush" id={"accordionFlushExample"+message.id}>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" style={{backgroundColor:"#8eb3ed",height:20+"px"}} type="button" data-bs-toggle="collapse" data-bs-target={"#flush-collapse"+message.id} aria-expanded="false" aria-controls="flush-collapseOne">
+                                        Function buttons |
+                                    </button>
+                                </h2>
+                                
+                                <div id={"flush-collapse"+message.id} class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body" style={{backgroundColor:"#8eb3ed"}}>
+                                    <span className="crudBtns">
+                                    <button class="btn btn-danger btn-sm" disabled={props.delBtnDisable} onClick={() => handleDelete(message.id, message.msgtxt)}>
+                                    <img className="alarm" src={alertIcon} ></img>
+                                    <img src={binIcon} alt="remove icon"></img>
+                                    </button>
+                                    <button class="btn btn-primary btn-sm" onClick={() => handleLike(message.id)}>
+                                 
+                                    <img src={likeIcon} alt="like icon"></img>
+                                </button>
+                                <button class="btn btn-primary btn-sm" onClick={() => handleUnLike(message.id)}>
+                                    <img src={unlikeIcon}></img>
+                                </button>
+                                <button class="btn btn-primary btn-sm">
+                          
+                                    <Link to={`/update/${message.id}`}><img src={updateIcon}></img></Link>
+                                </button>
+                                <button class="btn btn-warning btn-sm" onClick={() => DoCensor(message.id)}>
+                                    <img src={censor}></img>
+                                </button>
+                                <button class="btn btn-primary btn-sm" onClick={() => resetStars(message.id)}><img src={reset}></img></button>
 
-
-                        <div className="crudBtns">
-                            {/*lähetetään postauksen id numero handleDelete fuktiolle*/}
-                            <button class="btn btn-danger btn-sm" disabled={props.delBtnDisable} onClick={() => handleDelete(message.id, message.msgtxt)}>
-                                <img className="alarm" src={alertIcon} ></img>
-                                <img src={binIcon} alt="remove icon"></img>
-                            </button>
-                            <button class="btn btn-primary btn-sm" onClick={() => handleLike(message.id)}>
-                                {/*png kuvan sisällytys button elementtiin.*/}
-                                <img src={likeIcon} alt="like icon"></img>
-                            </button>
-
-                            <button class="btn btn-primary btn-sm" onClick={() => handleUnLike(message.id)}>
-                                <img src={unlikeIcon}></img>
-                            </button>
-                            <button class="btn btn-primary btn-sm">
-                                {/*huomaa ikonia käyttäessä, että img tagin täytyy olla link tagin
-                            sisällä, että linkitys toimii klikattaessa*/}
-                                <Link to={`/update/${message.id}`}><img src={updateIcon}></img></Link>
-                            </button>
-                            <button class="btn btn-warning btn-sm" onClick={() => DoCensor(message.id)}>
-                                <img src={censor}></img>
-                            </button>
-                            <button class="btn btn-primary btn-sm" onClick={() => resetStars(message.id)}><img src={reset}></img></button>
+                                <button class="btn btn-info btn-sm" onClick={() => sentimentAnalys(message.id)}><img src={sentiment}></img></button>
+                                </span>
+                                    </div>
+                                    
+                                </div>
+                                
+                            </div>
                             
-                            <button class="btn btn-info btn-sm" onClick={() =>sentimentAnalys(message.id)}><img src={sentiment}></img></button>
-                        </div>
 
+                            {/*
+                            <div className="crudBtns">
+                                lähetetään postauksen id numero handleDelete fuktiolle
+                                <button class="btn btn-danger btn-sm" disabled={props.delBtnDisable} onClick={() => handleDelete(message.id, message.msgtxt)}>
+                                    <img className="alarm" src={alertIcon} ></img>
+                                    <img src={binIcon} alt="remove icon"></img>
+                                </button>
+                                <button class="btn btn-primary btn-sm" onClick={() => handleLike(message.id)}>
+                                    png kuvan sisällytys button elementtiin.
+                                    <img src={likeIcon} alt="like icon"></img>
+                                </button>
+
+                                <button class="btn btn-primary btn-sm" onClick={() => handleUnLike(message.id)}>
+                                    <img src={unlikeIcon}></img>
+                                </button>
+                                <button class="btn btn-primary btn-sm">
+                          
+                                    <Link to={`/update/${message.id}`}><img src={updateIcon}></img></Link>
+                                </button>
+                                <button class="btn btn-warning btn-sm" onClick={() => DoCensor(message.id)}>
+                                    <img src={censor}></img>
+                                </button>
+                                <button class="btn btn-primary btn-sm" onClick={() => resetStars(message.id)}><img src={reset}></img></button>
+
+                                <button class="btn btn-info btn-sm" onClick={() => sentimentAnalys(message.id)}><img src={sentiment}></img></button>
+                            </div> */}
+
+                        </div>
                     </div>
 
 

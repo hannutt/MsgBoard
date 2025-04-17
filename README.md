@@ -7,9 +7,11 @@ An example image of a login page that mimics the login view of commonly used web
 
 The Remember Me feature stores the username and password in LocalStorage. The login page uses a onload event in the body element, which is executed by a function that checks LocalStorage and places the username and password found there into the input fields.
 
+Clicking the Forgot password checkbox will display an input field for the user to enter the email address they provided during registration. If the address is found in the SQL database, the user can reset their forgotten password.
+
 ![alt text](frontend/src/icons/loginExample.png)
 
-Example image of a page showing all messages stored in a MySQL database. each message has its own buttons with which you can e.g. like, edit, censor a post, etc. Posts also have a CSS Flex style definition where each post has its own post area that is 33% wide. At the end of each post is a row of Bootstrap 5 style buttons that allow the user to like or dislike the post, edit the post, censor the post text, and reset the censored text. Most of the buttons use Bootstrap's primary button style, but the delete button uses Bootstrap 5's danger button style, and the censorship button uses BS5's warning style. This is done for a good user experience
+Example image of a page showing all messages stored in a MySQL database. each message has its own buttons with which you can e.g. like, edit, censor a post, etc. Posts also have a CSS Flex style definition where each post has its own post area that is 33% wide. Action buttons for editing, deleting, liking, etc. are hidden under the Bootstrap 5 accordion/collapse element. The user can open them by clicking on the "Function buttons" text.
 
 ![alt text](frontend/src/icons/msgBoardFront.png)
 
