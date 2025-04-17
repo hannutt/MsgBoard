@@ -326,16 +326,18 @@ const Messages = (props) => {
                         ensimmäinen kirjain tyhjällä koska muuten eka kirjain näytettäisiin kahdesti*/}
                         <p id={"m" + message.id} className={"m" + message.id}><p className="firstletter">{first}</p>{message.msgtxt.replace(first, "")}</p>
                         <p hidden={hideidAndDate} className="msgTime">Posting time: <b>{message.txtposttime}</b></p>
-                        <p className="likesP" hidden={hideidAndDate}>Likes: {message.likes}</p>
-                        <p className="unlikesP" hidden={hideidAndDate}>Unlikes: {message.unlike}</p>
-
-                        <p className="chars">Characters: {message.msgtxt.length}</p>
-                        {/*dd-mm-yyy formaatti saadaan vaihtamalla split komennolla / merkin jälkeisiä merkkijonoja
+                         {/*dd-mm-yyy formaatti saadaan vaihtamalla split komennolla / merkin jälkeisiä merkkijonoja
                         tässä lasketaan montako päivää viestin postauksesta on kulunut repDatenow on aina meneillään
                         oleva päivä message.txtpostime on silmukassa vaihtuva postauspäivä*/}
                         <p hidden > {dateDiff = new Date(repDateNow.split('/')[2], repDateNow.split('/')[1] - 1, repDateNow.split('/')[0]).getTime() - new Date(message.txtposttime.split('.')[2], message.txtposttime.split('.')[1] - 1, message.txtposttime.split('.')[0]).getTime()}
                             {finalDiff = Math.round(dateDiff / (1000 * 3600 * 24))}</p>
-                        <p>Posted: {finalDiff} days ago</p>
+                        <p className="posted"> | {finalDiff} days ago</p>
+                        <br></br><br></br>
+                        <p className="likesP" hidden={hideidAndDate}>Likes: {message.likes}</p>
+                        <p className="unlikesP" hidden={hideidAndDate}>Unlikes: {message.unlike}</p>
+                        <br></br><br></br>
+                        <p className="chars">Characters in the message: {message.msgtxt.length}</p>
+                       
                         <p id={"analysResult" + message.id}></p>
 
                         {/*yksilöidään span elementit message.id:n avulla että voidaan päivittää

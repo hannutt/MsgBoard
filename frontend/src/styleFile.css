@@ -8,6 +8,9 @@
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
 }
+.msgTime,.posted {
+    display: inline;
+}
 
 .App {
     background-image: url("./icons/BgPic.jpg");
@@ -391,10 +394,19 @@
 }
 .likesP,.unlikesP {
     display: inline;
-    background-color: #a3c7ae;
+  
     padding: 5px;
     border-radius: 10px;
 }
 .likesP {
     margin-right: 8px;
+    background-color: #3ecf4a;
+}
+.unlikesP {
+    background-color: 
+    #e04141
+    ;
+}
+.posted {
+    font-weight: bold;
 }
