@@ -333,6 +333,7 @@ const Messages = (props) => {
                             {finalDiff = Math.round(dateDiff / (1000 * 3600 * 24))}</p>
                         <p className="posted"> | {finalDiff} days ago</p>
                         <br></br><br></br>
+                        <p>Message was written by: <b>{message.username}</b></p>
                         <p className="likesP" hidden={hideidAndDate}>Likes: {message.likes}</p>
                         <p className="unlikesP" hidden={hideidAndDate}>Unlikes: {message.unlike}</p>
                         <br></br><br></br>

@@ -42,7 +42,8 @@ app.get("/", (req, res) => {
 })
 //get-metodilla haetaan queryn mukaisesti kaikki data memoryvalues taulusta.
 app.get("/messages", (req, res) => {
-    const q = "SELECT * FROM messages";
+    const q = "select * from messages left join login on messages.userid=login.id"
+    //const q = "SELECT * FROM messages";
     db.query(q, (err, data) => {
         //jos virhe on true palautetaan error viesti.
         if (err) return res.json(err)
@@ -182,12 +183,12 @@ app.get("/dataToUpdate/:id", (req, res) => {
 })
 //post metodi, eli tiedon lisäys
 app.post("/messages", (req, res) => {
-    const q = "INSERT INTO messages (`msgtxt`,`txtposttime`,`likes`,`unlike`) VALUES (?)"
+    const q = "INSERT INTO messages (`msgtxt`,`txtposttime`,`likes`,`unlike`,`userid`) VALUES (?)"
     //nämä arvot saadaan add komponentin statemuuttujasta, muuttujassa on message ja postdate
     //kentät, joihin talletetaan input-kentissä oleva data. viimeisenä oleva
     //luku nolla asetetaan oletusarvona kaikkiin uusiin postauksiin, että tykkäysten lasku
     //toimii
-    const values = [req.body.message, req.body.postDate, 0, 0]
+    const values = [req.body.message, req.body.postDate, 0, 0,req.body.userID]
     db.query(q, [values], (err, data) => {
         //jos virhe on true palautetaan error viesti.
         if (err) return res.json(err)
@@ -294,10 +295,11 @@ app.post("/login", (req, res) => {
         //jos datan pituus on suurempi kuin 0 merkkiä eli käytännössä jos syötetyt arvot
         //löytyvät
         if (data.length > 0) {
-            return res.json("login ok")
+            console.log(data)
+            return res.json(data)
         }
         else {
-            return res.json("login failed")
+            return res.json("")
         }
 
 

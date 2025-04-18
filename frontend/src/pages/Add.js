@@ -24,11 +24,13 @@ const Add = () => {
     //päivämääräolio asetetaan value komennolla automaattisesti
     //input kenttään. readOnly eli ajankohtaa ei pysty muokkaamaan input kentässä.
     let date = new Date().toLocaleDateString("fi-FI");
+    var uid=localStorage.getItem("userid")
 
     const [message, setMessage] = useState({
         message: '',
         //postdate arvo asetetaan valmiiksi.
-        postDate: date
+        postDate: date,
+        userID:uid
 
     })
     const [redirectTime, setredirectTime] = useState(10000)
@@ -130,6 +132,7 @@ const Add = () => {
                
                 
                 <input type="text" id="postDate" readOnly value={date} name="postDate" size={11} onChange={handleChange}></input>
+               
                 <hr></hr>
                 <textarea class="form-control" placeholder="Your message" id="msg" name="message" rows={3} maxLength={255} onChange={handleChange} onBlur={wordCheck}></textarea>
                 <hr></hr>

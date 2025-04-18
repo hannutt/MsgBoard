@@ -18,6 +18,7 @@ const Login = () => {
     const [forgetPsw, setForgetPsw] = useState(false)
     const [type, setType] = useState('password')
     const [credentialError, SetCredentialError] = useState('Username or password is wrong')
+    var [userId,setUserid]=useState(0)
     var [deviceName,setDeviceName]=useState('')
   
 
@@ -42,13 +43,16 @@ const Login = () => {
         //käyttäjätunnus ja salasana on tallennettu statemuuttujiin username&psw
         axios.post("http://localhost:8800/login/", { userName, psw })
             .then(res => {
+                console.log(res.data)
                 //jos backendin lähettämä vastaus on login ok, siirrytään navigaten avulla etusivulle.
-                if (res.data === "login ok") {
+                if (res.data.length >0) {
                     //talletetaan true arvo localstorageen. arvoa käyttää PriveateRoutes komponentti, jonka
                     //token arvo on oletusarvoisesti false, eli routeja/sivuja ei pääse käyttämään ellei
                     //arvo ole true.
+                    setUserid(userId=res.data[0].id)
                     localStorage.setItem("auth", true)
                     localStorage.setItem("present", userName)
+                    localStorage.setItem("userid",userId)
                     navigate("/messages")
 
                 }
