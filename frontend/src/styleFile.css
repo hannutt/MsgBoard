@@ -410,3 +410,10 @@
 .posted {
     font-weight: bold;
 }
+.chars {
+    white-space: nowrap;
+}
+.likes,.unlikes {
+    color:black;
+    font-weight: bold;
+}

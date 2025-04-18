@@ -144,6 +144,7 @@ const Messages = (props) => {
 
 
     const handleUnLike = async (id) => {
+        console.log(id)
         try {
             await axios.put("http://localhost:8800/unlike/" + id)
             window.location.reload()
@@ -154,8 +155,8 @@ const Messages = (props) => {
 
 
 
-    const handleDelete = async (id, txt,written) => {
-        
+    const handleDelete = async (id, txt, written) => {
+
         var user = localStorage.getItem("present")
         if (user === written) {
             setModalText(modalText = "This will delete a message with ID " + id + "and text " + txt + " are you sure?")
@@ -327,68 +328,78 @@ const Messages = (props) => {
                         ensimmäinen kirjain tyhjällä koska muuten eka kirjain näytettäisiin kahdesti*/}
                         <p id={"m" + message.id} className={"m" + message.id}><p className="firstletter">{first}</p>{message.msgtxt.replace(first, "")}</p>
                         <p hidden={hideidAndDate} className="msgTime">Posting time: <b>{message.txtposttime}</b></p>
-                         {/*dd-mm-yyy formaatti saadaan vaihtamalla split komennolla / merkin jälkeisiä merkkijonoja
+                        {/*dd-mm-yyy formaatti saadaan vaihtamalla split komennolla / merkin jälkeisiä merkkijonoja
                         tässä lasketaan montako päivää viestin postauksesta on kulunut repDatenow on aina meneillään
                         oleva päivä message.txtpostime on silmukassa vaihtuva postauspäivä*/}
                         <p hidden > {dateDiff = new Date(repDateNow.split('/')[2], repDateNow.split('/')[1] - 1, repDateNow.split('/')[0]).getTime() - new Date(message.txtposttime.split('.')[2], message.txtposttime.split('.')[1] - 1, message.txtposttime.split('.')[0]).getTime()}
                             {finalDiff = Math.round(dateDiff / (1000 * 3600 * 24))}</p>
                         <p className="posted"> | {finalDiff} days ago</p>
                         <br></br><br></br>
-                        <p>Message was written by: <b><span id={"written"+message.id}>{message.username}</span></b></p>
-                        <p className="likesP" hidden={hideidAndDate}>Likes: {message.likes}</p>
-                        <p className="unlikesP" hidden={hideidAndDate}>Unlikes: {message.unlike}</p>
-                        <br></br><br></br>
-                        <p className="chars">Characters in the message: {message.msgtxt.length}</p>
+                        <p>Message was written by: <b><span id={"written" + message.id}>{message.username}</span></b></p>
+
+                        <div class="w3-hidden w3-round">
+                            <div class="w3-container w3-green w3-round" style={{width:message.likes+"%"}}><span className="likes">Likes:{message.likes}</span></div>
+                        </div>
+                        <br></br>
+                        <div class="w3-hidden w3-round">
+                            <div class="w3-container w3-red w3-round" style={{width:message.unlike+"%"}}><span className="unlikes">Unlikes:{message.unlike}</span></div>
+                        </div>
                        
+                      
+                        <br></br><br></br>
+                        <div className="chars">Characters in the message: {message.msgtxt.length}</div>
+                       
+
+
                         <p id={"analysResult" + message.id}></p>
 
                         {/*yksilöidään span elementit message.id:n avulla että voidaan päivittää
                        aina vain halutun viestin ratingia*/}
-                        <span id={"star1" + message.id} class="fa fa-star" onClick={() => rate(message.id)} ></span>
+                        < span id={"star1" + message.id} class="fa fa-star" onClick={() => rate(message.id)} ></span>
                         <span id={"star2" + message.id} class="fa fa-star" onClick={() => rate(message.id)} ></span>
                         <span id={"star3" + message.id} class="fa fa-star" onClick={() => rate(message.id)} ></span>
                         <span id={"star4" + message.id} class="fa fa-star" onClick={() => rate(message.id)} ></span>
                         <span id={"star5" + message.id} class="fa fa-star" onClick={() => rate(message.id)} ></span>
 
-                        <div class="accordion accordion-flush" id={"accordionFlushExample"+message.id}>
+                        <div class="accordion accordion-flush" id={"accordionFlushExample" + message.id}>
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" style={{backgroundColor:"#8eb3ed",height:20+"px",border:1+"px solid black"}} type="button" data-bs-toggle="collapse" data-bs-target={"#flush-collapse"+message.id} aria-expanded="false" aria-controls="flush-collapseOne">
+                                    <button class="accordion-button collapsed" style={{ backgroundColor: "#8eb3ed", height: 20 + "px", border: 1 + "px solid black" }} type="button" data-bs-toggle="collapse" data-bs-target={"#flush-collapse" + message.id} aria-expanded="false" aria-controls="flush-collapseOne">
                                         Function buttons |
                                     </button>
                                 </h2>
-                                
-                                <div id={"flush-collapse"+message.id} class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body" style={{backgroundColor:"#8eb3ed"}}>
-                                    <span className="crudBtns">
-                                    <button class="btn btn-danger btn-sm" disabled={props.delBtnDisable} onClick={() => handleDelete(message.id, message.msgtxt,document.getElementById("written"+message.id).innerText)}>
-                                    <img className="alarm" src={alertIcon} ></img>
-                                    <img src={binIcon} alt="remove icon"></img>
-                                    </button>
-                                    <button class="btn btn-primary btn-sm" onClick={() => handleLike(message.id)}>
-                                 
-                                    <img src={likeIcon} alt="like icon"></img>
-                                </button>
-                                <button class="btn btn-primary btn-sm" onClick={() => handleUnLike(message.id)}>
-                                    <img src={unlikeIcon}></img>
-                                </button>
-                                <button class="btn btn-primary btn-sm">
-                          
-                                    <Link to={`/update/${message.id}`}><img src={updateIcon}></img></Link>
-                                </button>
-                                <button class="btn btn-warning btn-sm" onClick={() => DoCensor(message.id)}>
-                                    <img src={censor}></img>
-                                </button>
-                                <button class="btn btn-primary btn-sm" onClick={() => resetStars(message.id)}><img src={reset}></img></button>
 
-                                <button class="btn btn-info btn-sm" onClick={() => sentimentAnalys(message.id)}><img src={sentiment}></img></button>
-                                </span>
+                                <div id={"flush-collapse" + message.id} class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body" style={{ backgroundColor: "#8eb3ed" }}>
+                                        <span className="crudBtns">
+                                            <button class="btn btn-danger btn-sm" disabled={props.delBtnDisable} onClick={() => handleDelete(message.id, message.msgtxt, document.getElementById("written" + message.id).innerText)}>
+                                                <img className="alarm" src={alertIcon} ></img>
+                                                <img src={binIcon} alt="remove icon"></img>
+                                            </button>
+                                            <button class="btn btn-primary btn-sm" onClick={() => handleLike(message.id)}>
+
+                                                <img src={likeIcon} alt="like icon"></img>
+                                            </button>
+                                            <button class="btn btn-primary btn-sm" onClick={() => handleUnLike(message.id)}>
+                                                <img src={unlikeIcon}></img>
+                                            </button>
+                                            <button class="btn btn-primary btn-sm">
+
+                                                <Link to={`/update/${message.id}`}><img src={updateIcon}></img></Link>
+                                            </button>
+                                            <button class="btn btn-warning btn-sm" onClick={() => DoCensor(message.id)}>
+                                                <img src={censor}></img>
+                                            </button>
+                                            <button class="btn btn-primary btn-sm" onClick={() => resetStars(message.id)}><img src={reset}></img></button>
+
+                                            <button class="btn btn-info btn-sm" onClick={() => sentimentAnalys(message.id)}><img src={sentiment}></img></button>
+                                        </span>
                                     </div>
-                                    
+
                                 </div>
-                                
+
                             </div>
-                            
+
 
                             {/*
                             <div className="crudBtns">
@@ -421,13 +432,14 @@ const Messages = (props) => {
                     </div>
 
 
-                ))}
-            </div>
+                ))
+                }
+            </div >
 
 
 
 
-        </div>
+        </div >
     )
 
 }

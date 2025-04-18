@@ -12,6 +12,7 @@ Clicking the Forgot password checkbox will display an input field for the user t
 ![alt text](frontend/src/icons/loginExample.png)
 
 Example image of a page showing all messages stored in a MySQL database. each message has its own buttons with which you can e.g. like, edit, censor a post, etc. Posts also have a CSS Flex style definition where each post has its own post area that is 33% wide. Action buttons for editing, deleting, liking, etc. are hidden under the Bootstrap 5 accordion/collapse element. The user can open them by clicking on the "Function buttons" text.
+The number of likes and dislikes on posts is displayed in green and red in W3.CSS progress bars.
 
 ![alt text](frontend/src/icons/msgBoardFront.png)
 
@@ -152,7 +153,6 @@ Bootstrap 5
 The application's html buttons are made with Bootstrap 5 button components. The Message and Search components also has a Bootstrap 5 drop-down menu where you can find links to new post page and search page.
 
 Database data can also be displayed in the Bootstrap card container. Click on the check box and a new component will be called which organizes the fetched data into Bootstarp cards, always showing 3 cards in one line. Pressing the checkbox again changes the view back to the home view, which means that the database information is displayed in the div element
-
 For navigating between pages, there is a Bootstrap breadcrumb component with react-router-dom link API.
 
 ICONS

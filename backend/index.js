@@ -42,7 +42,7 @@ app.get("/", (req, res) => {
 })
 //get-metodilla haetaan queryn mukaisesti kaikki data memoryvalues taulusta.
 app.get("/messages", (req, res) => {
-    const q = "select * from messages left join login on messages.userid=login.id"
+    const q = "select * from messages left join login on messages.userid=login.lid"
     //const q = "SELECT * FROM messages";
     db.query(q, (err, data) => {
         //jos virhe on true palautetaan error viesti.
