@@ -41,6 +41,13 @@ of the message as shown in the image below.
 
 ![alt text](frontend/src/icons/sentimentAnalys.png)
 
+USER RESTRICTIONS
+
+Each user can only delete and edit messages written under the same username as the user is logged in with.
+In the example image below, user2 is logged in and tries to delete a message written by user1. The user sees a pop-up window stating that deletion is not possible.
+
+![alt text](frontend/src/icons/deleting.png)
+
 SQL SEARCHES
 
 You can search the database using the html interface. search options: Search by ID number, Search by message sending date, search by most liked and least liked posts and SQL %Like% query where you can

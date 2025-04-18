@@ -154,15 +154,16 @@ const Messages = (props) => {
 
 
 
-    const handleDelete = async (id, txt) => {
+    const handleDelete = async (id, txt,written) => {
+        
         var user = localStorage.getItem("present")
-        if (user === 'admin') {
+        if (user === written) {
             setModalText(modalText = "This will delete a message with ID " + id + "and text " + txt + " are you sure?")
             setShowModal(showModal = true)
             setMsgID(msgID = id)
         }
         else {
-            setModalText(modalText = 'Only admin can delete messages.')
+            setModalText(modalText = 'You are trying to delete a message written by another user. You can only delete messages that you have written yourself.')
             setShowModal(showModal = true)
             setOkDisabled(okDisabled = true)
 
@@ -333,7 +334,7 @@ const Messages = (props) => {
                             {finalDiff = Math.round(dateDiff / (1000 * 3600 * 24))}</p>
                         <p className="posted"> | {finalDiff} days ago</p>
                         <br></br><br></br>
-                        <p>Message was written by: <b>{message.username}</b></p>
+                        <p>Message was written by: <b><span id={"written"+message.id}>{message.username}</span></b></p>
                         <p className="likesP" hidden={hideidAndDate}>Likes: {message.likes}</p>
                         <p className="unlikesP" hidden={hideidAndDate}>Unlikes: {message.unlike}</p>
                         <br></br><br></br>
@@ -360,7 +361,7 @@ const Messages = (props) => {
                                 <div id={"flush-collapse"+message.id} class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                                     <div class="accordion-body" style={{backgroundColor:"#8eb3ed"}}>
                                     <span className="crudBtns">
-                                    <button class="btn btn-danger btn-sm" disabled={props.delBtnDisable} onClick={() => handleDelete(message.id, message.msgtxt)}>
+                                    <button class="btn btn-danger btn-sm" disabled={props.delBtnDisable} onClick={() => handleDelete(message.id, message.msgtxt,document.getElementById("written"+message.id).innerText)}>
                                     <img className="alarm" src={alertIcon} ></img>
                                     <img src={binIcon} alt="remove icon"></img>
                                     </button>
