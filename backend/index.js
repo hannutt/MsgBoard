@@ -53,7 +53,19 @@ app.get("/messages", (req, res) => {
 
     })
 })
+app.get("/changes/:id",(req,res)=>{
+    const q = "select times from pswchanged where id=?"
+    const val = [req.params.id]
+    db.query(q,[val], (err, data) => {
+        //jos virhe on true palautetaan error viesti.
+        if (err) return res.json(err)
+        //tämä palauttaa querylla haetun datan kannasta
+        return res.json(data)
 
+
+    })
+    
+})
 //sql like query
 app.get("/searchByKeyword/:key", (req, res) => {
     const q = "SELECT * FROM messages WHERE msgtxt LIKE ?"
@@ -171,6 +183,7 @@ app.put("/postbykeyword", (req, res) => {
 
 app.get("/dataToUpdate/:id", (req, res) => {
     const q = "SELECT * FROM messages WHERE id = ?"
+   
     //re.params.id lukee endpointin parametrina olevan arvon. parametrin täytyy olla saman
     //niminen get.kutsussa ja reg.params.date
     const val = [req.params.id]
@@ -270,6 +283,16 @@ app.put("/updatepsw/:user", (req, res) => {
 
     })
 })
+app.put("/changedtimes/:id",(req,res)=>{
+   
+    const q = "INSERT INTO pswchanged (`id`,`times`) VALUES (?)"
+    const values=[req.params.id,1]
+    db.query(q,[values], (err, data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
 
 app.put("/unlike/:id", (req, res) => {
     //kasvatetaan likes sarakkeen arvoa aina yhdellä / per painikkeen klikkaus

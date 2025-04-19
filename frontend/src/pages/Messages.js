@@ -336,13 +336,13 @@ const Messages = (props) => {
                         <p className="posted"> | {finalDiff} days ago</p>
                         <br></br><br></br>
                         <p>Message was written by: <b><span id={"written" + message.id}>{message.username}</span></b></p>
-
+                        {/*w3 progress barit*/}
                         <div class="w3-hidden w3-round">
-                            <div class="w3-container w3-green w3-round" style={{width:message.likes+"%"}}><span className="likes">Likes:{message.likes}</span></div>
+                            <div class="w3-container w3-green w3-round-large w3-center" style={{width:message.likes+"em"}}><span className="likes">Likes:{message.likes}</span></div>
                         </div>
                         <br></br>
                         <div class="w3-hidden w3-round">
-                            <div class="w3-container w3-red w3-round" style={{width:message.unlike+"%"}}><span className="unlikes">Unlikes:{message.unlike}</span></div>
+                            <div class="w3-container w3-red w3-round-large w3-center" style={{width:message.unlike+"em"}}><span className="unlikes">Unlikes:{message.unlike}</span></div>
                         </div>
                        
                       
@@ -399,46 +399,11 @@ const Messages = (props) => {
                                 </div>
 
                             </div>
-
-
-                            {/*
-                            <div className="crudBtns">
-                                lähetetään postauksen id numero handleDelete fuktiolle
-                                <button class="btn btn-danger btn-sm" disabled={props.delBtnDisable} onClick={() => handleDelete(message.id, message.msgtxt)}>
-                                    <img className="alarm" src={alertIcon} ></img>
-                                    <img src={binIcon} alt="remove icon"></img>
-                                </button>
-                                <button class="btn btn-primary btn-sm" onClick={() => handleLike(message.id)}>
-                                    png kuvan sisällytys button elementtiin.
-                                    <img src={likeIcon} alt="like icon"></img>
-                                </button>
-
-                                <button class="btn btn-primary btn-sm" onClick={() => handleUnLike(message.id)}>
-                                    <img src={unlikeIcon}></img>
-                                </button>
-                                <button class="btn btn-primary btn-sm">
-                          
-                                    <Link to={`/update/${message.id}`}><img src={updateIcon}></img></Link>
-                                </button>
-                                <button class="btn btn-warning btn-sm" onClick={() => DoCensor(message.id)}>
-                                    <img src={censor}></img>
-                                </button>
-                                <button class="btn btn-primary btn-sm" onClick={() => resetStars(message.id)}><img src={reset}></img></button>
-
-                                <button class="btn btn-info btn-sm" onClick={() => sentimentAnalys(message.id)}><img src={sentiment}></img></button>
-                            </div> */}
-
                         </div>
                     </div>
-
-
                 ))
                 }
             </div >
-
-
-
-
         </div >
     )
 

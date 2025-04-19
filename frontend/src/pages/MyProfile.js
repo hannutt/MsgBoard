@@ -4,6 +4,7 @@ import { useLocation, useParams,Link } from "react-router-dom";
 
 const MyProfile=()=>{
     var user = localStorage.getItem("present")
+    const [results, setResults] = useState([])
     //talletetaan statemuuttujaan user id input kentän arvo
     const [currentUserName,setCurrentUsername]=useState('')
     const [oldPsw,setOldPsw]=useState({
@@ -16,6 +17,7 @@ const MyProfile=()=>{
     const [pswStrength,setPswStrength]=useState('')
     const [colorStyle,setColorStyle]=useState('')
     const location = useLocation()
+    var [userid,setUserId]=useState(0)
     //haetaaan osoitekentässä näkyvä käyttäjänimi katkaisemalla merkkijono / merkistä eli
     //localhost:8800/profile/user osoitteesta talletetaan viimeinen alkio eli user tähän
     //muuttujaan.
@@ -23,6 +25,7 @@ const MyProfile=()=>{
     var specialsExist=false
     const specials=["!","#","?","%","&","/"]
     console.log(userName)
+    var uid=localStorage.getItem('userid')
 
    
 
@@ -33,6 +36,16 @@ const MyProfile=()=>{
         setCurrentUsername(document.getElementById("user").value)
 
     })
+    useEffect(() => {
+        const getData = async () => {
+            const res = await axios.get("http://localhost:8800/changes/"+uid)
+            setResults(res.data)
+
+        }
+
+        //funktiokutsu
+        getData()
+    }, [])
 
 
    const checkPsw=()=>{
@@ -67,14 +80,18 @@ const MyProfile=()=>{
   
 
     const changePsw= async (e)=>{
+        setUserId(userid=parseInt(localStorage.getItem('userid')))
+    
         console.log(currentUserName)
         console.log(newPsw)
         try {
             await axios.put("http://localhost:8800/updatepsw/"+userName,newPsw)
+            await axios.put("http://localhost:8800/changedtimes/"+userid)
+        
 
         }catch(err){
             console.log(err)
-        }  
+        } 
      
 }
    
@@ -87,7 +104,9 @@ const MyProfile=()=>{
                 </ol>
             </nav>
             <h4>My profile</h4>
-            <p>Password changed times</p>
+            {results.map(result => (
+            <p>Password changed times {result.times}</p>
+        ))}
             <p>Your username</p>
             
             <input name="user" id="user" type="text" value={localStorage.getItem("present")}></input>

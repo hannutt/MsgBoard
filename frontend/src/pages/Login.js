@@ -49,7 +49,7 @@ const Login = () => {
                     //talletetaan true arvo localstorageen. arvoa käyttää PriveateRoutes komponentti, jonka
                     //token arvo on oletusarvoisesti false, eli routeja/sivuja ei pääse käyttämään ellei
                     //arvo ole true.
-                    setUserid(userId=res.data[0].id)
+                    setUserid(userId=res.data[0].lid)
                     localStorage.setItem("auth", true)
                     localStorage.setItem("present", userName)
                     localStorage.setItem("userid",userId)
