@@ -297,8 +297,9 @@ app.put("/updatepsw/:user", (req, res) => {
     })
 })
 app.put("/changedtimes/:id",(req,res)=>{
-   
-    const q = "INSERT INTO pswchanged (`id`,`times`) VALUES (?)"
+   //sql lause lisää uuden tietueen, jos id:tä ei ennestää ole, jos id löytyy, niin päivitetään times saraketta
+   //lisäämällä siihen luku 1
+    const q = "INSERT INTO pswchanged (`id`,`times`) VALUES (?) ON DUPLICATE KEY UPDATE `times`=times+1"
     const values=[req.params.id,1]
     db.query(q,[values], (err, data) => {
         if (err) return res.json(err)

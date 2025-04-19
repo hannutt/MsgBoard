@@ -51,7 +51,10 @@ In the example image below, user2 is logged in and tries to delete a message wri
 
 MY PROFILE
 
-In the My Profile section, each user can see the messages that have been posted to the forum using the username they are logged into the application with. The user in the Profile section can also change their password and see how many times the user has changed their password. The functionality is wrapped in Bootstrap 5 accordion flush components
+In the My Profile section, each user can see the messages that have been posted to the forum using the username they are logged into the application with. The user in the Profile section can also change their password and see how many times the user has changed their password. The functionality is wrapped in Bootstrap 5 accordion flush components.
+
+The calculation of password changes works in such a way that if the password has not been changed, a new record is created in the pswchanged table, otherwise the times column of the pswchanged table is updated. The function is implemented using the following SQL statement: "INSERT INTO pswchanged (id,times) VALUES (?) ON DUPLICATE KEY UPDATE times=times+1"
+
 
 ![alt text](frontend/src/icons/myprofile.png)
 
@@ -68,10 +71,6 @@ You can also choose whether you want to see the results of the sql query in a di
 Example image where a user has searched for messages with the keyword "see" and selected to display the results in a table element.
 
 ![alt text](frontend/src/icons/search.png)
-
-ERROR HANDLING IN SQL QUERY AND INCORRECT USERNAME OR PASSWORD CASE
-
-If no results are found with the search criteria or the credentials are incorrect, a separate error component is displayed to notify the user of the error. With the UseLocation method, the error component always gets the right status variable, which tells whether the error was a failed login or a failed sql query.
 
 SQL SEARCH STATISTICS & CHARTJS
 
@@ -118,11 +117,6 @@ Example image where the user has entered an email address that is already in use
 
 ![alt text](frontend/src/icons/emailUsed.png)
 
-PASSWORD CHANGE
-
-a logged in user can use the My profile page. The path of my profile is /profile/{username} and the application gets the username from the local storage where it is saved at login. This way, changing the password is faster, because the username is already ready. the page cannot be accessed without a saved username
-
-when changing the password, the program uses a "real life example" to evaluate the strength of the password. if the new password is less than 5 letters, the user sees a message in red text that the password is weak, if there are 5-8 letters, the text is yellow and if the password is longer than 8 letters, the text is green. this is done with two onChange events, the first event updates the state variable and the second is a function that does the evaluation. The password evaluator can also search for special characters. this is made with JS Array some method.
 
 PASSWORD RECOVERY
 

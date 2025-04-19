@@ -417,6 +417,6 @@
     color:black;
     font-weight: bold;
 }
-.usrMsg {
+.usrMsg,.timeLeft {
     font-weight: 700;
 }

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import eye from "../icons/eye.png"
 import hide from "../icons/hide.png";
@@ -18,9 +18,22 @@ const Login = () => {
     const [forgetPsw, setForgetPsw] = useState(false)
     const [type, setType] = useState('password')
     const [credentialError, SetCredentialError] = useState('Username or password is wrong')
-    var [userId,setUserid]=useState(0)
-    var [deviceName,setDeviceName]=useState('')
-  
+    var [userId, setUserid] = useState(0)
+    var [deviceName, setDeviceName] = useState('')
+    var [attempts, setAttempts] = useState(0)
+    var [counter, setCounter] = useState(30)
+    var [full, setFull] = useState(false)
+
+    useEffect(() => {
+        if (full) {
+            counter > 0 && setTimeout(() => setCounter(counter - 1), 1000);
+        }
+        if (counter === 0) {
+            document.getElementById("timeLeft").hidden = true
+
+        }
+    }, [counter]);
+
 
     const rememberMe = async () => {
         localStorage.setItem('username', userName)
@@ -44,22 +57,43 @@ const Login = () => {
         axios.post("http://localhost:8800/login/", { userName, psw })
             .then(res => {
                 console.log(res.data)
-                //jos backendin lähettämä vastaus on login ok, siirrytään navigaten avulla etusivulle.
-                if (res.data.length >0) {
+                //jos backendin lähettämä vastauksen pituus on suurempi kuin 0 merkkiä, siirrytään navigaten avulla etusivulle.
+                if (res.data.length > 0) {
                     //talletetaan true arvo localstorageen. arvoa käyttää PriveateRoutes komponentti, jonka
                     //token arvo on oletusarvoisesti false, eli routeja/sivuja ei pääse käyttämään ellei
                     //arvo ole true.
-                    setUserid(userId=res.data[0].lid)
+                    setUserid(userId = res.data[0].lid)
                     localStorage.setItem("auth", true)
                     localStorage.setItem("present", userName)
-                    localStorage.setItem("userid",userId)
+                    localStorage.setItem("userid", userId)
                     navigate("/messages")
 
                 }
                 //jos backendin lähettämä vastaus on mikä tahansa muu, navigoidaan erros sivulle
                 //state:credentialerror = välitetään error-komponentille state-muuttuja
                 else {
-                    navigate("/error", { state: credentialError })
+                    
+                    //var updatedAttempts=attempts+1
+                    setAttempts(attempts=attempts + 1)
+                    console.log(attempts)
+
+
+                    if (attempts === 3) {
+                        setFull(!full)
+
+                        document.getElementById("loginbtn").disabled = true
+                        setTimeout(() => {
+                            document.getElementById("loginbtn").disabled = false
+                        }, 30000);
+                        document.getElementById("timeLeft").hidden = false
+                        counter > 0 && setTimeout(() => setCounter(counter - 1), 1000);
+                     
+
+                    }
+                 
+                    //navigate("/error", { state: credentialError })
+                    
+                  
 
                 }
 
@@ -106,25 +140,24 @@ const Login = () => {
 
 
     }
-    const voiceLogin=(event)=>{
+    const voiceLogin = (event) => {
         event.preventDefault();
         console.log("listening")
         var seconds = 20
-     
+
         //vähennetään seconds muuttujasta luku 1 joka sekunti ja näytetän muuttuva luku html-elementissä
-        var interval= setInterval(() => {
-            seconds=seconds-1
+        var interval = setInterval(() => {
+            seconds = seconds - 1
             console.log(seconds)
-           
-          
-            if (seconds===0)
-            {
+
+
+            if (seconds === 0) {
                 clearInterval(interval)
-              
+
             }
-            
+
         }, 1000);
-    
+
         const recognitionSvc = window.SpeechRecognition || window.webkitSpeechRecognition;
         const recognition = new recognitionSvc();
         var resList = []
@@ -138,60 +171,52 @@ const Login = () => {
                 console.log(`${result[0].transcript}`);
                 //talleteaan lausutut sanat listaan, että niitä voidan hyödyntää input-kenttiin sijoittamisessa
                 resList.push(result[0].transcript)
-    
-    
+
+
             }
             document.getElementById("user").value = resList[0]
             //listan viimeinen elementti
             var lastItem = resList.pop()
             document.getElementById("psw").value = lastItem
             console.log(resList)
-    
-    
-    
+
+
+
             setTimeout(() => {
                 recognition.stop();
                 console.log("stopped")
                 resList = []
-    
+
             }, 20000);
-    
-         
+
+
         }
     }
-    
+
     return (
 
         <div onLoad={checkLocalStorage} className="loginDiv">
-
-
-
-
-            {/*onchange eli kun syötekentän sisältö muuttuu, sisältö talletetaan state muuttujaan (e.target.value
-            )*/}
             <form>
 
                 <p>{caps}</p>
 
-              
-               
                 <div className="loginBtnDiv">
                     <img src={account}></img>
                     <h3>Login Page</h3>
-
+                    <p>Login attempts: {attempts}</p>
                     <br></br>
-                    <input type="text"  name="user" id="user" className="user" placeholder="username" onChange={e => setUserName(e.target.value)} onKeyUp={(e) => handleKeyPress(e)}></input>
+                    <input type="text" name="user" id="user" className="user" placeholder="username" onChange={e => setUserName(e.target.value)} onKeyUp={(e) => handleKeyPress(e)}></input>
                     <input id="psw" name="psw" type={type} placeholder="password" value={psw} onChange={e => setPsw(e.target.value)} onKeyUp={(e) => handleKeyPress(e)} ></input>
                     <button style={{ marginLeft: 5 + "px" }} class="btn btn-light btn-sm p-0" onClick={showPsw}><img src={eyeIcon} alt="eye/hide"></img></button>
                     <br></br><br></br>
                     <span className="loginButton">
-                    <button class="btn btn-primary btn-sm" onClick={handleSubmit}>Login</button>
+                        <button id="loginbtn" class="btn btn-primary btn-sm" onClick={handleSubmit}>Login</button>
                     </span>
                     <button class="btn btn-info btn-sm">
                         <Link to="/create" className="createLink">Create account</Link></button>
-                        <span className="voiceLoginButton">
+                    <span className="voiceLoginButton">
                         <button class="btn btn-primary btn-sm" onClick={voiceLogin}>Voice Login</button>
-                        </span>
+                    </span>
                     <br></br><br></br>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" id="forgotPsw" onChange={() => setForgetPsw(!forgetPsw)}></input>
@@ -200,9 +225,11 @@ const Login = () => {
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" id="remMe" onClick={rememberMe}></input>
                         <label class="form-check-label" for="remMe">Remember me?</label>
+
                     </div>
+                    <p id="timeLeft" className="timeLeft" hidden>Login attempts will be blocked for the next {counter} seconds</p>
                     {/*jos forget on true eli checkboksia klikattu navigoidaan /mail eli näyteään mailsender komp.*/}
-                    {forgetPsw && <MailSender/>}
+                    {forgetPsw && <MailSender />}
 
                 </div>
             </form>
