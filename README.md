@@ -49,6 +49,12 @@ In the example image below, user2 is logged in and tries to delete a message wri
 
 ![alt text](frontend/src/icons/deleting.png)
 
+MY PROFILE
+
+In the My Profile section, each user can see the messages that have been posted to the forum using the username they are logged into the application with. The user in the Profile section can also change their password and see how many times the user has changed their password. The functionality is wrapped in Bootstrap 5 accordion flush components
+
+![alt text](frontend/src/icons/myprofile.png)
+
 SQL SEARCHES
 
 You can search the database using the html interface. search options: Search by ID number, Search by message sending date, search by most liked and least liked posts and SQL %Like% query where you can

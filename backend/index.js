@@ -66,6 +66,19 @@ app.get("/changes/:id",(req,res)=>{
     })
     
 })
+app.get("/usermessages/:id",(req,res)=>{
+    const q = "select msgtxt,txtposttime from messages where userid=?"
+    const val = [req.params.id]
+    db.query(q,[val], (err, data) => {
+        //jos virhe on true palautetaan error viesti.
+        if (err) return res.json(err)
+        //tämä palauttaa querylla haetun datan kannasta
+        return res.json(data)
+
+
+    })
+    
+})
 //sql like query
 app.get("/searchByKeyword/:key", (req, res) => {
     const q = "SELECT * FROM messages WHERE msgtxt LIKE ?"
